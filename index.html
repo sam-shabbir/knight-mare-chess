@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1d1a2b">
+<title>KNIGHT'nMARE CHESS</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-title" content="KNIGHTnMARE">
+<style>
+:root{
+--bg:#1d1a2b; --surface:#27233a; --raised:#312c48; --line:#3d3758;
+--text:#ece8f4; --muted:#a39dbd; --accent:#e9c46a; --accent-ink:#2a2110;
+--good:#86c08a; --warn:#e6b25c; --bad:#e56f6f; --best:#6fb7e5;
+--light:#d7dce8; --dark:#7483a6; --sel:rgba(233,196,106,.55); --last:rgba(233,196,106,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hidden{display:none!important}
+.app{max-width:600px;margin:0 auto;padding:10px 12px 28px}
+/* header */
+header{display:flex;align-items:center;gap:8px 10px;margin-bottom:10px;flex-wrap:wrap}
+@media(max-width:520px){header nav{order:3;width:100%;margin-left:0}header nav button{flex:1}.rating-chip{margin-left:auto}}
+.brand{font-family:Georgia,"Times New Roman",serif;font-size:19px;letter-spacing:.5px;font-weight:700;white-space:nowrap}
+.brand span{color:var(--accent)}
+nav{display:flex;gap:2px;margin-left:auto;background:var(--surface);border-radius:10px;padding:3px}
+nav button{background:none;border:0;padding:6px 10px;border-radius:8px;color:var(--muted);font-size:14px}
+nav button.on{background:var(--raised);color:var(--text)}
+.rating-chip{font-size:12px;color:var(--muted);text-align:right;line-height:1.2}
+.rating-chip b{display:block;color:var(--accent);font-size:16px}
+/* forms */
+.panel{background:var(--surface);border-radius:14px;padding:14px;margin-bottom:12px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 0}
+.row+.row{border-top:1px solid var(--line)}
+.row label{color:var(--muted)}
+.seg{display:flex;background:var(--bg);border-radius:10px;padding:3px;gap:2px;width:100%}
+.seg button{flex:1;border:0;background:none;padding:8px 4px;border-radius:8px;color:var(--muted)}
+.seg button.on{background:var(--raised);color:var(--text);font-weight:600}
+select,input[type=number],input[type=text],textarea{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 8px;max-width:62%}
+select{min-width:0}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.switch{appearance:none;width:42px;height:24px;border-radius:12px;background:var(--line);position:relative;flex:none;margin:0}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--text);transition:left .15s}
+.switch:checked{background:var(--accent)}
+.switch:checked::after{left:21px;background:var(--accent-ink)}
+.switch:disabled{opacity:.35}
+.hint{font-size:13px;color:var(--muted);margin:4px 0 0}
+.btn{border:0;border-radius:10px;padding:11px 16px;background:var(--raised);font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-ink);width:100%;font-size:16px;padding:13px}
+.btn.small{padding:7px 11px;font-size:14px;font-weight:500}
+.elo-val{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:700}
+h2{font-family:Georgia,serif;font-size:17px;margin:0 0 6px;font-weight:700}
+/* board */
+.player-row{display:flex;align-items:center;gap:8px;min-height:28px;font-size:14px}
+.player-row .name{font-weight:600}
+.player-row .caps{font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2","DejaVu Sans",serif;color:var(--muted);letter-spacing:-2px;font-size:16px}
+.player-row .adv{color:var(--accent);font-weight:700;font-size:13px}
+.player-row .turn-dot{width:8px;height:8px;border-radius:50%;background:transparent}
+.player-row .turn-dot.on{background:var(--good)}
+.board-wrap{display:flex;gap:6px;justify-content:center;align-items:stretch;margin:4px 0}
+.board-box{position:relative;width:min(calc(100vw - 50px),540px,60vh);aspect-ratio:1;flex:none}
+.board{position:absolute;inset:0;display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr);border-radius:6px;overflow:hidden;container-type:inline-size;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.sq{position:relative;display:flex;align-items:center;justify-content:center}
+.sq.l{background:var(--light)} .sq.d{background:var(--dark)}
+.sq.last::before,.sq.sel::before{content:"";position:absolute;inset:0}
+.sq.last::before{background:var(--last)}
+.sq.sel::before{background:var(--sel)}
+.sq.check{background:radial-gradient(circle,#ff5a5a 0,#e03c3c 35%,transparent 75%)}
+.sq .dot{position:absolute;width:28%;height:28%;border-radius:50%;background:rgba(20,18,30,.28);z-index:2}
+.sq .ring{position:absolute;inset:4%;border-radius:50%;border:5px solid rgba(20,18,30,.28);z-index:2}
+.sq.wrong{animation:wrong .45s}
+@keyframes wrong{0%,100%{box-shadow:none}30%,70%{box-shadow:inset 0 0 0 4px var(--bad)}}
+.pc{position:relative;z-index:1;font-size:11cqw;line-height:1;font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2","DejaVu Sans",serif;pointer-events:none}
+.pc.w{color:#fbf8f1;-webkit-text-stroke:.6cqw #1e1b25;paint-order:stroke fill;text-shadow:0 .3cqw .4cqw rgba(0,0,0,.35)}
+.pc.b{color:#1e1b25;-webkit-text-stroke:.25cqw #1e1b25;text-shadow:0 .2cqw .3cqw rgba(0,0,0,.3)}
+.coord{position:absolute;font-size:2.3cqw;font-weight:700;opacity:.8;z-index:1;pointer-events:none}
+.coord.f{right:4%;bottom:2%} .coord.r{left:4%;top:2%}
+.sq.l .coord{color:var(--dark)} .sq.d .coord{color:var(--light)}
+.sqname{position:absolute;left:5%;bottom:3%;font-size:2.1cqw;opacity:.55;pointer-events:none;z-index:1}
+.sq.l .sqname{color:var(--dark)} .sq.d .sqname{color:var(--light)}
+svg.arrows{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
+.evalbar{width:16px;border-radius:5px;background:#2b2838;position:relative;overflow:hidden;flex:none}
+.evalbar .fill{position:absolute;left:0;right:0;bottom:0;background:#f1eee6;transition:height .35s}
+.evalbar .num{position:absolute;left:0;right:0;font-size:9px;text-align:center;font-weight:700;z-index:1}
+.evalbar.flip .fill{top:0;bottom:auto}
+.coach{background:var(--surface);border-radius:12px;padding:10px 12px;margin:8px 0;min-height:44px;font-size:14px}
+.coach .open{font-weight:600}
+.coach .idea{color:var(--muted);font-size:13px;margin-top:2px}
+.coach.ok{box-shadow:inset 3px 0 0 var(--good)} .coach.warn{box-shadow:inset 3px 0 0 var(--warn)} .coach.bad{box-shadow:inset 3px 0 0 var(--bad)}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.actions.two{grid-template-columns:1fr 1fr}
+.actions button{flex:1;min-width:64px;border:0;background:var(--surface);border-radius:10px;padding:9px 4px;font-size:13px;color:var(--text)}
+.actions button.on{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.actions button:disabled{opacity:.35}
+.moves{background:var(--surface);border-radius:12px;padding:8px 10px;margin-top:8px;max-height:120px;overflow:auto;font-size:14px;line-height:1.9}
+.moves .n{color:var(--muted);margin-right:3px}
+.moves .m{padding:1px 4px;border-radius:5px;margin-right:4px;cursor:pointer;white-space:nowrap}
+.moves .m.cur{background:var(--raised);outline:1px solid var(--accent)}
+.tag{display:inline-block;font-size:11px;font-weight:800;padding:0 4px;border-radius:4px;margin-left:2px;color:#1b1822}
+.tag.blunder{background:var(--bad)} .tag.mistake{background:var(--warn)} .tag.inacc{background:#e8d07a} .tag.best{background:var(--best)} .tag.book{background:#b9a6e0}
+.preview{background:var(--raised);border-radius:12px;padding:12px;margin:8px 0}
+.preview .btns{display:flex;gap:8px;margin-top:10px}
+.preview .btns .btn{flex:1}
+/* review */
+.progress{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;margin-top:8px}
+.progress div{height:100%;background:var(--accent);width:0;transition:width .2s}
+.graph{width:100%;height:70px;display:block;background:var(--surface);border-radius:10px;margin-top:8px;cursor:pointer}
+.nav{display:flex;gap:6px;margin-top:8px}
+.nav button{flex:1;border:0;background:var(--surface);border-radius:10px;padding:10px 0;font-size:16px}
+.summary{display:grid;grid-template-columns:1fr auto auto;gap:4px 14px;font-size:14px;font-variant-numeric:tabular-nums}
+.summary .h{color:var(--muted);font-size:12px}
+.keym{display:block;width:100%;text-align:left;border:0;background:var(--bg);border-radius:8px;padding:8px 10px;margin-top:6px;font-size:14px}
+.chip{display:inline-flex;align-items:center;gap:4px;border:0;background:var(--bg);border-radius:16px;padding:7px 12px;margin:0 6px 6px 0;font-size:14px}
+.chip.you{box-shadow:inset 0 0 0 1px var(--accent)}
+button:disabled{opacity:.4;cursor:default}
+nav button{padding:6px 8px}
+/* games list */
+.gitem{display:flex;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--line)}
+.gitem:first-of-type{border-top:0}
+.gitem .t{flex:1;min-width:0}
+.gitem .t small{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+textarea{width:100%;max-width:100%;min-height:90px;resize:vertical}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(10,8,18,.6);display:flex;align-items:flex-end;justify-content:center;z-index:50;padding:12px}
+@media(min-width:640px){.modal{align-items:center}}
+.sheet{background:var(--surface);border-radius:16px;padding:18px;width:100%;max-width:440px;max-height:85vh;overflow:auto}
+.sheet h3{font-family:Georgia,serif;margin:0 0 8px;font-size:19px}
+.mbtns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.mbtns .btn{flex:1}
+.mbtns .btn:first-child{background:var(--accent);color:var(--accent-ink)}
+.promo{display:flex;gap:8px;justify-content:center}
+.promo button{width:64px;height:64px;border-radius:12px;border:0;background:var(--light);font-size:44px;line-height:1;font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2","DejaVu Sans",serif}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+<div class="brand">KNIGHT<span>'n</span>MARE</div>
+<nav>
+<button data-tab="home" class="on">Play</button>
+<button data-tab="rep">Openings</button>
+<button data-tab="review">Review</button>
+<button data-tab="games">Games</button>
+</nav>
+<div class="rating-chip"><b id="ratingNum">1600</b>rating</div>
+</header>
+<!-- HOME / SETUP -->
+<section id="home">
+<div class="panel">
+<div class="seg" id="modeSeg">
+<button data-v="drill">Opening drill</button>
+<button data-v="practice">Practice</button>
+<button data-v="rated">Rated</button>
+</div>
+<p class="hint" id="modeHint"></p>
+</div>
+<div class="panel">
+<div class="row"><label for="opening">Opening</label><select id="opening"></select></div>
+<p class="hint" id="openingIdea"></p>
+<div class="row"><label>Your side</label>
+<div class="seg" id="sideSeg" style="max-width:62%"><button data-v="w">White</button><button data-v="b">Black</button><button data-v="r">Random</button></div></div>
+<div class="row" style="display:block">
+<div style="display:flex;justify-content:space-between"><label for="elo">Computer strength</label><span class="elo-val" id="eloVal">1500</span></div>
+<input type="range" id="elo" min="800" max="2800" step="50">
+</div>
+</div>
+<div class="panel" id="customPanel">
+<h2>Computer's responses</h2>
+<div class="row"><label for="bookDepth">Follow the opening line for</label>
+<select id="bookDepth"><option value="full">The full line</option><option value="3">3 moves</option><option value="5">5 moves</option><option value="7">7 moves</option></select></div>
+<div class="row"><label for="afterBook">When the line ends</label>
+<select id="afterBook"><option value="continue">Keep playing</option><option value="restart">Show result, drill again</option></select></div>
+<div class="row"><label for="speed">Reply speed</label>
+<select id="speed"><option value="fast">Fast</option><option value="normal">Normal</option><option value="slow">Slow</option></select></div>
+<div class="row"><label for="blunderCheck">Warn me before a blunder</label><input type="checkbox" class="switch" id="blunderCheck"></div>
+<div class="row"><label for="showEval">Show evaluation bar while playing</label><input type="checkbox" class="switch" id="showEval"></div>
+<p class="hint" id="ratedNote">Rated games turn off hints, takebacks, move analysis and warnings.</p>
+</div>
+<div class="panel">
+<h2>Board</h2>
+<div class="row"><label for="theme">Colours</label>
+<select id="theme"><option value="moonlit">Moonlit</option><option value="wood">Wood</option><option value="green">Tournament green</option><option value="slate">Slate</option><option value="contrast">High contrast</option></select></div>
+<div class="row"><label for="squareNames">Name every square</label><input type="checkbox" class="switch" id="squareNames"></div>
+</div>
+<div class="panel" id="ratingPanel">
+<h2>Your rating</h2>
+<p class="hint" id="ratingText"></p>
+<div class="row" id="startRatingRow"><label for="startRating">Starting rating</label><input type="number" id="startRating" min="400" max="2800" step="50"></div>
+</div>
+<button class="btn primary" id="startBtn">Start</button>
+</section>
+<!-- GAME -->
+<section id="game" class="hidden">
+<div class="player-row" id="topRow"></div>
+<div class="board-wrap">
+<div class="evalbar hidden" id="gEval"><div class="fill"></div><div class="num"></div></div>
+<div class="board-box"><div class="board" id="gBoard"></div><svg class="arrows" id="gArrows" viewBox="0 0 800 800"></svg></div>
+</div>
+<div class="player-row" id="botRow"></div>
+<div class="coach" id="coach"></div>
+<div class="preview hidden" id="preview"></div>
+<div class="actions" id="actions">
+<button id="aHint">Hint</button>
+<button id="aAnalyse">Analyse first</button>
+<button id="aUndo">Take back</button>
+<button id="aFlip">Flip</button>
+<button id="aDraw">Offer draw</button>
+<button id="aResign">Resign</button>
+</div>
+<div class="moves" id="gMoves"></div>
+<div class="actions two" style="margin-top:8px"><button id="aNew">New game</button><button id="aRestart">Restart this line</button></div>
+</section>
+<!-- REPERTOIRE -->
+<section id="rep" class="hidden">
+<div id="repHome">
+<div class="panel"><h2>Your repertoires</h2><div id="repList"></div>
+<button class="btn primary" id="repNewBtn" style="margin-top:10px">New repertoire</button></div>
+<div class="panel hidden" id="repNew">
+<h2>New repertoire</h2>
+<div class="row"><label for="rnName">Name</label><input id="rnName" type="text" placeholder="My Caro-Kann"></div>
+<div class="row"><label>I play</label><div class="seg" id="rnSide" style="max-width:62%"><button data-v="w" class="on">White</button><button data-v="b">Black</button></div></div>
+<div class="row"><label for="rnFrom">Start from</label><select id="rnFrom"></select></div>
+<textarea id="rnPgn" class="hidden" placeholder="1. e4 c6 2. d4 d5 3. Nc3 (3. e5 Bf5) 3... dxe4 {Main line}"></textarea>
+<div class="actions two" style="margin-top:10px"><button id="rnCancel">Cancel</button><button id="rnCreate">Create</button></div>
+</div>
+</div>
+<div id="repCourse" class="hidden"></div>
+<div id="repEdit" class="hidden">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><button class="btn small" id="eBack">‹ Done</button><h2 id="eTitle" style="margin:0"></h2></div>
+<div class="board-wrap"><div class="board-box"><div class="board" id="eBoard"></div><svg class="arrows" id="eArrows" viewBox="0 0 800 800"></svg></div></div>
+<div class="coach" id="eInfo"></div>
+<div class="nav"><button id="eStart" aria-label="Start position">⏮</button><button id="ePrev" aria-label="Back one move">◀</button><button id="eNext" aria-label="Forward one move">▶</button><button id="eDel">Delete move</button></div>
+<div class="panel" style="margin-top:8px"><div class="hint" style="margin:0 0 6px">Moves from here</div><div id="eKids"></div>
+<div class="hint" style="margin:10px 0 6px">Note on the last move</div><textarea id="eNote" style="min-height:60px"></textarea></div>
+<div class="moves" id="eLine"></div>
+<div class="actions two" style="margin-top:8px"><button id="eLinesBtn">All lines</button><button id="eImport">Add from PGN</button></div>
+<div class="panel hidden" id="eLines" style="margin-top:8px"></div>
+</div>
+</section>
+<!-- REVIEW -->
+<section id="review" class="hidden">
+<div class="panel hidden" id="rEmpty"><h2>Nothing to review yet</h2><p class="hint">Finish a game, open one from Games, or import a PGN there.</p></div>
+<div id="rMain" class="hidden">
+<div class="player-row" id="rTop"></div>
+<div class="board-wrap">
+<div class="evalbar" id="rEval"><div class="fill"></div><div class="num"></div></div>
+<div class="board-box"><div class="board" id="rBoard"></div><svg class="arrows" id="rArrows" viewBox="0 0 800 800"></svg></div>
+</div>
+<div class="player-row" id="rBot"></div>
+<div class="coach" id="rCard"></div>
+<div class="nav"><button id="rFirst" aria-label="First move">⏮</button><button id="rPrev" aria-label="Previous move">◀</button><button id="rBest">Show best</button><button id="rNext" aria-label="Next move">▶</button><button id="rLast" aria-label="Last move">⏭</button></div>
+<svg class="graph" id="rGraph" viewBox="0 0 400 70" preserveAspectRatio="none"></svg>
+<div class="panel" style="margin-top:8px" id="rStatus"><div id="rStatusText">Analysing…</div><div class="progress"><div id="rProg"></div></div></div>
+<div class="panel hidden" id="rSummary"></div>
+<div class="moves" id="rMoves" style="max-height:170px"></div>
+<div class="actions" style="margin-top:8px"><button id="rSave">Save game</button><button id="rPgn">Download PGN</button><button id="rCopy">Copy PGN</button></div>
+</div>
+</section>
+<!-- GAMES -->
+<section id="games" class="hidden">
+<div class="panel"><h2>Saved games</h2><div id="gList"></div></div>
+<div class="panel">
+<h2>Review a game from elsewhere</h2>
+<p class="hint">Paste a PGN from Chess.com, Lichess or a book.</p>
+<textarea id="pgnIn" placeholder="[Event &quot;…&quot;]&#10;1. e4 e5 2. Nf3 …"></textarea>
+<div class="row"><label for="pgnSide">I played</label><select id="pgnSide"><option value="w">White</option><option value="b">Black</option></select></div>
+<button class="btn primary" id="pgnGo">Import and review</button>
+</div>
+<div class="panel"><h2>Opening drill record</h2><div id="drillList" class="hint"></div></div>
+</section>
+</div>
+<div class="modal hidden" id="modal"><div class="sheet"><h3 id="mTitle"></h3><div id="mBody"></div><div class="mbtns" id="mBtns"></div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/chess.js@0.10.3/chess.js"></script>
+<script id="sf-src" type="text/plain"></script>
+<script>const SF_URL='https://cdn.jsdelivr.net/npm/stockfish@10.0.2/src/stockfish.asm.js';</script>
+<script>
+const OPENINGS=[
+["italian","Italian Game (Giuoco Piano)","C54","e4 e5 Nf3 Nc6 Bc4 Bc5 c3 Nf6 d3 d6 O-O O-O Re1 a6","White builds slowly with c3 and d3, then aims for d4 later. Black mirrors development and watches the f7 square."],
+["ruy","Ruy Lopez (Closed)","C84","e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1 b5 Bb3 d6 c3 O-O h3","White pressures the e5 pawn through the c6 knight. The fight is about the centre after c3 and d4."],
+["berlin","Ruy Lopez (Berlin)","C67","e4 e5 Nf3 Nc6 Bb5 Nf6 O-O Nxe4 d4 Nd6 Bxc6 dxc6 dxe5 Nf5 Qxd8+ Kxd8","Queens come off early. Black keeps the two bishops. White has a kingside pawn majority to push."],
+["scotch","Scotch Game","C45","e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nxc6 bxc6 e5 Qe7 Qe2 Nd5 c4","White opens the centre at once. Black gets active pieces but a weakened pawn structure."],
+["fourknights","Four Knights (Scotch)","C47","e4 e5 Nf3 Nc6 Nc3 Nf6 d4 exd4 Nxd4 Bb4 Nxc6 bxc6 Bd3 d5 exd5 cxd5 O-O O-O","Symmetrical and solid. Both sides develop quickly and castle; small details decide it."],
+["petrov","Petrov Defence","C42","e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 d4 d5 Bd3 Nc6 O-O Be7","Black counterattacks e4 instead of defending e5. Very solid; never play Nxe4 before d6 first."],
+["kingsgambit","King's Gambit (Kieseritzky)","C39","e4 e5 f4 exf4 Nf3 g5 h4 g4 Ne5 Nf6 Bc4 d5 exd5 Bd6 d4","White gives a pawn to open the f-file and attack. Sharp: both kings can get into trouble."],
+["najdorf","Sicilian Najdorf (English Attack)","B90","e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Be3 e5 Nb3 Be6 f3 Be7 Qd2 O-O O-O-O","Castling on opposite sides means pawn storms. Whoever attacks faster usually wins."],
+["dragon","Sicilian Dragon (Yugoslav)","B77","e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6 Bc4 Bd7 O-O-O","White plans Bh6 and h4-h5 to open the h-file. Black counterattacks down the c-file."],
+["sveshnikov","Sicilian Sveshnikov","B33","e4 c5 Nf3 Nc6 d4 cxd4 Nxd4 Nf6 Nc3 e5 Ndb5 d6 Bg5 a6 Na3 b5 Bxf6 gxf6 Nd5 f5","Black accepts a hole on d5 for active pieces and the bishop pair. White fights for d5."],
+["alapin","Sicilian Alapin","B22","e4 c5 c3 Nf6 e5 Nd5 d4 cxd4 Nf3 Nc6 cxd4 d6 Bc4 Nb6 Bb5","White avoids main-line theory and aims for a big pawn centre with c3 and d4."],
+["winawer","French Winawer","C18","e4 e6 d4 d5 Nc3 Bb4 e5 c5 a3 Bxc3+ bxc3 Ne7 Qg4 Qc7","Black gives up the dark bishop to damage White's pawns. White attacks g7 with the queen."],
+["frenchadv","French Advance","C02","e4 e6 d4 d5 e5 c5 c3 Nc6 Nf3 Qb6 a3 c4 Nbd2 Na5","White grabs space with e5. Black attacks the d4 pawn and the base of the chain."],
+["carokann","Caro-Kann Classical","B19","e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5 Ng3 Bg6 h4 h6 Nf3 Nd7 h5 Bh7 Bd3 Bxd3 Qxd3","Black gets the light bishop out before playing e6. Solid, with few weaknesses."],
+["caroadv","Caro-Kann Advance","B12","e4 c6 d4 d5 e5 Bf5 Nf3 e6 Be2 c5 Be3 Nd7 O-O","White takes space. Black develops the bishop outside the pawn chain and strikes with c5."],
+["pirc","Pirc Defence","B07","e4 d6 d4 Nf6 Nc3 g6 Be3 Bg7 Qd2 c6 f3 b5","Black lets White build a centre, then attacks it. White's plan is Bh6 and a kingside attack."],
+["scandi","Scandinavian Defence","B01","e4 d5 exd5 Qxd5 Nc3 Qa5 d4 Nf6 Nf3 c6 Bc4 Bf5 Bd2 e6","Black takes on d5 at once. The queen comes out early but finds a safe square on a5."],
+["alekhine","Alekhine Defence","B05","e4 Nf6 e5 Nd5 d4 d6 Nf3 Bg4 Be2 e6 O-O Be7 c4 Nb6","Black provokes White's pawns forward, then tries to show they are overextended."],
+["qgd","Queen's Gambit Declined","D55","d4 d5 c4 e6 Nc3 Nf6 Bg5 Be7 e3 O-O Nf3 h6 Bh4 b6","Black holds the d5 point firmly. The main problem is the light bishop, solved here with b6."],
+["qga","Queen's Gambit Accepted","D27","d4 d5 c4 dxc4 Nf3 Nf6 e3 e6 Bxc4 c5 O-O a6","Black takes the pawn but doesn't try to keep it. The aim is quick development and c5."],
+["slav","Slav Defence","D18","d4 d5 c4 c6 Nf3 Nf6 Nc3 dxc4 a4 Bf5 e3 e6 Bxc4 Bb4 O-O O-O","Black supports d5 with c6 and keeps the light bishop active by playing Bf5 early."],
+["kid","King's Indian Defence","E97","d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Nf3 O-O Be2 e5 O-O Nc6 d5 Ne7","Pawns block the centre. White attacks on the queenside, Black storms the kingside with f5."],
+["nimzo","Nimzo-Indian Defence","E54","d4 Nf6 c4 e6 Nc3 Bb4 e3 O-O Bd3 d5 Nf3 c5 O-O Nc6","Black pins the c3 knight to control e4. Often trades bishop for knight to damage White's pawns."],
+["grunfeld","Grünfeld Defence","D85","d4 Nf6 c4 g6 Nc3 d5 cxd5 Nxd5 e4 Nxc3 bxc3 Bg7 Nf3 c5 Be3 Qa5","Black lets White build a big centre, then attacks it with c5 and the g7 bishop."],
+["qid","Queen's Indian Defence","E15","d4 Nf6 c4 e6 Nf3 b6 g3 Ba6 b3 Bb4+ Bd2 Be7 Bg2 c6","Black controls e4 and the long diagonal with fianchettoed bishops. Solid and flexible."],
+["dutch","Dutch Leningrad","A87","d4 f5 g3 Nf6 Bg2 g6 Nf3 Bg7 O-O O-O c4 d6 Nc3 Qe8","Black fights for e4 with f5 and aims for a kingside attack with e5 and Qh5 ideas."],
+["london","London System","D02","d4 d5 Bf4 Nf6 e3 e6 Nf3 c5 c3 Nc6 Nbd2 Bd6 Bg3 O-O Bd3","White sets up the same structure almost every game. Solid, and often leads to a kingside attack."],
+["catalan","Catalan Opening","E05","d4 Nf6 c4 e6 g3 d5 Bg2 Be7 Nf3 O-O O-O dxc4 Qc2 a6 Qxc4 b5 Qc2 Bb7","White's g2 bishop presses on the long diagonal. White gives the c4 pawn, then wins it back."],
+["english","English Opening (Reversed Sicilian)","A29","c4 e5 Nc3 Nf6 Nf3 Nc6 g3 d5 cxd5 Nxd5 Bg2 Nb6 O-O Be7","White plays a Sicilian with an extra tempo. The fight is over the d5 square."],
+["benoni","Modern Benoni","A70","d4 Nf6 c4 c5 d5 e6 Nc3 exd5 cxd5 d6 e4 g6 Nf3 Bg7 Be2 O-O O-O","Unbalanced structure. White has central space; Black has a queenside majority and active pieces."]
+];
+</script>
+<script>
+"use strict";
+/* ---------- storage ---------- */
+function load(k,d){try{const v=localStorage.getItem(k);return v?Object.assign(Array.isArray(d)?[]:{},d,JSON.parse(v)):d}catch(e){return d}}
+function loadArr(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):[]}catch(e){return[]}}
+function store(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+const DEF={mode:'practice',opening:'italian',side:'w',elo:1500,bookDepth:'full',afterBook:'continue',speed:'normal',blunderCheck:true,showEval:false,squareNames:false,theme:'moonlit'};
+const S={set:load('knm_settings',DEF),rating:load('knm_rating',{r:1600,n:0,hist:[]}),drill:load('knm_drill',{}),saved:loadArr('knm_saved'),last:load('knm_last',null)};
+const saveSet=()=>store('knm_settings',S.set);
+/* ---------- helpers ---------- */
+const $=id=>document.getElementById(id);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const GLYPH={k:'♚',q:'♛',r:'♜',b:'♝',n:'♞',p:'♟'};
+const VS='\uFE0E';
+const VAL={p:1,n:3,b:3,r:5,q:9,k:0};
+const PNAME={p:'pawn',n:'knight',b:'bishop',r:'rook',q:'queen',k:'king'};
+const THEMES={moonlit:['#d7dce8','#7483a6'],wood:['#e9cfa4','#a8744b'],green:['#eeeed2','#769656'],slate:['#dee3e6','#8ca2ad'],contrast:['#ffffff','#4d4d4d']};
+const OPEN=Object.fromEntries(OPENINGS.map(o=>[o[0],{id:o[0],name:o[1],eco:o[2],line:o[3].split(' '),idea:o[4]}]));
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function applyTheme(){const t=THEMES[S.set.theme]||THEMES.moonlit;document.documentElement.style.setProperty('--light',t[0]);document.documentElement.style.setProperty('--dark',t[1])}
+/* Stockfish 10 reports larger centipawn numbers than modern engines; scale them down. [Guessing] factor. */
+const CP_SCALE=0.6;
+function scoreToCp(s){if(s.mate!==undefined){const m=s.mate;return m>0?10000-10*m:-10000-10*m}return Math.round(s.cp*CP_SCALE)}
+function winPct(cp){const c=Math.max(-1000,Math.min(1000,cp));return 50+50*(2/(1+Math.exp(-0.00368208*c))-1)}
+function fmt(cp){if(Math.abs(cp)>9000){const m=Math.round((10000-Math.abs(cp))/10);return (cp>0?'+':'-')+'M'+m}const v=cp/100;return (v>0?'+':'')+v.toFixed(1)}
+function uciToSan(fen,uci){try{const g=new Chess(fen);const m=g.move({from:uci.slice(0,2),to:uci.slice(2,4),promotion:uci[4]});return m?m.san:uci}catch(e){return uci}}
+function pvToSan(fen,pv,n){const g=new Chess(fen);const out=[];for(const u of pv.slice(0,n)){const m=g.move({from:u.slice(0,2),to:u.slice(2,4),promotion:u[4]});if(!m)break;out.push(m.san)}return out}
+function sideName(c){return c==='w'?'White':'Black'}
+/* ---------- engine (Stockfish 10, runs offline in a worker) ---------- */
+class Engine{
+constructor(){
+this.h=null;
+const inl=$('sf-src').textContent.trim();
+/* Single-file build carries the engine inline. The web build fetches it once; the service worker keeps it for offline use. */
+const src=inl?Promise.resolve(inl):fetch(SF_URL).then(r=>{if(!r.ok)throw new Error('http');return r.text()});
+this.q=src.then(code=>{
+this.w=new Worker(URL.createObjectURL(new Blob([code],{type:'application/javascript'})));
+this.w.onmessage=e=>{const l=typeof e.data==='string'?e.data:'';if(this.h)this.h(l)};
+this.w.postMessage('uci');this.w.postMessage('setoption name Hash value 32');
+}).catch(()=>{modal('Engine not loaded','<p class="hint">The chess engine downloads once, the first time you open the app. Connect to the internet, reload, and it will then work offline.</p>',[['ok','OK']])});
+}
+run(fen,o){
+const job=()=>new Promise(res=>{
+if(!this.w){res({best:null,lines:[],cp:0});return}
+const lines={};
+this.h=l=>{
+if(l.startsWith('info')&&l.includes(' pv ')&&!l.includes('bound')){
+const t=l.split(' ');const i=t.indexOf('multipv');const k=i>0?+t[i+1]:1;
+const si=t.indexOf('score');const sc=t[si+1]==='mate'?{mate:+t[si+2]}:{cp:+t[si+2]};
+const d=+t[t.indexOf('depth')+1];
+const pv=t.slice(t.indexOf('pv')+1).filter(x=>/^[a-h][1-8][a-h][1-8][qrbn]?$/.test(x));const old=lines[k];
+if(!old||d>old.depth||(d===old.depth&&pv.length>=old.pv.length)||pv[0]!==old.pv[0])lines[k]={k,cp:scoreToCp(sc),depth:d,pv:(old&&old.pv[0]===pv[0]&&old.pv.length>pv.length)?old.pv:pv};
+}else if(l.startsWith('bestmove')){
+this.h=null;const arr=Object.values(lines).sort((a,b)=>a.k-b.k);
+res({best:l.split(' ')[1],lines:arr,cp:arr.length?arr[0].cp:0});
+}
+};
+this.w.postMessage('setoption name MultiPV value '+(o.multipv||1));
+this.w.postMessage('position fen '+fen);
+this.w.postMessage('go '+(o.depth?'depth '+o.depth+' movetime '+(o.cap||2500):'movetime '+(o.movetime||500))+(o.searchmoves?' searchmoves '+o.searchmoves:''));
+});
+const p=this.q.then(job);this.q=p.catch(()=>{});return p;
+}
+}
+let ENGINE=null;
+function engine(){if(!ENGINE)ENGINE=new Engine();return ENGINE}
+const evalCache=new Map();
+function terminalEval(fen){const g=new Chess(fen);if(g.in_checkmate())return{cp:-10000,best:null,lines:[],terminal:true};if(g.in_stalemate()||g.insufficient_material())return{cp:0,best:null,lines:[],terminal:true};return null}
+/* score is from the side-to-move's point of view */
+async function evalFen(fen,ms){
+const key=fen+'|'+ms;if(evalCache.has(key))return evalCache.get(key);
+const t=terminalEval(fen);if(t)return t;
+const r=await engine().run(fen,{movetime:ms});evalCache.set(key,r);return r;
+}
+/* Judge a move by searching the SAME position twice at the SAME depth: once freely, once forced to play the move.
+Comparing two different positions at shallow depth is noisy (errors of 1+ pawn), this is not. */
+async function moveCheck(fen,uci,depth){
+const t=terminalEval(fen);if(t)return null;
+const best=await engine().run(fen,{depth,cap:1500});
+const played=best.best===uci?best:await engine().run(fen,{depth,cap:1500,searchmoves:uci});
+return{best,played,drop:Math.max(0,winPct(best.cp)-winPct(played.cp)),isBest:best.best===uci};
+}
+/* Strength model. [Guessing] calibration: depth cap + softmax choice among the top 5 moves
++ an occasional random move below 1400. It plays human-like, not identical to a human rating. */
+function strength(elo){
+const depth=elo<1000?3:elo<1300?5:elo<1600?7:elo<1900?9:elo<2200?11:elo<2500?14:null;
+return{depth,movetime:elo>=2500?1200:null,multipv:elo>=2600?1:5,temp:Math.max(1,(2650-elo)/12),rand:Math.max(0,(1400-elo)/3000)};
+}
+function pickMove(res,p,fen){
+const g=new Chess(fen);const legal=g.moves({verbose:true});
+if(p.rand&&Math.random()<p.rand&&legal.length>1){const m=legal[Math.floor(Math.random()*legal.length)];return m.from+m.to+(m.promotion||'')}
+const L=res.lines.filter(l=>l.pv&&l.pv[0]);if(!L.length){if(res.best)return res.best;const m=legal[Math.floor(Math.random()*legal.length)];return m.from+m.to+(m.promotion||'')}
+const top=L[0].cp;
+const w=L.map(l=>Math.exp(-(top-l.cp)/p.temp));const sum=w.reduce((a,b)=>a+b,0);
+let x=Math.random()*sum;for(let i=0;i<L.length;i++){x-=w[i];if(x<=0)return L[i].pv[0]}
+return L[0].pv[0];
+}
+/* ---------- board rendering ---------- */
+function renderBoard(el,svg,fen,o){
+const g=new Chess(fen);const B=g.board();const flip=o.orient==='b';
+let h='';
+for(let r=0;r<8;r++)for(let c=0;c<8;c++){
+const rr=flip?7-r:r,cc=flip?7-c:c;const sq='abcdefgh'[cc]+(8-rr);const p=B[rr][cc];
+const light=(rr+cc)%2===0;let cls='sq '+(light?'l':'d');
+if(o.last&&(o.last.from===sq||o.last.to===sq))cls+=' last';
+if(o.sel===sq)cls+=' sel';
+if(o.check&&p&&p.type==='k'&&p.color===g.turn())cls+=' check';
+if(o.wrong===sq)cls+=' wrong';
+h+='<div class="'+cls+'" data-sq="'+sq+'">';
+if(r===7)h+='<span class="coord f">'+sq[0]+'</span>';
+if(c===0)h+='<span class="coord r">'+sq[1]+'</span>';
+if(o.names&&!(r===7||c===0))h+='<span class="sqname">'+sq+'</span>';
+if(p)h+='<span class="pc '+p.color+'">'+GLYPH[p.type]+VS+'</span>';
+if(o.targets&&o.targets[sq])h+=o.targets[sq]==='c'?'<span class="ring"></span>':'<span class="dot"></span>';
+h+='</div>';
+}
+el.innerHTML=h;
+drawArrows(svg,o.arrows||[],flip);
+}
+function sqXY(sq,flip){let f='abcdefgh'.indexOf(sq[0]),r=8-+sq[1];if(flip){f=7-f;r=7-r}return[f*100+50,r*100+50]}
+function drawArrows(svg,arrows,flip){
+let h='';
+for(const a of arrows){
+const[x1,y1]=sqXY(a.from,flip),[x2,y2]=sqXY(a.to,flip);const col=a.color||'#6fb7e5';
+const dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy),ux=dx/len,uy=dy/len;
+const ex=x2-ux*34,ey=y2-uy*34;const px=-uy,py=ux;
+h+='<line x1="'+(x1+ux*18)+'" y1="'+(y1+uy*18)+'" x2="'+ex+'" y2="'+ey+'" stroke="'+col+'" stroke-width="20" stroke-linecap="round" opacity=".85"/>';
+h+='<polygon points="'+(x2-ux*8)+','+(y2-uy*8)+' '+(ex+px*30)+','+(ey+py*30)+' '+(ex-px*30)+','+(ey-py*30)+'" fill="'+col+'" opacity=".85"/>';
+}
+svg.innerHTML=h;
+}
+function material(fen){
+const cnt={w:{p:0,n:0,b:0,r:0,q:0,k:0},b:{p:0,n:0,b:0,r:0,q:0,k:0}};
+for(const row of new Chess(fen).board())for(const p of row)if(p)cnt[p.color][p.type]++;
+const start={q:1,r:2,b:2,n:2,p:8};const cap={w:'',b:''};let sw=0,sb=0;
+for(const t of['q','r','b','n','p']){sw+=cnt.w[t]*VAL[t];sb+=cnt.b[t]*VAL[t];
+cap.w+=GLYPH[t].repeat(Math.max(0,start[t]-cnt.b[t]));cap.b+=GLYPH[t].repeat(Math.max(0,start[t]-cnt.w[t]));}
+return{cap,diff:sw-sb};
+}
+function playerRow(el,color,name,fen,turnOn){
+const m=material(fen);const adv=color==='w'?m.diff:-m.diff;
+el.innerHTML='<span class="turn-dot'+(turnOn?' on':'')+'"></span><span class="name">'+esc(name)+'</span><span class="caps">'+m.cap[color].split('').map(c=>c+VS).join('')+'</span>'+(adv>0?'<span class="adv">+'+adv+'</span>':'');
+}
+function setEvalBar(el,cpW,orient){
+const w=winPct(cpW);el.classList.toggle('flip',orient==='b');
+el.querySelector('.fill').style.height=w+'%';
+const n=el.querySelector('.num');n.textContent=fmt(cpW).replace('+','');
+const whiteSide=cpW>=0;const atBottom=(orient==='w')===whiteSide;
+n.style.top=atBottom?'auto':'3px';n.style.bottom=atBottom?'3px':'auto';n.style.color=whiteSide?'#222':'#eee';
+}
+/* ---------- modal ---------- */
+function modal(title,body,btns){
+return new Promise(res=>{
+$('mTitle').textContent=title;$('mBody').innerHTML=body;
+$('mBtns').innerHTML=btns.map(b=>'<button class="btn" data-v="'+b[0]+'">'+esc(b[1])+'</button>').join('');
+$('modal').classList.remove('hidden');
+$('mBtns').onclick=e=>{const v=e.target.dataset.v;if(!v)return;$('modal').classList.add('hidden');res(v)};
+const extra=$('mBody').querySelectorAll('[data-v]');extra.forEach(x=>x.onclick=()=>{$('modal').classList.add('hidden');res(x.dataset.v)});
+});
+}
+/* ---------- tabs ---------- */
+function tab(name){
+for(const s of['home','game','review','games','rep'])$(s).classList.toggle('hidden',s!==name);
+const navName=name==='game'?'home':name;
+document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===navName));
+if(name==='games')renderGames();
+}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
+if(b.dataset.tab==='home'&&G.g&&!G.over)return tab('game');
+if(b.dataset.tab==='review'&&!R.rec){if(S.last)return openReview(S.last);$('rEmpty').classList.remove('hidden');$('rMain').classList.add('hidden')}
+tab(b.dataset.tab);if(b.dataset.tab==='rep')renderRepHome()});
+/* ---------- setup screen ---------- */
+function initSetup(){
+const sel=$('opening');
+const segs=[['modeSeg','mode'],['sideSeg','side']];
+for(const[id,k]of segs){const el=$(id);el.onclick=e=>{const v=e.target.dataset.v;if(!v)return;S.set[k]=v;saveSet();syncSetup()}}
+sel.onchange=()=>{S.set.opening=sel.value;if(sel.value.startsWith('rep:')){const c=courseById(sel.value.slice(4));if(c)S.set.side=c.side}saveSet();syncSetup()};
+$('elo').value=S.set.elo;$('elo').oninput=()=>{S.set.elo=+$('elo').value;$('eloVal').textContent=S.set.elo;saveSet()};
+for(const k of['bookDepth','afterBook','speed','theme']){$(k).value=S.set[k];$(k).onchange=()=>{S.set[k]=$(k).value;saveSet();applyTheme()}}
+for(const k of['blunderCheck','showEval','squareNames']){$(k).checked=S.set[k];$(k).onchange=()=>{S.set[k]=$(k).checked;saveSet()}}
+$('startRating').value=S.rating.r;
+$('startRating').onchange=()=>{const v=Math.max(400,Math.min(2800,+$('startRating').value||1600));if(S.rating.n===0){S.rating.r=v;store('knm_rating',S.rating);syncRating()}};
+$('startBtn').onclick=()=>startGame();
+syncSetup();syncRating();
+}
+function syncSetup(){
+const s=S.set;
+document.querySelectorAll('#modeSeg button').forEach(b=>b.classList.toggle('on',b.dataset.v===s.mode));
+document.querySelectorAll('#sideSeg button').forEach(b=>b.classList.toggle('on',b.dataset.v===s.side));
+$('eloVal').textContent=s.elo;
+const hints={drill:'Play the book moves for your side. Wrong moves are taken back so you learn the line.',practice:'Play the opening against the computer with hints, takebacks and move analysis.',rated:'A real game. Your rating changes with the result.'};
+$('modeHint').textContent=hints[s.mode];
+const o=OPEN[s.opening];const rc=s.opening.startsWith('rep:')?courseById(s.opening.slice(4)):null;
+$('openingIdea').textContent=rc?('Your repertoire as '+sideName(rc.side)+'. The computer picks between the replies you prepared, then plays on at the strength below. For spaced-repetition training use the Openings tab.'):o?o.idea+' Line: '+o.line.length+' half-moves.':'Standard start, no book line.';
+const rated=s.mode==='rated';
+$('blunderCheck').disabled=rated;$('showEval').disabled=rated;$('ratedNote').classList.toggle('hidden',!rated);
+$('afterBook').closest('.row').classList.toggle('hidden',s.mode!=='drill');
+if(s.mode==='drill'&&s.opening==='none'){S.set.opening='italian';$('opening').value='italian';saveSet();syncSetup()}
+}
+function syncRating(){
+$('ratingNum').textContent=Math.round(S.rating.r);
+const n=S.rating.n;
+$('ratingText').textContent=n?('Rating '+Math.round(S.rating.r)+' after '+n+' rated game'+(n>1?'s':'')+'. Early games move your rating faster (K=40 for the first 20).'):'Set the rating you play at now. It starts moving once you finish your first rated game.';
+$('startRatingRow').classList.toggle('hidden',n>0);
+}
+/* ---------- opening trees + repertoire store ---------- */
+function lineToTree(line){const root={m:null,k:[]};let n=root;for(const s of line){const c={m:s,k:[]};n.k.push(c);n=c}return root}
+function childBySan(n,san){return n&&n.k?n.k.find(c=>c.m===san)||null:null}
+function walk(root,sans){let n=root;for(const s of sans){n=childBySan(n,s);if(!n)return null}return n}
+const REP={courses:loadArr('knm_rep')};
+function saveRep(){store('knm_rep',REP.courses)}
+function courseById(id){return REP.courses.find(c=>String(c.id)===String(id))||null}
+/* Spaced repetition intervals in hours for boxes 1..7 (Leitner style). [Guessing] tuned like common SRS apps. */
+const SRS_H=[0,4,24,72,168,336,720,2160];
+function srsGrade(n,ok){const now=Date.now();
+if(ok){if(n.b===undefined)n.b=1;else if(!n.d||n.d<=now)n.b=Math.min(7,n.b+1);n.d=now+SRS_H[n.b]*3600e3}
+else{n.b=1;n.d=now}
+saveRep()}
+function srsFmt(ms){const h=ms/3600e3;return h<1?'under an hour':h<36?Math.round(h)+' hours':Math.round(h/24)+' days'}
+function sideOfPly(i){return i%2===0?'w':'b'}
+function userNodes(c){const out=[];(function rec(n,d){for(const k of n.k){if(sideOfPly(d)===c.side)out.push(k);rec(k,d+1)}})(c.root,0);return out}
+function courseStats(c){const u=userNodes(c),now=Date.now();const seen=u.filter(n=>n.b!==undefined);
+let next=null;for(const n of seen)if(n.d>now&&(next===null||n.d<next))next=n.d;
+return{total:u.length,fresh:u.length-seen.length,due:seen.filter(n=>n.d<=now).length,learned:seen.length,mastered:u.filter(n=>n.b>=5).length,next}}
+function allLines(root,limit){const out=[];(function rec(n,p){if(!n.k.length){if(p.length)out.push(p.slice());return}
+for(const c of n.k){if(out.length>=limit)return;p.push(c);rec(c,p);p.pop()}})(root,[]);return out}
+function pickTrainLine(c,kind){
+const L=allLines(c.root,5000),now=Date.now(),mine=i=>sideOfPly(i)===c.side;
+if(kind==='learn')return L.find(p=>p.some((n,i)=>mine(i)&&n.b===undefined))||null;
+let best=null,bd=Infinity;
+for(const p of L)for(let i=0;i<p.length;i++){const n=p[i];if(mine(i)&&n.b!==undefined&&n.d<=now&&n.d<bd){bd=n.d;best=p}}
+return best;
+}
+/* ---------- game state ---------- */
+const G={};
+const ply=()=>G.g.history().length;
+function inBook(){if(!G.node||!G.node.k.length||ply()>=G.cap)return false;return G.path?ply()<G.path.length:true}
+function expectedKids(){if(!inBook())return[];return G.path?[G.path[ply()]]:G.node.k}
+function openingSource(opts){
+const s=S.set;
+if(opts.course){const c=opts.course;return{id:'rep:'+c.id,name:c.name,eco:'',idea:'',root:c.root,course:c}}
+if(s.opening.startsWith('rep:')){const c=courseById(s.opening.slice(4));if(c)return{id:s.opening,name:c.name,eco:'',idea:'Your own repertoire.',root:c.root,course:c}}
+const o=OPEN[s.opening];if(o)return{id:o.id,name:o.name,eco:o.eco,idea:o.idea,root:lineToTree(o.line),len:o.line.length};
+return null;
+}
+function startGame(opts){
+opts=opts||{};const s=S.set;const src=openingSource(opts);
+const side=opts.course?opts.course.side:(s.side==='r'?(Math.random()<.5?'w':'b'):s.side);
+const mode=opts.train?'drill':s.mode;
+const cap=(opts.train||s.bookDepth==='full')?Infinity:+s.bookDepth*2;
+if(src&&src.len)src.len=Math.min(src.len,cap);
+Object.assign(G,{g:new Chess(),id:(G.id||0)+1,mode,pc:side,elo:s.elo,opening:src,root:src?src.root:null,node:src?src.root:null,cap,
+train:opts.train||null,path:opts.path||null,graded:{},tstat:{ok:0,bad:0},bookLive:!!(src&&src.root.k.length),
+over:false,busy:false,sel:null,wrong:null,arrows:[],preview:null,hint:0,plyMiss:0,mistakes:0,orient:side,
+fens:[new Chess().fen()],bookPlies:0,analyseOn:false,liveCp:0,leftBook:null});
+G.g.header('Event',"KNIGHT'nMARE "+(G.train?'training':{drill:'drill',practice:'practice',rated:'rated game'}[mode]),'Date',new Date().toISOString().slice(0,10).replace(/-/g,'.'),
+'White',side==='w'?'You':'Computer '+G.elo,'Black',side==='b'?'You':'Computer '+G.elo);
+if(src){G.g.header('Opening',src.name);if(src.eco)G.g.header('ECO',src.eco)}
+const rated=mode==='rated';
+$('aHint').classList.toggle('hidden',rated);$('aAnalyse').classList.toggle('hidden',rated||!!G.train);
+$('aUndo').classList.toggle('hidden',rated||!!G.train);
+$('aRestart').classList.toggle('hidden',!src||!!G.train);
+$('aDraw').classList.toggle('hidden',mode==='drill');$('aResign').classList.toggle('hidden',!!G.train);
+$('aNew').textContent=G.train?'Back to repertoire':'New game';
+$('gEval').classList.toggle('hidden',rated||!s.showEval||!!G.train);
+$('preview').classList.add('hidden');
+tab('game');
+if(src&&G.bookLive)bookCoach();else coach(G.pc==='w'?'Your move.':'The computer moves first.','');
+renderGame();
+if(G.g.turn()!==G.pc)engineTurn();else if(s.showEval&&!rated&&!G.train)liveEval();
+}
+function bookCoach(){
+if(!G.opening)return;
+if(G.mode==='rated'){if(ply()===0)coach('<div class="open">'+esc(G.opening.name)+'</div>','');return}
+let h='<div class="open">'+esc(G.opening.name)+(G.opening.eco?' · '+G.opening.eco:'')+'</div>';
+if(ply()===0){
+if(G.opening.idea)h+='<div class="idea">'+esc(G.opening.idea)+'</div>';
+h+='<div class="idea">'+(G.train==='learn'?'New moves are shown with a green arrow and a note. Play them to lock them in.':
+G.train==='review'?'Play your repertoire moves from memory. Each answer updates when you will see it again.':
+G.mode==='drill'?'You play the '+sideName(G.pc)+' moves of this line.':'The computer follows the book while you do.')+'</div>';
+}
+const last=ply()>0&&G.node&&G.node!==G.root?G.node:null;
+if(last&&last.t)h+='<div class="idea">'+esc(last.m)+': '+esc(last.t)+'</div>';
+if(G.g.turn()===G.pc&&inBook()){
+const e=expectedKids()[0];
+if(G.train&&e&&e.b===undefined){
+const m=new Chess(G.g.fen()).move(e.m);G.arrows=[{from:m.from,to:m.to,color:'#86c08a'}];
+h+='<div>New move: play <b>'+esc(e.m)+'</b>.'+(e.t?' '+esc(e.t):'')+'</div>';
+}else h+='<div>Your move.'+bookProgress()+'</div>';
+}
+coach(h,'');
+}
+function coach(html,kind){const c=$('coach');c.innerHTML=html;c.className='coach'+(kind?' '+kind:'')}
+function bookProgress(){if(!G.opening||!inBook())return'';if(G.path)return' Line '+ply()+'/'+G.path.length+'.';if(G.opening.len)return' Line '+ply()+'/'+G.opening.len+'.';return' Still in your repertoire.'}
+function lastMove(){const h=G.g.history({verbose:true});return h.length?h[h.length-1]:null}
+function renderGame(){
+const fen=G.preview?G.preview.fenAfter:G.g.fen();
+let targets=null;
+if(G.sel&&!G.preview){targets={};for(const m of G.g.moves({square:G.sel,verbose:true}))targets[m.to]=m.captured?'c':'m'}
+const lm=G.preview?G.preview.mv:lastMove();
+renderBoard($('gBoard'),$('gArrows'),fen,{orient:G.orient,sel:G.sel,targets,last:lm,check:new Chess(fen).in_check(),arrows:G.arrows,wrong:G.wrong,names:S.set.squareNames});
+const opp=G.pc==='w'?'b':'w';const turn=new Chess(fen).turn();
+const top=G.orient===G.pc?opp:G.pc,bot=top===opp?G.pc:opp;
+const nm=c=>c===G.pc?'You':(G.train?'Your repertoire':'Computer '+G.elo);
+playerRow($('topRow'),top,nm(top),fen,!G.over&&turn===top);
+playerRow($('botRow'),bot,nm(bot),fen,!G.over&&turn===bot);
+renderMoveList($('gMoves'),G.g.history(),null,null,null);
+$('aAnalyse').classList.toggle('on',G.analyseOn);
+$('aAnalyse').disabled=G.mode==='drill';
+const busy=G.busy||G.over;$('aHint').disabled=busy;$('aUndo').disabled=G.busy||ply()===0;
+$('aResign').disabled=G.over;$('aDraw').disabled=busy;
+if(!$('gEval').classList.contains('hidden'))setEvalBar($('gEval'),G.liveCp,G.orient);
+}
+function renderMoveList(el,sans,marks,cur,onPick){
+let h='';
+for(let i=0;i<sans.length;i++){
+if(i%2===0)h+='<span class="n">'+(i/2+1)+'.</span>';
+const mk=marks&&marks[i];const tg=mk?({blunder:'??',mistake:'?',inacc:'?!',best:'★',book:'📖'}[mk]||''):'';
+h+='<span class="m'+(cur===i?' cur':'')+'" data-i="'+i+'">'+esc(sans[i])+(tg?'<span class="tag '+mk+'">'+tg+'</span>':'')+'</span>';
+}
+el.innerHTML=h||'<span class="n">No moves yet.</span>';
+if(onPick)el.onclick=e=>{const t=e.target.closest('.m');if(t)onPick(+t.dataset.i)};
+const c=el.querySelector('.cur');if(c)c.scrollIntoView({block:'nearest'});else el.scrollTop=el.scrollHeight;
+}
+/* ---------- input ---------- */
+$('gBoard').addEventListener('click',e=>{
+const t=e.target.closest('.sq');if(!t||G.over||G.busy||G.preview)return;
+const sq=t.dataset.sq;
+if(G.g.turn()!==G.pc)return;
+const p=G.g.get(sq);
+if(G.sel){
+const mv=G.g.moves({square:G.sel,verbose:true}).find(m=>m.to===sq);
+if(mv){const from=G.sel;G.sel=null;
+if(mv.flags.includes('p')){choosePromo(G.pc).then(pp=>{if(pp)tryPlayerMove(from,sq,pp);else renderGame()});return}
+return tryPlayerMove(from,sq)}
+}
+G.sel=p&&p.color===G.pc?(G.sel===sq?null:sq):null;G.wrong=null;renderGame();
+});
+async function choosePromo(c){
+const body='<div class="promo">'+['q','r','b','n'].map(t=>'<button data-v="'+t+'" aria-label="'+PNAME[t]+'"><span class="pc '+c+'" style="font-size:44px">'+GLYPH[t]+VS+'</span></button>').join('')+'</div>';
+const v=await modal('Promote to',body,[['cancel','Cancel']]);
+return v==='cancel'?null:v;
+}
+async function tryPlayerMove(from,to,promo){
+const probe=new Chess(G.g.fen());const mv=probe.move({from,to,promotion:promo||'q'});if(!mv)return;
+const p=ply();G.arrows=[];G.hint=0;
+let leaving=false,hit=null;
+if(inBook()){
+const kids=expectedKids();hit=kids.find(c=>c.m===mv.san)||null;
+if(!hit){
+if(G.mode==='drill'){
+const exp=kids[0];G.mistakes++;G.plyMiss++;G.wrong=to;
+if(G.train&&!G.graded[p]){G.graded[p]=1;if(exp.b!==undefined){srsGrade(exp,false)}G.tstat.bad++}
+const names=kids.map(k=>'<b>'+esc(k.m)+'</b>').join(' or ');
+if(G.plyMiss>=2){const m=new Chess(G.g.fen()).move(exp.m);G.arrows=[{from:m.from,to:m.to,color:'#86c08a'}];
+coach('The book move is '+names+'. Play it to continue.'+(exp.t?'<div class="idea">'+esc(exp.t)+'</div>':''),'bad')}
+else coach('<b>'+esc(mv.san)+'</b> is not the book move. Try again.'+bookProgress(),'warn');
+renderGame();setTimeout(()=>{G.wrong=null},500);return;
+}
+leaving=true;
+}
+}
+const fenAfter=probe.fen();
+if(G.mode==='practice'&&G.analyseOn)return startPreview(mv,fenAfter,leaving,hit);
+if(G.mode!=='rated'&&S.set.blunderCheck&&!hit){
+const ok=await blunderCheck(mv,fenAfter);if(!ok){renderGame();return}
+}
+commitPlayer(mv,leaving,hit);
+}
+function commitPlayer(mv,leaving,hit){
+const p=ply();
+if(leaving){const exp=expectedKids().map(k=>k.m);G.node=null;G.leftBook={ply:p,exp};
+if(G.mode==='practice')coach('You left the book. The line continues with <b>'+esc(exp.join(' or '))+'</b>. Now it\'s a real game.','warn')}
+else if(hit){if(G.train&&!G.graded[p]){G.graded[p]=1;srsGrade(hit,true);G.tstat.ok++}G.node=hit;G.bookPlies=p+1}
+else G.node=null;
+G.plyMiss=0;
+G.g.move({from:mv.from,to:mv.to,promotion:mv.promotion});
+afterMove();
+}
+async function blunderCheck(mv,fenAfter){
+G.busy=true;renderGame();coach('Checking your move…','');const gid=G.id;
+const r=await moveCheck(G.g.fen(),mv.from+mv.to+(mv.promotion||''),10);G.busy=false;
+if(gid!==G.id)return false;
+if(r&&r.drop>=15){
+const v=await modal('Take a second look',
+'<p>With best play your position is '+fmt(r.best.cp)+'. After <b>'+esc(mv.san)+'</b> it is '+fmt(r.played.cp)+'.</p><p class="hint">Before you move, ask: what does my opponent want to do next? Which of my pieces are loose?</p>',
+[['back','Think again'],['play','Play it anyway']]);
+coach('Your move.','');
+return v==='play';
+}
+return true;
+}
+function afterMove(){
+const g=G.g;G.fens.push(g.fen());G.sel=null;
+if(G.bookLive&&!inBook()){G.bookLive=false;if(!G.leftBook&&bookDone()){renderGame();return}}
+else if(G.bookLive){G.arrows=[];bookCoach()}
+renderGame();
+if(g.game_over())return endGame();
+if(S.set.showEval&&G.mode!=='rated'&&!G.train)liveEval();
+if(g.turn()!==G.pc)engineTurn();
+}
+function bookDone(){
+if(G.mode==='rated')return false;
+if(G.train){
+G.over=true;G.id++;const c=G.opening.course,t=G.tstat,tot=t.ok+t.bad,kind=G.train;
+const msg=tot===0?'Line complete.':t.bad===0?'Line complete: all '+t.ok+' of your moves right first time.':'Line complete: '+t.ok+' of '+tot+' moves right first time.';
+coach('<div class="open">'+esc(msg)+'</div>','ok');
+setTimeout(async()=>{const st=courseStats(c);const more=kind==='learn'?st.fresh:st.due;
+const btns=more?[['next',kind==='learn'?'Learn next line':'Review next line'],['course','Back to repertoire']]:[['course','Back to repertoire']];
+const v=await modal(msg,'<p class="hint">'+(kind==='learn'?st.fresh+' new moves left to learn.':st.due+' moves still due.')+'</p>',btns);
+if(v==='next')startTraining(c,kind);else openCourse(c.id)},350);
+return true;
+}
+const key=G.opening.id+'_'+G.pc;const d=S.drill[key]||{runs:0,clean:0,last:null};
+if(G.mode==='drill'){d.runs++;if(G.mistakes===0)d.clean++;d.last=new Date().toISOString().slice(0,10);S.drill[key]=d;store('knm_drill',S.drill)}
+const msg=G.mode==='drill'?(G.mistakes===0?'Line complete with no mistakes.':'Line complete with '+G.mistakes+' mistake'+(G.mistakes>1?'s':'')+'.'):'Book line complete. From here you are on your own.';
+coach('<div class="open">'+msg+'</div>'+(G.node&&G.node.t?'<div class="idea">'+esc(G.node.m)+': '+esc(G.node.t)+'</div>':'')+(G.mode==='drill'?'<div class="idea">Clean runs: '+d.clean+' of '+d.runs+'.</div>':''),'ok');
+if(G.mode==='drill'&&S.set.afterBook==='restart'){
+setTimeout(async()=>{const v=await modal(msg,'<p>Clean runs for this line as '+sideName(G.pc)+': '+d.clean+' of '+d.runs+'.</p>',[['again','Drill again'],['play','Play on from here'],['menu','Change opening']]);
+if(v==='again')startGame();else if(v==='menu'){G.over=true;G.id++;tab('home')}else if(G.g.turn()!==G.pc)engineTurn();},250);
+return true;
+}
+return false;
+}
+async function liveEval(){
+const gid=G.id,fen=G.g.fen();const r=await evalFen(fen,250);if(gid!==G.id||fen!==G.g.fen())return;
+G.liveCp=G.g.turn()==='w'?r.cp:-r.cp;setEvalBar($('gEval'),G.liveCp,G.orient);
+}
+async function engineTurn(){
+const gid=G.id;G.busy=true;renderGame();
+const t0=performance.now();const fen=G.g.fen();const p=ply();
+let uci;
+if(inBook()){const kids=expectedKids();const c=G.path?kids[0]:kids[Math.floor(Math.random()*kids.length)];
+const m=new Chess(fen).move(c.m);uci=m.from+m.to+(m.promotion||'');G.node=c;G.bookPlies=p+1}
+else{G.node=null;const st=strength(G.elo);const res=await engine().run(fen,{depth:st.depth,movetime:st.movetime,multipv:st.multipv});if(gid!==G.id)return;uci=pickMove(res,st,fen)}
+const want={fast:250,normal:700,slow:1400}[S.set.speed]||700;
+const wait=want-(performance.now()-t0);if(wait>0)await sleep(wait);
+if(gid!==G.id||G.over)return;
+G.g.move({from:uci.slice(0,2),to:uci.slice(2,4),promotion:uci[4]});
+G.busy=false;
+if(!G.bookLive&&!G.leftBook&&G.mode!=='rated')coach('Your move.','');
+afterMove();
+}
+function startTraining(c,kind){
+const path=pickTrainLine(c,kind);
+if(!path){const st=courseStats(c);modal(kind==='learn'?'Nothing new to learn':'Nothing due right now',
+'<p class="hint">'+(kind==='learn'?'Every move in this repertoire has been learned. Add more lines in Edit lines.':st.next?'Your next review is due in '+srsFmt(st.next-Date.now())+'.':'Learn some moves first.')+'</p>',[['ok','OK']]);return}
+startGame({course:c,train:kind,path});
+}
+/* ---------- practice tools ---------- */
+async function startPreview(mv,fenAfter,leaving,hit){
+G.preview={mv,fenAfter};renderGame();
+const P=$('preview');P.classList.remove('hidden');P.innerHTML='Analysing <b>'+esc(mv.san)+'</b>…';
+const gid=G.id,fenBefore=G.g.fen();
+const uci=mv.from+mv.to+(mv.promotion||'');const r=await moveCheck(fenBefore,uci,11);
+if(gid!==G.id||!G.preview||!r)return;
+const before=r.best,drop=r.drop;const after={cp:-r.played.cp};
+const verdict=r.isBest?['The engine\'s top choice.','ok']:drop<5?['A good move.','ok']:drop<10?['Slightly inaccurate.','warn']:drop<20?['A mistake.','warn']:['A blunder.','bad'];
+const pv=r.played.lines[0]?r.played.lines[0].pv:[];const reply=pv[1]?uciToSan(fenAfter,pv[1]):null;
+const bestSan=before.best?uciToSan(fenBefore,before.best):'';
+P.innerHTML='<div><b>'+esc(mv.san)+'</b>: '+verdict[0]+'</div>'+
+'<div class="hint">With best play: '+fmt(before.cp)+'. After this move: '+fmt(-after.cp)+'.'+(reply?' Opponent\'s strongest reply: <b>'+esc(reply)+'</b>.':'')+'</div>'+
+'<div class="hint hidden" id="pvBest">Engine\'s choice here: <b>'+esc(bestSan)+'</b>.</div>'+
+'<div class="btns"><button class="btn" id="pvCancel">Cancel</button><button class="btn" id="pvShow">Show engine\'s choice</button><button class="btn" style="background:var(--accent);color:var(--accent-ink)" id="pvGo">Play it</button></div>';
+if(reply){const r=new Chess(fenAfter).move(reply);G.arrows=[{from:r.from,to:r.to,color:'#e56f6f'}];renderGame()}
+$('pvCancel').onclick=()=>{G.preview=null;G.arrows=[];P.classList.add('hidden');renderGame()};
+$('pvShow').onclick=()=>{$('pvBest').classList.remove('hidden');if(before.best)G.arrows.push({from:before.best.slice(0,2),to:before.best.slice(2,4)});renderGame()};
+$('pvGo').onclick=()=>{G.preview=null;G.arrows=[];P.classList.add('hidden');commitPlayer(mv,leaving,hit)};
+}
+$('aAnalyse').onclick=()=>{if(G.mode!=='practice')return;G.analyseOn=!G.analyseOn;renderGame();
+coach(G.analyseOn?'Analyse first is on. Your moves are checked before they are played.':'Analyse first is off.','')};
+$('aHint').onclick=async()=>{
+if(G.busy||G.over||G.g.turn()!==G.pc)return;
+if(inBook()){
+const e=expectedKids()[0];const m=new Chess(G.g.fen()).move(e.m);
+if(G.hint===0){G.sel=m.from;G.hint=1;coach('Book hint: move the piece on <b>'+m.from+'</b>.','')}
+else{G.arrows=[{from:m.from,to:m.to,color:'#86c08a'}];coach('Book move: <b>'+esc(m.san)+'</b>.'+(e.t?'<div class="idea">'+esc(e.t)+'</div>':''),'')}
+if(G.mode==='drill')G.mistakes++;
+if(G.train&&!G.graded[ply()]){G.graded[ply()]=1;if(e.b!==undefined)srsGrade(e,false);G.tstat.bad++}
+return renderGame();
+}
+G.busy=true;renderGame();coach('Looking…','');
+const fen=G.g.fen();const r=await evalFen(fen,900);G.busy=false;
+if(!r.best){renderGame();return}
+const san=uciToSan(fen,r.best);
+if(G.hint===0){G.sel=r.best.slice(0,2);G.hint=1;coach('Hint: there is a strong move with the '+PNAME[G.g.get(G.sel).type]+' on <b>'+G.sel+'</b>. Tap Hint again to see it.','')}
+else{G.arrows=[{from:r.best.slice(0,2),to:r.best.slice(2,4)}];G.hint=0;coach('Best move: <b>'+esc(san)+'</b> (eval '+fmt(r.cp)+' for you). Line: '+esc(pvToSan(fen,r.lines[0]?r.lines[0].pv:[r.best],5).join(' ')),'')}
+renderGame();
+};
+$('aUndo').onclick=()=>{
+if(G.busy||G.mode==='rated'||G.train||!ply())return;
+do{G.g.undo();G.fens.pop()}while(G.g.turn()!==G.pc&&ply()>0);
+G.over=false;G.arrows=[];G.sel=null;G.hint=0;G.preview=null;$('preview').classList.add('hidden');
+const h=G.g.history();G.leftBook=null;
+G.node=G.root?walk(G.root,h):null;G.bookLive=inBook();
+G.bookPlies=G.node?h.length:Math.min(G.bookPlies,h.length);
+coach('Move taken back.'+bookProgress(),'');
+renderGame();
+if(S.set.showEval)liveEval();
+if(G.g.turn()!==G.pc)engineTurn();
+};
+$('aFlip').onclick=()=>{G.orient=G.orient==='w'?'b':'w';renderGame()};
+$('aResign').onclick=async()=>{if(G.over)return;const v=await modal('Resign this game?','',[['yes','Resign'],['no','Keep playing']]);if(v==='yes')endGame('resign')};
+$('aDraw').onclick=async()=>{
+if(G.over||G.busy)return;
+G.busy=true;renderGame();const fen=G.g.fen();const r=await evalFen(fen,600);G.busy=false;
+const engCp=G.g.turn()===G.pc?-r.cp:r.cp;
+if(G.g.history().length>=30&&engCp<=40){endGame('agreed')}
+else{coach('The computer declines the draw'+(G.g.history().length<30?' this early.':'.'),'');renderGame()}
+};
+$('aNew').onclick=()=>{G.id++;G.over=true;if(G.train)openCourse(G.opening.course.id);else tab('home')};
+$('aRestart').onclick=()=>startGame();
+/* ---------- game end + rating ---------- */
+async function endGame(reason){
+if(G.over)return;G.over=true;G.busy=false;G.id++;
+const g=G.g;let res,why;
+if(reason==='resign'){res=G.pc==='w'?'0-1':'1-0';why='You resigned.'}
+else if(reason==='agreed'){res='1/2-1/2';why='Draw agreed.'}
+else if(g.in_checkmate()){res=g.turn()==='w'?'0-1':'1-0';why='Checkmate.'}
+else if(g.in_stalemate()){res='1/2-1/2';why='Stalemate.'}
+else if(g.in_threefold_repetition()){res='1/2-1/2';why='Draw by threefold repetition.'}
+else if(g.insufficient_material()){res='1/2-1/2';why='Draw: not enough material to mate.'}
+else{res='1/2-1/2';why='Draw by the 50-move rule.'}
+g.header('Result',res);
+const score=res==='1/2-1/2'?.5:((res==='1-0')===(G.pc==='w')?1:0);
+const headline=score===1?'You won':score===0?'You lost':'Draw';
+let ratingHtml='';
+if(G.mode==='rated'){
+const R0=S.rating.r,E=1/(1+Math.pow(10,(G.elo-R0)/400));const K=S.rating.n<20?40:R0<2400?20:10;
+const d=Math.round(K*(score-E));S.rating.r=R0+d;S.rating.n++;S.rating.hist.push({d:new Date().toISOString().slice(0,10),opp:G.elo,s:score,delta:d});
+if(S.rating.hist.length>200)S.rating.hist.shift();store('knm_rating',S.rating);syncRating();
+ratingHtml='<p>Rating '+Math.round(R0)+' → <b>'+Math.round(S.rating.r)+'</b> ('+(d>=0?'+':'')+d+').</p><p class="hint">Your expected score against a '+G.elo+' opponent was '+Math.round(E*100)+'%. You scored '+(score*100)+'%. K = '+K+'.</p>';
+}
+const rec=gameRecord(res);S.last=rec;store('knm_last',rec);
+renderGame();
+coach('<div class="open">'+headline+'. '+why+'</div>','');
+const v=await modal(headline,'<p>'+why+'</p>'+ratingHtml,[['review','Review the game'],['save','Save'],['new','New game']]);
+if(v==='review')openReview(rec);
+else if(v==='save'){saveGame(rec);openReview(rec)}
+else tab('home');
+}
+function gameRecord(res){
+return{id:Date.now(),date:new Date().toISOString().slice(0,16).replace('T',' '),pgn:G.g.pgn(),pc:G.pc,mode:G.mode,elo:G.elo,
+opening:G.opening?G.opening.name:'',book:G.g.history().slice(0,G.bookPlies),result:res||'*'};
+}
+function saveGame(rec){if(S.saved.some(x=>x.id===rec.id))return;S.saved.unshift(rec);if(S.saved.length>300)S.saved.pop();store('knm_saved',S.saved)}
+/* ---------- review ---------- */
+const R={rec:null,i:0,ev:[],sans:[],ucis:[],fens:[],marks:[],showBest:false,token:0};
+async function openReview(rec){
+tab('review');$('rEmpty').classList.add('hidden');$('rMain').classList.remove('hidden');
+const g=new Chess();if(!g.load_pgn(rec.pgn,{sloppy:true})){$('rStatusText').textContent='This PGN could not be read.';return}
+const hdr=g.header();const start=new Chess(hdr.FEN||undefined);
+const hist=g.history({verbose:true});
+Object.assign(R,{rec,i:0,ev:[],marks:[],showBest:false,token:R.token+1,sans:hist.map(m=>m.san),ucis:hist.map(m=>m.from+m.to+(m.promotion||'')),fens:[start.fen()],hdr});
+for(const m of hist){start.move(m);R.fens.push(start.fen())}
+R.i=R.fens.length-1;
+$('rStatus').classList.remove('hidden');$('rSummary').classList.add('hidden');
+renderReview();
+const tok=R.token;const n=R.fens.length;
+for(let i=0;i<n;i++){
+if(tok!==R.token)return;
+const fen=R.fens[i];const t=terminalEval(fen);
+let r=t;if(!r){r=await engine().run(fen,{depth:11,cap:1500});}
+if(tok!==R.token)return;
+const turn=fen.split(' ')[1];
+R.ev[i]={cpW:turn==='w'?r.cp:-r.cp,best:r.best&&r.best!=='(none)'?r.best:null,pv:r.lines&&r.lines[0]?r.lines[0].pv:[],cp:r.cp};
+$('rProg').style.width=Math.round((i+1)/n*100)+'%';$('rStatusText').textContent='Analysing move '+Math.ceil(i/2)+' of '+Math.ceil((n-1)/2)+'…';
+if(i>0)classify(i-1);
+if(i%4===0||i===n-1)renderReview();
+}
+const flagged=[];for(let i=0;i<R.sans.length;i++)if(R.ev[i]&&R.ev[i].loss>=10&&R.marks[i]!=='book')flagged.push(i);
+for(let j=0;j<flagged.length;j++){
+if(tok!==R.token)return;const i=flagged[j];
+$('rStatusText').textContent='Double-checking flagged move '+(j+1)+' of '+flagged.length+'…';
+const r=await moveCheck(R.fens[i],R.ucis[i],12);if(tok!==R.token)return;
+if(r){const a=R.ev[i];a.loss=r.drop;a.acc=Math.max(0,Math.min(100,103.1668*Math.exp(-0.04354*r.drop)-3.1669));
+if(r.isBest)R.marks[i]='best';else R.marks[i]=r.drop>=20?'blunder':r.drop>=10?'mistake':r.drop>=5?'inacc':'';
+if(!r.isBest&&r.best.best){a.best=r.best.best;a.pv=r.best.lines[0]?r.best.lines[0].pv:[a.best]}}
+}
+$('rStatus').classList.add('hidden');renderSummary();renderReview();
+}
+function classify(i){
+const a=R.ev[i],b=R.ev[i+1];if(!a||!b)return;
+const mover=R.fens[i].split(' ')[1];
+const wb=mover==='w'?winPct(a.cpW):100-winPct(a.cpW),wa=mover==='w'?winPct(b.cpW):100-winPct(b.cpW);
+const loss=Math.max(0,wb-wa);a.loss=loss;
+a.acc=Math.max(0,Math.min(100,103.1668*Math.exp(-0.04354*loss)-3.1669));
+const book=R.rec.book||[];
+if(i<book.length&&book[i]===R.sans[i])R.marks[i]='book';
+else if(a.best===R.ucis[i])R.marks[i]='best';
+else R.marks[i]=loss>=20?'blunder':loss>=10?'mistake':loss>=5?'inacc':'';
+}
+function explain(i){
+const a=R.ev[i],b=R.ev[i+1];if(!a||!b)return'Analysing…';
+const fen=R.fens[i],fenAfter=R.fens[i+1],mover=fen.split(' ')[1];
+const mark=R.marks[i];const san=R.sans[i];
+const moverCp=c=>mover==='w'?c:-c;
+const before=moverCp(a.cpW),after=moverCp(b.cpW);
+const bestSan=a.best?uciToSan(fen,a.best):'';
+const line=a.best?pvToSan(fen,a.pv&&a.pv.length?a.pv:[a.best],5).join(' '):'';
+const head='<b>'+(Math.floor(i/2)+1)+(mover==='w'?'. ':'… ')+esc(san)+'</b> ';
+const evalTxt='<div class="idea">Eval for '+sideName(mover)+': '+fmt(before)+' → '+fmt(after)+'</div>';
+if(mark==='book')return head+'Book move.'+evalTxt;
+if(mark==='best')return head+'Best move.'+evalTxt;
+let why=[];
+if(before>9000&&after<9000)why.push('You had a forced mate. <b>'+esc(bestSan)+'</b> starts it.');
+if(after<-9000&&before>-9000){const rep=b.best?uciToSan(fenAfter,b.best):'';why.push('This allows a forced mate'+(rep?', starting with <b>'+esc(rep)+'</b>':'')+'.')}
+if(!why.length&&b.best){
+const rep=new Chess(fenAfter).move({from:b.best.slice(0,2),to:b.best.slice(2,4),promotion:b.best[4]});
+if(rep&&rep.captured&&a.loss>=10){const swing=(before-after)/100;
+why.push('It lets your opponent play <b>'+esc(rep.san)+'</b>, taking your '+PNAME[rep.captured]+' on '+rep.to+(swing>VAL[rep.captured]+2&&after>-9000?', and that capture also starts a strong attack':'')+'.')}
+}
+if(!why.length&&a.best){
+const bm=new Chess(fen).move({from:a.best.slice(0,2),to:a.best.slice(2,4),promotion:a.best[4]});
+if(bm&&bm.captured&&a.loss>=5)why.push('You missed <b>'+esc(bm.san)+'</b>, which wins a '+PNAME[bm.captured]+'.');
+else if(bm){const f=forkTargets(fen,bm);if(f.length>=2&&a.loss>=5)why.push('<b>'+esc(bm.san)+'</b> attacks two targets at once ('+f.join(' and ')+').')}
+}
+const label={blunder:'Blunder.',mistake:'Mistake.',inacc:'Inaccuracy.','':'Good move.'}[mark||''];
+if(!why.length&&mark)why.push(mark==='inacc'?'Slightly imprecise.':'The position gets noticeably worse.');
+const bestTxt=mark?'<div class="idea">Best was <b>'+esc(bestSan)+'</b>. Engine line: '+esc(line)+'</div>':'';
+return head+label+' '+why.join(' ')+evalTxt+bestTxt;
+}
+function forkTargets(fen,bm){
+const g=new Chess(fen);g.move(bm);if(g.in_check()){}
+const parts=g.fen().split(' ');parts[1]=parts[1]==='w'?'b':'w';parts[3]='-';
+let g2;try{g2=new Chess(parts.join(' '))}catch(e){return[]}
+const out=[];if(g.in_check())out.push('the king');
+for(const m of g2.moves({square:bm.to,verbose:true}))if(m.captured&&VAL[m.captured]>=3)out.push('the '+PNAME[m.captured]+' on '+m.to);
+return[...new Set(out)];
+}
+function renderReview(){
+const i=R.i,fen=R.fens[i];const orient=R.rec.pc||'w';
+const mv=i>0?{from:R.ucis[i-1].slice(0,2),to:R.ucis[i-1].slice(2,4)}:null;
+let arrows=[];
+const prev=R.ev[i-1];
+if(i>0&&prev&&R.showBest&&prev.best&&prev.best!==R.ucis[i-1])arrows.push({from:prev.best.slice(0,2),to:prev.best.slice(2,4),color:'#86c08a'});
+renderBoard($('rBoard'),$('rArrows'),fen,{orient,last:mv,check:new Chess(fen).in_check(),arrows,names:S.set.squareNames});
+const top=orient==='w'?'b':'w',bot=orient;
+const nm=c=>(c==='w'?(R.hdr.White||'White'):(R.hdr.Black||'Black'));
+playerRow($('rTop'),top,nm(top),fen,false);playerRow($('rBot'),bot,nm(bot),fen,false);
+const ev=R.ev[i];setEvalBar($('rEval'),ev?ev.cpW:0,orient);
+$('rCard').innerHTML=i===0?'Start position. Step through with ▶ or tap a move.':explain(i-1);
+const mk=R.marks[i-1];$('rCard').className='coach'+(mk==='blunder'?' bad':mk==='mistake'||mk==='inacc'?' warn':mk?' ok':'');
+$('rBest').classList.toggle('on',R.showBest);
+renderMoveList($('rMoves'),R.sans,R.marks,i-1,k=>{R.i=k+1;renderReview()});
+drawGraph();
+}
+function drawGraph(){
+const n=R.fens.length;const pts=[];
+for(let i=0;i<n;i++){const e=R.ev[i];if(!e)break;pts.push([n>1?i/(n-1)*400:0,70-winPct(e.cpW)/100*70])}
+let h='<rect x="0" y="0" width="400" height="35" fill="#27233a"/><line x1="0" y1="35" x2="400" y2="35" stroke="#3d3758"/>';
+if(pts.length>1)h+='<path d="M0,70 L'+pts.map(p=>p.join(',')).join(' L')+' L'+pts[pts.length-1][0]+',70 Z" fill="#e9e5dc" opacity=".85"/>';
+for(let i=0;i<R.marks.length;i++){const m=R.marks[i];if((m==='blunder'||m==='mistake')&&pts[i+1])h+='<circle cx="'+pts[i+1][0]+'" cy="'+pts[i+1][1]+'" r="3" fill="'+(m==='blunder'?'#e56f6f':'#e6b25c')+'"/>'}
+const x=n>1?R.i/(n-1)*400:0;h+='<line x1="'+x+'" y1="0" x2="'+x+'" y2="70" stroke="#e9c46a" stroke-width="2"/>';
+$('rGraph').innerHTML=h;
+}
+$('rGraph').onclick=e=>{const b=$('rGraph').getBoundingClientRect();const n=R.fens.length;R.i=Math.max(0,Math.min(n-1,Math.round((e.clientX-b.left)/b.width*(n-1))));renderReview()};
+function renderSummary(){
+const pc=R.rec.pc||'w';const side={w:{acc:[],c:{blunder:0,mistake:0,inacc:0,best:0}},b:{acc:[],c:{blunder:0,mistake:0,inacc:0,best:0}}};
+for(let i=0;i<R.sans.length;i++){const c=i%2===0?R.fens[0].split(' ')[1]:(R.fens[0].split(' ')[1]==='w'?'b':'w');const e=R.ev[i];if(!e||e.acc===undefined)continue;
+const colr=R.fens[i].split(' ')[1];side[colr].acc.push(e.acc);if(side[colr].c[R.marks[i]]!==undefined)side[colr].c[R.marks[i]]++}
+const avg=a=>a.length?Math.round(a.reduce((x,y)=>x+y,0)/a.length):'–';
+let h='<h2>Summary</h2><div class="summary"><span class="h"></span><span class="h">White</span><span class="h">Black</span>'+
+'<span>Accuracy</span><span>'+avg(side.w.acc)+'%</span><span>'+avg(side.b.acc)+'%</span>';
+for(const[k,l]of[['best','Best moves'],['inacc','Inaccuracies'],['mistake','Mistakes'],['blunder','Blunders']])h+='<span>'+l+'</span><span>'+side.w.c[k]+'</span><span>'+side.b.c[k]+'</span>';
+h+='</div>';
+const mine=[];for(let i=0;i<R.sans.length;i++){if(R.fens[i].split(' ')[1]===pc&&R.ev[i]&&R.ev[i].loss>=10)mine.push(i)}
+mine.sort((a,b)=>R.ev[b].loss-R.ev[a].loss);
+if(mine.length){h+='<h2 style="margin-top:12px">Your key moments</h2>';
+for(const i of mine.slice(0,4))h+='<button class="keym" data-k="'+i+'">Move '+(Math.floor(i/2)+1)+': '+esc(R.sans[i])+' <span class="tag '+R.marks[i]+'">'+({blunder:'??',mistake:'?'}[R.marks[i]]||'')+'</span> — best was '+esc(R.ev[i].best?uciToSan(R.fens[i],R.ev[i].best):'?')+'</button>'}
+else h+='<p class="hint" style="margin-top:10px">No mistakes or blunders from you in this game.</p>';
+$('rSummary').innerHTML=h;$('rSummary').classList.remove('hidden');
+$('rSummary').querySelectorAll('.keym').forEach(b=>b.onclick=()=>{R.i=+b.dataset.k+1;R.showBest=true;renderReview();window.scrollTo({top:0,behavior:'smooth'})});
+}
+$('rFirst').onclick=()=>{R.i=0;renderReview()};
+$('rPrev').onclick=()=>{R.i=Math.max(0,R.i-1);renderReview()};
+$('rNext').onclick=()=>{R.i=Math.min(R.fens.length-1,R.i+1);renderReview()};
+$('rLast').onclick=()=>{R.i=R.fens.length-1;renderReview()};
+$('rBest').onclick=()=>{R.showBest=!R.showBest;renderReview()};
+document.addEventListener('keydown',e=>{if($('review').classList.contains('hidden')||!R.rec)return;if(e.key==='ArrowLeft')$('rPrev').click();if(e.key==='ArrowRight')$('rNext').click()});
+$('rSave').onclick=()=>{if(!R.rec)return;saveGame(R.rec);$('rSave').textContent='Saved'};
+function downloadPgn(rec){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rec.pgn],{type:'application/x-chess-pgn'}));a.download='knightnmare-'+rec.id+'.pgn';document.body.appendChild(a);a.click();a.remove()}
+$('rPgn').onclick=()=>{if(R.rec)downloadPgn(R.rec)};
+$('rCopy').onclick=async()=>{if(!R.rec)return;try{await navigator.clipboard.writeText(R.rec.pgn);$('rCopy').textContent='Copied'}catch(e){modal('Copy this PGN','<textarea readonly>'+esc(R.rec.pgn)+'</textarea>',[['ok','Done']])}};
+/* ---------- games list ---------- */
+function renderGames(){
+const L=S.saved;
+$('gList').innerHTML=L.length?L.map(r=>'<div class="gitem"><div class="t">'+esc(r.opening||'Free game')+' <small>'+esc(r.date)+' · '+sideName(r.pc)+' vs '+(r.mode==='import'?'import':'computer '+r.elo)+' · '+esc(r.result)+'</small></div>'+
+'<button class="btn small" data-a="rev" data-id="'+r.id+'">Review</button><button class="btn small" data-a="pgn" data-id="'+r.id+'">PGN</button><button class="btn small" data-a="del" data-id="'+r.id+'" aria-label="Delete">✕</button></div>').join(''):'<p class="hint">Saved games appear here. Save one from the end-of-game screen or the review screen.</p>';
+$('gList').onclick=async e=>{const b=e.target.closest('button');if(!b)return;const r=S.saved.find(x=>x.id==b.dataset.id);if(!r)return;
+if(b.dataset.a==='rev')openReview(r);
+else if(b.dataset.a==='pgn')downloadPgn(r);
+else if((await modal('Delete this game?','',[['yes','Delete'],['no','Keep']]))==='yes'){S.saved=S.saved.filter(x=>x!==r);store('knm_saved',S.saved);renderGames()}};
+const keys=Object.keys(S.drill);
+$('drillList').innerHTML=keys.length?keys.map(k=>{const c=k.slice(-1),id=k.slice(0,-2);const d=S.drill[k];const rc=id.startsWith('rep:')?courseById(id.slice(4)):null;return esc(OPEN[id]?OPEN[id].name:rc?rc.name:'Deleted repertoire')+' as '+sideName(c)+': '+d.clean+' clean of '+d.runs+(d.last?' (last '+d.last+')':'')}).join('<br>'):'No drills yet.';
+}
+$('pgnGo').onclick=()=>{
+const txt=$('pgnIn').value.trim();const g=new Chess();
+if(!txt||!g.load_pgn(txt,{sloppy:true})){modal('That PGN could not be read','<p class="hint">Check that it includes the moves, like "1. e4 e5 2. Nf3". Chess.com and Lichess exports work as they are.</p>',[['ok','OK']]);return}
+const h=g.header();const rec={id:Date.now(),date:new Date().toISOString().slice(0,16).replace('T',' '),pgn:g.pgn(),pc:$('pgnSide').value,mode:'import',elo:0,opening:h.Opening||((h.White||'?')+' vs '+(h.Black||'?')),book:[],result:h.Result||'*'};
+saveGame(rec);$('pgnIn').value='';openReview(rec);
+};
+/* ---------- repertoire: PGN in/out with variations ---------- */
+const START_FEN=new Chess().fen();
+function importPgnInto(root,text){
+const toks=text.replace(/\r/g,'').match(/\[[^\]]*\]|\{[^}]*\}|;[^\n]*|\(|\)|\$\d+|\d+\.(?:\.\.)?|\.\.\.|1-0|0-1|1\/2-1\/2|\*|[^\s(){}\[\];]+/g)||[];
+let cur=root,fen=START_FEN,par=root,parFen=START_FEN,last=null,stack=[],inHdr=false,skip=false,added=0,bad=0,broken=0;
+const reset=()=>{cur=root;fen=START_FEN;par=root;parFen=START_FEN;last=null;stack=[];broken=0};
+for(const t of toks){
+if(t[0]==='['){if(!inHdr){reset();skip=false;inHdr=true}if(/^\[FEN\s/.test(t)&&t.indexOf('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w')<0)skip=true;continue}
+inHdr=false;if(skip)continue;
+if(t[0]==='{'||t[0]===';'){const txt=t.replace(/^[{;]|}$/g,'').replace(/\[%[^\]]*\]/g,'').replace(/\s+/g,' ').trim();if(last&&txt&&!broken)last.t=(last.t?last.t+' ':'')+txt;continue}
+if(t==='('){stack.push([cur,fen,par,parFen,last,broken]);cur=par;fen=parFen;last=null;continue}
+if(t===')'){const s=stack.pop();if(s)[cur,fen,par,parFen,last,broken]=s;continue}
+if(/^(\d+\.(\.\.)?|\.\.\.|\$\d+)$/.test(t))continue;
+if(/^(1-0|0-1|1\/2-1\/2|\*)$/.test(t)){if(!stack.length)reset();continue}
+if(broken){bad++;continue}
+const san=t.replace(/[!?]+$/,'').replace(/^\d+\.+/,'');if(!san)continue;
+const g=new Chess(fen);const m=g.move(san,{sloppy:true});
+if(!m){bad++;broken=1;continue}
+let c=childBySan(cur,m.san);if(!c){c={m:m.san,k:[]};cur.k.push(c);added++}
+par=cur;parFen=fen;cur=c;fen=g.fen();last=c;
+}
+return{added,bad};
+}
+function treeToPgn(c){
+const num=(p,force)=>p%2===0?(p/2+1)+'. ':(force?(Math.floor(p/2)+1)+'... ':'');
+const cm=n=>n.t?' {'+n.t.replace(/[{}]/g,'')+'}':'';
+function line(node,p,force){
+const out=[];
+while(node.k.length){
+const[main,...alts]=node.k;
+out.push(num(p,force)+main.m+cm(main));
+for(const a of alts)out.push('('+num(p,true)+a.m+cm(a)+(a.k.length?' '+line(a,p+1,!!a.t):'')+')');
+force=alts.length>0||!!main.t;node=main;p++;
+}
+return out.join(' ');
+}
+return '[Event "'+c.name.replace(/"/g,"'")+'"]\n[Site "KNIGHT\'nMARE repertoire"]\n[Result "*"]\n[Annotator "'+sideName(c.side)+' repertoire"]\n\n'+line(c.root,0,true)+' *\n';
+}
+function downloadText(name,text){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:'application/x-chess-pgn'}));a.download=name;document.body.appendChild(a);a.click();a.remove()}
+function lineText(path){return path.map((n,i)=>(i%2===0?(i/2+1)+'. ':'')+n.m).join(' ')}
+/* ---------- repertoire screens ---------- */
+function repShow(id){for(const s of['repHome','repCourse','repEdit'])$(s).classList.toggle('hidden',s!==id)}
+function pctLearned(st){return st.total?Math.round(st.learned/st.total*100):0}
+function renderRepHome(){
+repShow('repHome');$('repNew').classList.add('hidden');$('repNewBtn').classList.remove('hidden');
+const L=REP.courses;
+$('repList').innerHTML=L.length?L.map(c=>{const st=courseStats(c);
+return '<button class="keym" data-id="'+c.id+'"><b>'+esc(c.name)+'</b> <span class="hint">as '+sideName(c.side)+'</span><br><small class="hint">'+
+st.total+' of your moves, '+st.due+' due, '+st.fresh+' new</small><div class="progress"><div style="width:'+pctLearned(st)+'%"></div></div></button>'}).join(''):
+'<p class="hint">Build your own opening lines. The computer plays them back, and spaced repetition brings each of your moves back just before you would forget it.</p>';
+$('repList').onclick=e=>{const b=e.target.closest('[data-id]');if(b)openCourse(b.dataset.id)};
+}
+function initRepNew(){
+$('rnFrom').innerHTML='<option value="empty">Empty board</option><option value="pgn">Paste PGN (keeps variations)</option><optgroup label="Built-in openings">'+
+OPENINGS.map(o=>'<option value="'+o[0]+'">'+esc(o[1])+'</option>').join('')+'</optgroup>';
+let side='w';
+$('rnSide').onclick=e=>{const v=e.target.dataset.v;if(!v)return;side=v;$('rnSide').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v===v))};
+$('rnFrom').onchange=()=>{$('rnPgn').classList.toggle('hidden',$('rnFrom').value!=='pgn');const o=OPEN[$('rnFrom').value];if(o&&!$('rnName').value)$('rnName').value=o.name};
+$('repNewBtn').onclick=()=>{$('repNew').classList.remove('hidden');$('repNewBtn').classList.add('hidden');$('rnName').value='';$('rnPgn').value='';$('rnFrom').value='empty';$('rnPgn').classList.add('hidden')};
+$('rnCancel').onclick=()=>{$('repNew').classList.add('hidden');$('repNewBtn').classList.remove('hidden')};
+$('rnCreate').onclick=()=>{
+const from=$('rnFrom').value;const c={id:String(Date.now()),name:$('rnName').value.trim()||(OPEN[from]?OPEN[from].name:'My repertoire'),side,root:{m:null,k:[]}};
+if(from==='pgn'){const r=importPgnInto(c.root,$('rnPgn').value);
+if(!r.added){modal('No moves found','<p class="hint">Paste the moves, like "1. e4 c6 2. d4 d5 (2... e6)". Lichess studies and Chessable exports work.</p>',[['ok','OK']]);return}
+if(r.bad)modal('Imported with gaps','<p class="hint">'+r.added+' moves added. '+r.bad+' moves could not be read and were skipped with the rest of their line.</p>',[['ok','OK']])}
+else if(OPEN[from])c.root=lineToTree(OPEN[from].line);
+REP.courses.push(c);saveRep();refreshOpeningSelect();
+if(from==='pgn')openCourse(c.id);else openEditor(c.id);
+};
+}
+function openCourse(id){
+const c=courseById(id);tab('rep');if(!c)return renderRepHome();
+repShow('repCourse');const st=courseStats(c);const nLines=allLines(c.root,5000).length;
+$('repCourse').innerHTML='<button class="btn small" id="cBack">‹ All repertoires</button>'+
+'<div class="panel" style="margin-top:8px"><h2>'+esc(c.name)+'</h2><p class="hint">You play '+sideName(c.side)+'. '+st.total+' of your moves across '+nLines+' line'+(nLines===1?'':'s')+'.</p>'+
+'<div class="progress"><div style="width:'+pctLearned(st)+'%"></div></div>'+
+'<div class="summary" style="margin-top:10px;grid-template-columns:1fr auto"><span>New</span><span>'+st.fresh+'</span><span>Due now</span><span>'+st.due+'</span><span>Learned</span><span>'+st.learned+'</span><span>Mastered (reviewed over 2 weeks)</span><span>'+st.mastered+'</span></div>'+
+(!st.due&&st.next?'<p class="hint">Next review due in '+srsFmt(st.next-Date.now())+'.</p>':'')+
+(!st.total?'<p class="hint">This repertoire is empty. Tap Edit lines and play moves on the board.</p>':'')+'</div>'+
+'<div class="actions"><button id="cLearn"'+(st.fresh?'':' disabled')+'>Learn ('+st.fresh+')</button><button id="cReview"'+(st.due?'':' disabled')+'>Review ('+st.due+')</button><button id="cPlay"'+(st.total?'':' disabled')+'>Play it</button>'+
+'<button id="cEdit">Edit lines</button><button id="cExport">Export PGN</button><button id="cMore">Rename or delete</button></div>';
+$('cBack').onclick=renderRepHome;
+$('cLearn').onclick=()=>startTraining(c,'learn');
+$('cReview').onclick=()=>startTraining(c,'review');
+$('cEdit').onclick=()=>openEditor(c.id);
+$('cExport').onclick=()=>downloadText(c.name.replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-')+'.pgn',treeToPgn(c));
+$('cPlay').onclick=()=>{S.set.opening='rep:'+c.id;S.set.side=c.side;if(S.set.mode==='rated')S.set.mode='practice';saveSet();refreshOpeningSelect();syncSetup();tab('home');window.scrollTo(0,0);
+$('modeHint').textContent='The computer plays your repertoire back, choosing between the replies you prepared. Pick Practice or Drill, then Start.'};
+$('cMore').onclick=async()=>{
+const v=await modal('Rename or delete','<input type="text" id="mRename" value="'+esc(c.name)+'" style="width:100%;max-width:100%">',[['save','Save name'],['del','Delete repertoire'],['cancel','Cancel']]);
+if(v==='save'){c.name=$('mRename').value.trim()||c.name;saveRep();refreshOpeningSelect();openCourse(c.id)}
+else if(v==='del'){const w=await modal('Delete "'+c.name+'"?','<p class="hint">Your lines and review progress for it are removed. Export the PGN first if you might want it back.</p>',[['yes','Delete'],['no','Keep it']]);
+if(w==='yes'){REP.courses=REP.courses.filter(x=>x!==c);saveRep();if(S.set.opening==='rep:'+c.id){S.set.opening='italian';saveSet()}refreshOpeningSelect();renderRepHome()}}
+};
+}
+/* ---------- line editor ---------- */
+const E={c:null,path:[],sel:null,lines:false};
+const eNode=()=>E.path.length?E.path[E.path.length-1]:E.c.root;
+function eGame(){const g=new Chess();let lm=null;for(const n of E.path)lm=g.move(n.m);return{g,lm}}
+function openEditor(id){const c=courseById(id);if(!c)return renderRepHome();E.c=c;E.path=[];E.sel=null;E.lines=false;tab('rep');repShow('repEdit');$('eTitle').textContent=c.name;renderEditor()}
+function renderEditor(){
+const{g,lm}=eGame();const fen=g.fen();const node=eNode();const mine=g.turn()===E.c.side;
+let targets=null;if(E.sel){targets={};for(const m of g.moves({square:E.sel,verbose:true}))targets[m.to]=m.captured?'c':'m'}
+const arrows=E.sel?[]:node.k.map(k=>{const m=new Chess(fen).move(k.m);return{from:m.from,to:m.to,color:mine?'#86c08a':'#e6b25c'}});
+renderBoard($('eBoard'),$('eArrows'),fen,{orient:E.c.side,sel:E.sel,targets,last:lm,check:g.in_check(),arrows,names:S.set.squareNames});
+$('eInfo').innerHTML=mine?(node.k.length?'Your move here: '+node.k.map(k=>'<b>'+esc(k.m)+'</b>').join(' or ')+'.'+(node.k.length>1?' Drills accept either.':'')+' Tap ▶ or the move below to continue.':'Play <b>your</b> move for this position on the board.'):
+(node.k.length?'You have prepared '+node.k.length+' opponent repl'+(node.k.length>1?'ies':'y')+' here. Play another on the board to add a branch.':'Play an opponent reply on the board to prepare for it.');
+$('eKids').innerHTML=node.k.length?node.k.map((k,i)=>'<button class="chip'+(mine?' you':'')+'" data-i="'+i+'">'+(ply2num(E.path.length))+esc(k.m)+(k.b!==undefined?' <small>✓</small>':'')+'</button>').join(''):'<span class="hint">None yet.</span>';
+$('eKids').onclick=e=>{const b=e.target.closest('[data-i]');if(b){E.path.push(node.k[+b.dataset.i]);E.sel=null;renderEditor()}};
+$('eNote').disabled=!E.path.length;$('eNote').value=E.path.length?(node.t||''):'';
+$('eNote').placeholder=E.path.length?'Why '+node.m+'? Plans, traps, ideas…':'Make a move first, then add a note to it.';
+renderMoveList($('eLine'),E.path.map(n=>n.m),null,E.path.length-1,i=>{E.path=E.path.slice(0,i+1);E.sel=null;renderEditor()});
+$('eDel').disabled=!E.path.length;$('ePrev').disabled=!E.path.length;$('eStart').disabled=!E.path.length;$('eNext').disabled=!node.k.length;
+$('eLines').classList.toggle('hidden',!E.lines);$('eLinesBtn').textContent=E.lines?'Hide lines':'All lines';
+if(E.lines){const L=allLines(E.c.root,300);
+$('eLines').innerHTML=L.length?'<div class="hint" style="margin-bottom:4px">'+L.length+(L.length>=300?'+':'')+' lines. Tap one to open it.</div>'+L.map((p,i)=>'<button class="keym" data-l="'+i+'">'+esc(lineText(p))+'</button>').join(''):'<span class="hint">No lines yet.</span>';
+$('eLines').onclick=e=>{const b=e.target.closest('[data-l]');if(b){E.path=L[+b.dataset.l].slice();E.sel=null;renderEditor();window.scrollTo({top:0,behavior:'smooth'})}}}
+}
+function ply2num(p){return p%2===0?(p/2+1)+'. ':(Math.floor(p/2)+1)+'… '}
+$('eBoard').addEventListener('click',async e=>{
+const t=e.target.closest('.sq');if(!t)return;const sq=t.dataset.sq;
+const{g}=eGame();const p=g.get(sq);
+if(E.sel){const mv=g.moves({square:E.sel,verbose:true}).find(m=>m.to===sq);
+if(mv){let promo;if(mv.flags.includes('p')){promo=await choosePromo(g.turn());if(!promo){E.sel=null;return renderEditor()}}
+const m=g.move({from:E.sel,to:sq,promotion:promo});E.sel=null;return addEditorMove(m.san)}}
+E.sel=p&&p.color===g.turn()?(E.sel===sq?null:sq):null;renderEditor();
+});
+async function addEditorMove(san){
+const node=eNode();let c=childBySan(node,san);
+if(!c){
+const mine=sideOfPly(E.path.length)===E.c.side;
+if(mine&&node.k.length){const v=await modal('You already play '+node.k.map(k=>k.m).join(' or ')+' here',
+'<p class="hint">A repertoire works best with one move per position for your side, so you never hesitate. If you keep both, drills accept either.</p>',[['keep','Keep both'],['cancel','Cancel']]);
+if(v!=='keep')return renderEditor()}
+c={m:san,k:[]};node.k.push(c);saveRep();
+}
+E.path.push(c);renderEditor();
+}
+$('eNote').oninput=()=>{const n=eNode();if(!E.path.length)return;const v=$('eNote').value.trim();if(v)n.t=v;else delete n.t;saveRep()};
+$('eStart').onclick=()=>{E.path=[];E.sel=null;renderEditor()};
+$('ePrev').onclick=()=>{E.path.pop();E.sel=null;renderEditor()};
+$('eNext').onclick=()=>{const n=eNode();if(n.k.length){E.path.push(n.k[0]);E.sel=null;renderEditor()}};
+$('eDel').onclick=async()=>{
+if(!E.path.length)return;const n=eNode();const parent=E.path.length>1?E.path[E.path.length-2]:E.c.root;
+const count=allLines(n,5000).reduce((s,p)=>s+p.length,0);
+const v=await modal('Delete '+n.m+'?','<p class="hint">'+(count?'This also deletes the '+count+' move'+(count>1?'s':'')+' that follow it.':'Nothing follows this move.')+'</p>',[['yes','Delete'],['no','Keep']]);
+if(v!=='yes')return;parent.k=parent.k.filter(x=>x!==n);E.path.pop();saveRep();renderEditor();
+};
+$('eLinesBtn').onclick=()=>{E.lines=!E.lines;renderEditor()};
+$('eBack').onclick=()=>openCourse(E.c.id);
+$('eImport').onclick=async()=>{
+const v=await modal('Add lines from PGN','<p class="hint">Moves merge into this repertoire from the starting position. Variations in ( ) and notes in { } are kept.</p><textarea id="mPgn" style="min-height:120px"></textarea>',[['add','Add lines'],['cancel','Cancel']]);
+if(v!=='add')return;const r=importPgnInto(E.c.root,$('mPgn').value);saveRep();renderEditor();
+modal(r.added?r.added+' moves added':'No new moves','<p class="hint">'+(r.bad?r.bad+' moves could not be read and were skipped with the rest of their line.':'Everything in the PGN was read.')+'</p>',[['ok','OK']]);
+};
+function refreshOpeningSelect(){
+const sel=$('opening');let h='<option value="none">No opening — free game</option>';
+if(REP.courses.length)h+='<optgroup label="My repertoires">'+REP.courses.map(c=>'<option value="rep:'+c.id+'">'+esc(c.name)+' ('+sideName(c.side)+')</option>').join('')+'</optgroup>';
+h+='<optgroup label="Built-in openings">'+OPENINGS.map(o=>'<option value="'+o[0]+'">'+esc(o[1])+' ('+o[2]+')</option>').join('')+'</optgroup>';
+sel.innerHTML=h;
+if(S.set.opening.startsWith('rep:')&&!courseById(S.set.opening.slice(4))){S.set.opening='italian';saveSet()}
+sel.value=S.set.opening;
+}
+/* ---------- boot ---------- */
+if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(()=>{});
+applyTheme();initSetup();initRepNew();refreshOpeningSelect();syncSetup();
+setTimeout(()=>{try{engine()}catch(e){}},300);
+</script>
+</body>
+</html>
