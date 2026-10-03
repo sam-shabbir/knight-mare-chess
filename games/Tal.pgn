@@ -1,0 +1,154 @@
+[Event "Tal – Smyslov, Candidates 1959 (against the Caro-Kann)"]
+[White "Tal"]
+[Black "Smyslov"]
+[Date "1959.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{For you as a Caro-Kann player: don't open the centre while behind in development.
+Smyslov, a former world champion, played the Caro-Kann. Tal's quiet 2.d3 led to
+opposite-side castling and a storm.} 1. e4 c6 2. d3 {A calm King's Indian set-up. It
+sidesteps Caro-Kann theory.} 2... d5 3. Nd2 e5 4. Ngf3 Nd7 5. d4 dxe4 6. Nxe4 exd4 7. Qxd4
+Ngf6 8. Bg5 Be7 9. O-O-O {Opposite-side castling. Both kings are targets, and the faster
+attack wins.} 9... O-O 10. Nd6 {The knight lands on d6, hitting b7 and c8. Black's
+queenside is tied up.} 10... Qa5 11. Bc4 b5 12. Bd2 Qa6 13. Nf5 Bd8 14. Qh4 {Question:
+Your bishop on c4 is attacked. Save it, or attack? Tal ignores the bishop and brings the
+queen to the kingside. The engine says the position is balanced. Black had to find one
+exact defence, and there were many ways to go wrong.} 14... bxc4 15. Qg5 {Threatens Qxg7
+mate. Black has to block with ...Nh5.} 15... Nh5 16. Nh6+ Kh8 17. Qxh5 Qxa2 18. Bc3 Nf6
+19. Qxf7 {Question: Look for a sequence of checks that ends in a fork. The queen sacrifice
+wins. After 19...Qa1+ 20.Kd2 Rxf7 21.Nxf7+ Kg8 22.Rxa1 Kxf7 23.Ne5+, Tal comes out with a
+decisive material advantage (engine about +4).} 19... Qa1+ 20. Kd2 Rxf7 21. Nxf7+ Kg8 22.
+Rxa1 Kxf7 23. Ne5+ Ke6 24. Nxc6 Ne4+ 25. Ke3 Bb6+ 26. Bd4 {Black resigned. Lesson for your
+Caro-Kann: Smyslov opened the centre with ...e5 and ...exd4 before his pieces were out,
+and Tal's knights jumped into d6 and f5.} 1-0
+
+[Event "Tal – Bronstein, USSR Championship 1971 (Panov Attack)"]
+[White "Tal"]
+[Black "Bronstein"]
+[Date "1971.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{In the Panov, Black must castle before grabbing anything. An exchange sacrifice for
+lasting pressure. The Panov Attack against your Caro-Kann. Bronstein kept his king in the
+centre one move too long.} 1. e4 c6 2. c4 d5 3. exd5 cxd5 4. d4 Nf6 5. Nc3 Nc6 6. Bg5
+{Pressure on d5 and f6, the main danger for Black in the Panov.} 6... Bg4 7. Be2 Bxe2 8.
+Ngxe2 dxc4 9. d5 {Tal gives a pawn for time. The black king has not castled.} 9... Ne5 10.
+O-O h6 11. Bf4 Ng6 12. Qa4+ {Wins the pawn back with tempo.} 12... Qd7 13. Qxc4 Rc8 14.
+Qb3 e5 15. dxe6 Qxe6 16. Qxb7 Bc5 17. Nd4 Bxd4 18. Rae1 O-O 19. Rxe6 {Question: Black's
+queen stands on e6, defended once. Count the material before you capture. Tal already gave
+a knight with 17.Nd4, and now takes the queen for a rook. Knight and rook for queen is
+roughly level material, but 19...fxe6 20.Bd6 ties up the black rooks, the e6 pawn is weak,
+and White's queen and bishop run riot. The engine gives about +4.} 19... fxe6 20. Bd6 Rfd8
+21. Bc7 Rf8 22. Nb5 {Every white piece is active. Black's rooks are passive.} 22... Be5
+23. Bxe5 Nxe5 24. Qxa7 Nd5 25. Qd4 Ng6 26. h4 Ngf4 27. Qe4 {Black resigned.} 1-0
+
+[Event "Botvinnik – Tal, World Championship 1960, game 6"]
+[White "Botvinnik"]
+[Black "Tal"]
+[Date "1960.??.??"]
+[Result "0-1"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Practical chances. Tal's sacrifices were often 'unsound' but very hard to answer at the
+board. Tal won the title in this match. This game holds his most famous knight sacrifice.
+It's an honest lesson: the engine doesn't like it, but Botvinnik couldn't solve it.} 1. c4
+Nf6 2. Nf3 g6 3. g3 Bg7 4. Bg2 O-O 5. d4 d6 6. Nc3 Nbd7 7. O-O e5 8. e4 c6 9. h3 Qb6 10.
+d5 cxd5 11. cxd5 Nc5 12. Ne1 Bd7 13. Nd3 Nxd3 14. Qxd3 Rfc8 15. Rb1 Nh5 16. Be3 Qb4 17.
+Qe2 Rc4 18. Rfc1 Rac8 19. Kh2 f5 {Opens the f-file toward White's king.} 20. exf5 Bxf5 21.
+Ra1 Nf4 {Question: Your knight can go to f4, where a pawn can take it. Would you? Tal's
+most famous practical sacrifice. The engine prefers 21...Nf6 and rates the knight
+sacrifice as slightly worse for Black. But after 22.gxf4 exf4 Black's bishops come alive
+and the f-pawn rolls forward. Over the board, that was too much to handle.} 22. gxf4 exf4
+23. Bd2 Qxb2 24. Rab1 f3 {A pawn fork: it attacks the queen on e2 and the bishop on g2.}
+25. Rxb2 fxe2 26. Rb3 Rd4 27. Be1 Be5+ 28. Kg1 Bf4 29. Nxe2 Rxc1 30. Nxd4 Rxe1+ 31. Bf1
+Be4 32. Ne2 Be5 33. f4 Bf6 34. Rxb7 Bxd5 35. Rc7 Bxa2 36. Rxa7 Bc4 37. Ra8+ Kf7 38. Ra7+
+Ke6 39. Ra3 d5 40. Kf2 Bh4+ 41. Kg2 Kd6 42. Ng3 Bxg3 43. Bxc4 dxc4 44. Kxg3 Kd5 45. Ra7 c3
+46. Rc7 Kd4 {Black's king and c-pawn decide the endgame. White resigned.} 0-1
+
+[Event "Tal – Larsen, Candidates match 1965, game 10"]
+[White "Tal"]
+[Black "Larsen"]
+[Date "1965.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Opposite-side castling against the Sicilian: speed, open files, and sacrifices to open
+lines. The deciding game of a Candidates match. A Sicilian Scheveningen with opposite-side
+castling.} 1. e4 c5 2. Nf3 Nc6 3. d4 cxd4 4. Nxd4 e6 5. Nc3 d6 6. Be3 Nf6 7. f4 Be7 8. Qf3
+O-O 9. O-O-O {Opposite-side castling. Now it's a race.} 9... Qc7 10. Ndb5 Qb8 11. g4 {The
+pawn storm starts.} 11... a6 12. Nd4 Nxd4 13. Bxd4 b5 14. g5 Nd7 15. Bd3 b4 16. Nd5
+{Question: Black's queen is on b8, far from his king. Can you force open the e-file? The
+knight is offered to open the e-file toward e7. The engine thinks a calmer move was just
+as good, but the game shows how hard this is to defend. Black's pieces are on the
+queenside, far from the action.} 16... exd5 17. exd5 f5 18. Rde1 Rf7 19. h4 Bb7 20. Bxf5
+{Another piece thrown in to destroy the pawn cover.} 20... Rxf5 21. Rxe7 Ne5 22. Qe4 Qf8
+23. fxe5 Rf4 24. Qe3 Rf3 25. Qe2 Qxe7 26. Qxf3 dxe5 27. Re1 Rd8 28. Rxe5 Qd6 29. Qf4 Rf8
+30. Qe4 b3 31. axb3 Rf1+ 32. Kd2 Qb4+ 33. c3 Qd6 34. Bc5 Qxc5 35. Re8+ Rf8 36. Qe6+ Kh8
+37. Qf7 {Mating threats everywhere. Larsen resigned, and Tal won the match.} 1-0
+
+[Event "Tal – Hecht, Varna Olympiad 1962"]
+[White "Tal"]
+[Black "Hecht"]
+[Date "1962.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{A 'sacrifice' that is really a calculated line: count what you get back. Tal lets his
+queen be taken, because he has seen that he wins it straight back.} 1. d4 Nf6 2. c4 e6 3.
+Nf3 b6 4. Nc3 Bb4 5. Bg5 Bb7 6. e3 h6 7. Bh4 Bxc3+ 8. bxc3 d6 9. Nd2 e5 10. f3 Qe7 11. e4
+Nbd7 12. Bd3 Nf8 13. c5 {Opens the position while Black's king is still in the centre.}
+13... dxc5 14. dxe5 Qxe5 15. Qa4+ {Check, and the queen stands on a4, where Black can hit
+it with ...b5.} 15... c6 16. O-O Ng6 17. Nc4 Qe6 18. e5 {Question: If Black plays ...b5
+your queen on a4 is lost. Do you care? Tal pushes on: 18...b5 19.exf6 bxa4 20.fxg7 Rg8
+21.Bf5 traps the black queen on e6. After 21...Nxh4 22.Bxe6, the material is back, and
+White has active pieces and a strong pawn on g7. The engine rates 18.e5 as the best move.}
+18... b5 19. exf6 bxa4 20. fxg7 Rg8 21. Bf5 Nxh4 22. Bxe6 Ba6 23. Nd6+ Ke7 24. Bc4 Rxg7
+25. g3 Kxd6 26. Bxa6 Nf5 27. Rab1 f6 28. Rfd1+ Ke7 29. Re1+ Kd6 30. Kf2 c4 31. g4 Ne7 32.
+Rb7 Rag8 33. Bxc4 Nd5 34. Bxd5 cxd5 35. Rb4 Rc8 36. Rxa4 Rxc3 37. Ra6+ Kc5 38. Rxf6 h5 39.
+h3 hxg4 40. hxg4 Rh7 41. g5 Rh5 42. Rf5 Rc2+ 43. Kg3 Kc4 44. Ree5 d4 45. g6 Rh1 46. Rc5+
+Kd3 47. Rxc2 Kxc2 48. Kf4 Rg1 49. Rg5 {Active rooks and the g-pawn decide. Black
+resigned.} 1-0
+
+[Event "Averbakh – Tal, USSR Championship 1958 (Benoni)"]
+[White "Averbakh"]
+[Black "Tal"]
+[Date "1958.??.??"]
+[Result "0-1"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Tactics that serve a positional goal: use pins to win back material and free your game.
+Tal as Black in a Modern Benoni, the most dynamic answer to 1.d4.} 1. d4 Nf6 2. c4 e6 3.
+Nc3 c5 4. d5 exd5 5. cxd5 d6 6. e4 g6 7. Be2 Bg7 8. Nf3 O-O 9. O-O Re8 10. Qc2 Na6 11. Bf4
+Nb4 12. Qb1 Nxe4 {Question: White's e4 pawn looks protected. Is it? A pseudo-sacrifice.
+13.Nxe4 Bf5 pins the knight to the queen on b1, and with ...Nxd5 next Black wins the
+material back and frees his game. The engine calls it equal and active.} 13. Nxe4 Bf5 14.
+Nfd2 Nxd5 15. Bxd6 Nf6 16. Bf3 Nxe4 17. Nxe4 Bxe4 18. Bxe4 Qxd6 19. Qc2 Re7 20. Bf3 Rae8
+21. Rad1 Bd4 22. a4 b6 23. b3 Re5 24. Rd2 h5 25. Re2 Rxe2 26. Bxe2 h4 27. Kh1 Qf4 28. g3
+Qf6 29. Qd1 Rd8 30. Bg4 Bxf2 {Another strike at f2. White's king is exposed and Black's
+rook gets into d2 (engine about +2).} 31. Qe2 Rd2 32. Qe8+ Kg7 33. gxh4 Qd4 34. Bh3 Qd3
+35. Bg2 Rd1 {White resigned.} 0-1
+
+[Event "Tal – Simagin, USSR Championship 1956"]
+[White "Tal"]
+[Black "Simagin"]
+[Date "1956.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Drag the king into the open, then hunt it with checks. Afterwards, check your sacrifices.
+Young Tal against a solid defence. Black's king stays in the centre a move too long.} 1.
+e4 c6 2. d4 d6 3. Nc3 Nf6 4. f4 Qb6 5. Nf3 Bg4 6. Be2 Nbd7 7. e5 {Space with tempo against
+the f6 knight.} 7... Nd5 8. O-O Nxc3 9. bxc3 e6 10. Ng5 Bxe2 11. Qxe2 h6 12. Nxf7
+{Question: Black's king is still in the centre. Can you sacrifice to open it? A knight
+sacrifice to drag the king out. The engine actually prefers 12.Qh5 (about +1.7), but after
+12...Kxf7 13.f5 lines open at once and Black has to defend accurately for many moves.}
+12... Kxf7 13. f5 dxe5 14. fxe6+ Kxe6 15. Rb1 {Tal offers a rook to deflect the black
+queen. After 15...Qxb1 16.Qc4+, queen and bishop hunt the king. The engine prefers 15.Be3,
+but this still wins.} 15... Qxb1 16. Qc4+ Kd6 17. Ba3+ Kc7 18. Rxb1 Bxa3 19. Qb3 Be7 20.
+Qxb7+ Kd6 21. dxe5+ Nxe5 22. Rd1+ Ke6 23. Qb3+ Kf5 24. Rf1+ Ke4 25. Re1+ Kf5 26. g4+ Kf6
+27. Rf1+ Kg6 28. Qe6+ Kh7 29. Qxe5 Rhe8 30. Rf7 Bf8 31. Qf5+ Kg8 32. Kf2 Bc5+ 33. Kg3 Re3+
+34. Kh4 Rae8 35. Rxg7+ {The final blow. White soon queens a pawn.} 35... Kxg7 36. Qxc5
+R8e6 37. Qxa7+ Kg6 38. Qa8 Kf6 39. a4 Ke5 40. a5 Kd5 41. Qd8+ Ke4 42. a6 Kf3 43. a7 Re2
+44. Qd3+ R2e3 45. Qxe3+ 1-0

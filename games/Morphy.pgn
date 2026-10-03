@@ -1,0 +1,15 @@
+[Event "Morphy – Duke of Brunswick & Count Isouard, Paris 1858 (the Opera Game)"]
+[White "Morphy"]
+[Black "Duke of Brunswick & Count Isouard"]
+[Date "1858.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Develop with tempo, open lines, and the attack plays itself. Played in a box at the
+opera. The 19th century's greatest player shows why development beats material.} 1. e4 e5
+2. Nf3 d6 3. d4 Bg4 4. dxe5 Bxf3 5. Qxf3 dxe5 6. Bc4 Nf6 7. Qb3 Qe7 8. Nc3 c6 9. Bg5 b5
+10. Nxb5 {A piece for two pawns to rip open the b-file and pin the d7 knight. Every white
+piece joins the attack.} 10... cxb5 11. Bxb5+ Nbd7 12. O-O-O Rd8 13. Rxd7 {The exchange is
+given to keep the pin alive.} 13... Rxd7 14. Rd1 Qe6 15. Bxd7+ Nxd7 16. Qb8+ {Question:
+Find a forced mate in 2. 16.Qb8+! Nxb8 17.Rd8#. A queen sacrifice that clears the way for
+the rook. The engine confirms mate in 2.} 16... Nxb8 17. Rd8# 1-0

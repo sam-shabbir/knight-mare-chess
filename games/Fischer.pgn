@@ -1,0 +1,241 @@
+[Event "Donald Byrne – Fischer, New York 1956 (the Game of the Century)"]
+[White "Donald Byrne"]
+[Black "Fischer"]
+[Date "1956.??.??"]
+[Result "0-1"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Punish slow development. Coordinated pieces beat a lone queen. Fischer was 13. White's
+queen moves again and again (Qb3, Qxc4, Qc5) while his king stays in the centre. Watch how
+every Black move brings a new piece into play.} 1. Nf3 Nf6 2. c4 g6 3. Nc3 Bg7 4. d4 O-O
+5. Bf4 d5 6. Qb3 dxc4 {Fischer gives up his centre pawn to gain time. White's queen has to
+move again.} 7. Qxc4 c6 8. e4 Nbd7 9. Rd1 Nb6 10. Qc5 Bg4 {Develops with a pin on the f3
+knight, which guards d4. White's queen is about to move for the fourth time.} 11. Bg5 Na4
+{Question: White's king is still on e1 and his queen is loose on c5. Can you strike at
+once? A shock. The knight goes where a knight can take it. After 12.Nxa4 Nxe4, Black hits
+the queen on c5 and the bishop on g5, and the g7 bishop wakes up against d4. Byrne
+declined with 12.Qa3, but after 12...Nxc3 13.bxc3 Nxe4 Black had won a pawn and torn the
+centre open.} 12. Qa3 Nxc3 13. bxc3 Nxe4 14. Bxe7 Qb6 {White's bishop attacks the rook on
+f8. Fischer ignores it and hits f2 instead. While White's king sits in the centre, one
+rook doesn't matter.} 15. Bc4 Nxc3 16. Bc5 Rfe8+ 17. Kf1 Be6 {Question: Your queen on b6
+is attacked. Will you save it? The move of the century. Fischer leaves the queen en prise.
+After 18.Bxb6 Bxc4+ comes a 'windmill' of discovered checks: 19.Kg1 Ne2+ 20.Kf1 Nxd4+
+21.Kg1 Ne2+ 22.Kf1 Nc3+ 23.Kg1 axb6. Black collects a bishop and a pawn, and the rook on
+d1 falls next. The engine confirms 17...Be6 is the best move by far.} 18. Bxb6 Bxc4+ 19.
+Kg1 Ne2+ 20. Kf1 Nxd4+ 21. Kg1 Ne2+ 22. Kf1 Nc3+ 23. Kg1 axb6 {Take stock. Black has rook,
+two bishops and knight working together. White has a queen with no help.} 24. Qb4 Ra4 25.
+Qxb6 Nxd1 26. h3 Rxa2 {Fischer mops up with no risk. His king is completely safe.} 27. Kh2
+Nxf2 28. Re1 Rxe1 29. Qd8+ Bf8 30. Nxe1 Bd5 31. Nf3 Ne4 32. Qb8 b5 33. h4 h5 34. Ne5 Kg7
+35. Kg1 Bc5+ 36. Kf1 Ng3+ 37. Ke1 Bb4+ 38. Kd1 Bb3+ 39. Kc1 Ne2+ 40. Kb1 Nc3+ 41. Kc1 Rc2#
+{Mate with rook, bishop and knight. White's queen is still on the board, a spectator.} 0-1
+
+[Event "Fischer – Fine, New York 1963 (Evans Gambit)"]
+[White "Fischer"]
+[Black "Fine"]
+[Date "1963.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{In the Italian, f7 and the e-file are the targets. Don't grab pawns with your king in the
+centre. The Evans Gambit is an Italian Game where White gives a pawn for time. This is
+your opening family, so watch how fast it goes wrong for Black when he takes material and
+delays castling.} 1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. b4 {The gambit. If Black takes, c3 and
+d4 come with tempo against the bishop.} 4... Bxb4 5. c3 Ba5 6. d4 exd4 7. O-O {A second
+pawn gone. White already has three pieces aiming at the black king. Black has none out.}
+7... dxc3 8. Qb3 {Question: What are the two weakest points in Black's camp? Queen and
+bishop both point at f7, Black's weakest square. Black has to spend another move defending
+it.} 8... Qe7 9. Nxc3 Nf6 10. Nd5 {Every move comes with a threat. The knight hits e7 and
+c7.} 10... Nxd5 11. exd5 Ne5 12. Nxe5 Qxe5 13. Bb2 {Count development. White has queen,
+two bishops and both rooks ready. Black has only his queen out.} 13... Qg5 14. h4 Qxh4 15.
+Bxg7 {The bishop takes g7 and hits the rook. The e-file is about to open with check.}
+15... Rg8 16. Rfe1+ Kd8 17. Qg3 {Question: Black's king is stuck on d8. Find the quiet
+queen move that ends the game. Black resigned. The engine finds mate in 8. The black king
+never got off the e- and d-files while White's pieces all point at it.} 1-0
+
+[Event "Fischer – Benko, US Championship 1963 (19.Rf6!!)"]
+[White "Fischer"]
+[Black "Benko"]
+[Date "1963.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Open lines toward the king, bring every piece, and look for quiet killers. Against the
+Pirc, Fischer grabs space with f4, opens the f-file, and finds one of the most famous
+quiet moves ever played.} 1. e4 g6 2. d4 Bg7 3. Nc3 d6 4. f4 {The Austrian Attack. White
+takes space and prepares e5 or f5.} 4... Nf6 5. Nf3 O-O 6. Bd3 Bg4 7. h3 Bxf3 8. Qxf3 Nc6
+9. Be3 e5 10. dxe5 dxe5 11. f5 {Opens the f-file against the castled king. After 11...gxf5
+12.Qxf5, Black's kingside is full of holes.} 11... gxf5 12. Qxf5 Nd4 13. Qf2 Ne8 14. O-O
+Nd6 15. Qg3 Kh8 16. Qg4 c6 17. Qh5 Qe8 18. Bxd4 {Fischer gives up a bishop to remove
+Black's best piece, the d4 knight. The d-pawn that recaptures blocks Black's own g7
+bishop.} 18... exd4 19. Rf6 {Question: No captures, no checks. Find a quiet move that adds
+a piece to the attack. Black can't take. 19...Bxf6 20.e5 opens the Bd3 against h7, and
+Qxh7 is mate. The rook also threatens Rxd6 and Rh6. The engine rates it about +7. Benko
+played 19...Kg8 20.e5 h6 21.Ne2, and resigned.} 19... Kg8 20. e5 h6 21. Ne2 {The last
+piece joins (Nf4 next). Black resigned.} 1-0
+
+[Event "Robert Byrne – Fischer, US Championship 1963"]
+[White "Robert Byrne"]
+[Black "Fischer"]
+[Date "1963.??.??"]
+[Result "0-1"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Calculate forcing lines (checks, captures, threats) all the way to the end. A
+Grünfeld-style position with a quiet look. Fischer had seen far deeper than anyone in the
+room.} 1. d4 Nf6 2. c4 g6 3. g3 c6 4. Bg2 d5 5. cxd5 cxd5 6. Nc3 Bg7 7. e3 O-O 8. Nge2 Nc6
+9. O-O b6 10. b3 Ba6 11. Ba3 Re8 12. Qd2 e5 {A central break while White's queen and rook
+stand awkwardly on the d-file.} 13. dxe5 Nxe5 14. Rfd1 Nd3 {The knight lands in a hole in
+White's camp.} 15. Qc2 Nxf2 {Question: Your knights are close to White's king. Is there a
+breakthrough? A deep combination. 16.Kxf2 Ng4+ 17.Kg1 Nxe3 wins the e3 pawn and hits queen
+and rook. 18...Nxg2 removes the king's defender, and 19...d4! opens the long diagonal.
+Grandmasters commenting live thought Fischer was lost. Byrne resigned when he saw the
+mating net.} 16. Kxf2 Ng4+ 17. Kg1 Nxe3 18. Qd2 Nxg2 19. Kxg2 d4 {Opens the long diagonal
+from b7 to g2 for the bishop, and frees the g7 bishop.} 20. Nxd4 Bb7+ 21. Kf1 Qd7 {Quiet
+and decisive. ...Qh3+ is coming with mate. White resigned.} 0-1
+
+[Event "Fischer – Myagmarsuren, Sousse 1967 (King's Indian Attack)"]
+[White "Fischer"]
+[Black "Myagmarsuren"]
+[Date "1967.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Let the pawn structure choose your plan. Attack where your pawns give you space. You
+sometimes play Réti / King's Indian Attack set-ups. This is the model game for them: e5
+for space, then pieces and pawns pour onto the kingside.} 1. e4 e6 2. d3 d5 3. Nd2 Nf6 4.
+g3 c5 5. Bg2 Nc6 6. Ngf3 Be7 7. O-O O-O 8. e5 {The key move. The e5 pawn kicks the f6
+knight, so Black's kingside has fewer defenders, and it points the way: attack on the
+kingside.} 8... Nd7 9. Re1 b5 10. Nf1 b4 11. h4 {Pawn storm. Black is racing on the
+queenside, so speed matters.} 11... a5 12. Bf4 a4 13. a3 bxa3 14. bxa3 Na5 15. Ne3 {The
+typical reroute Nd2-f1-e3. From here the knight can go to g4 or g5.} 15... Ba6 16. Bh3 d4
+17. Nf1 Nb6 18. Ng5 Nd5 19. Bd2 Bxg5 20. Bxg5 Qd7 21. Qh5 {Queen, bishop and knight now
+aim at the black king.} 21... Rfc8 22. Nd2 Nc3 23. Bf6 {Question: Can you put a piece
+where Black can't get rid of it? Black can only remove the bishop with ...gxf6, which
+opens his own king. It cuts the king off and supports Qg7 ideas. The engine agrees this is
+best.} 23... Qe8 24. Ne4 g6 25. Qg5 Nxe4 26. Rxe4 c4 27. h5 {The h-file opens with the
+rook already behind the pawn.} 27... cxd3 28. Rh4 Ra7 29. Bg2 dxc2 30. Qh6 Qf8 31. Qxh7+
+{Question: Find the forced mate. 31...Kxh7 32.hxg6+ (discovered check from the h4 rook)
+Kxg6 33.Be4#. A queen sacrifice that mates.} 1-0
+
+[Event "Fischer – Taimanov, Candidates match 1971, game 2"]
+[White "Fischer"]
+[Black "Taimanov"]
+[Date "1971.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Bishop vs knight endgames. Trade into the endgame you know is winning. Fischer won this
+match 6-0. The game ran 89 moves. You start guessing at move 70, in a rook and minor-piece
+endgame. Watch how Fischer chooses which pieces to trade.} 1. e4 c5 2. Nf3 Nc6 3. d4 cxd4
+4. Nxd4 e6 5. Nb5 d6 6. Bf4 e5 7. Be3 Nf6 8. Bg5 Qa5+ 9. Qd2 Nxe4 10. Qxa5 Nxa5 11. Be3
+Kd7 12. N1c3 Nxc3 13. Nxc3 Kd8 14. Nb5 Be6 15. O-O-O b6 16. f4 exf4 17. Bxf4 Nb7 18. Be2
+Bd7 19. Rd2 Be7 20. Rhd1 Bxb5 21. Bxb5 Kc7 22. Re2 Bf6 23. Rde1 Rac8 24. Bc4 Rhf8 25. b4
+a5 26. Bd5 Kb8 27. a3 Rfd8 28. Bxf7 Bc3 29. Bd2 d5 30. Rd1 d4 31. Bxc3 Rxc3 32. Kb2 d3 33.
+Kxc3 dxe2 34. Re1 Nd6 35. Bh5 Nb5+ 36. Kb2 axb4 37. axb4 Rd4 38. c3 Rh4 39. Bxe2 Nd6 40.
+Rd1 Kc7 41. h3 Rf4 42. Rf1 Re4 43. Bd3 Re5 44. Rf2 h5 45. c4 Rg5 46. Kc3 Kd7 47. Ra2 Kc8
+48. Kd4 Kc7 49. Ra7+ Kd8 50. c5 bxc5+ 51. bxc5 Ne8 52. Ra2 Nc7 53. Bc4 Kd7 54. Rb2 Kc6 55.
+Bb3 Nb5+ 56. Ke3 Kxc5 57. Kf4 Rg6 58. Bd1 h4 59. Kf5 Rh6 60. Kg5 Nd6 61. Bc2 Nf7+ 62. Kg4
+Ne5+ 63. Kf4 Kd4 64. Rb4+ Kc3 65. Rb5 Nf7 66. Rc5+ Kd4 67. Rf5 g5+ 68. Kg4 Ne5+ 69. Kxg5
+Rg6+ 70. Kxh4 Rxg2 71. Bd1 Rg8 72. Bg4 Ke4 73. Kg3 Rg7 74. Rf4+ Kd5 75. Ra4 Ng6 76. Ra6
+Ne5 77. Kf4 Rf7+ 78. Kg5 Rg7+ 79. Kf5 Rf7+ 80. Rf6 {Question: Would you trade rooks here?
+Most players keep the rooks when they're a pawn up. Fischer saw that the bishop and passed
+h-pawn beat the knight. The bishop can guard one side of the board and stop the knight at
+long range, while the white king walks forward. A knight can't cover both wings.} 80...
+Rxf6+ 81. Kxf6 Ke4 82. Bc8 Kf4 83. h4 {The passed pawn runs. The bishop covers the squares
+the knight needs.} 83... Nf3 84. h5 Ng5 85. Bf5 {Domination. The knight has to shuttle
+between f3 and g5 and can't stop both the pawn and the king.} 85... Nf3 86. h6 Ng5 87. Kg6
+Nf3 88. h7 Ne5+ 89. Kf6 {Black resigned. The h-pawn queens. Bishop vs knight with pawns on
+both wings, or with a fast passed pawn, usually favours the bishop.} 1-0
+
+[Event "Fischer – Petrosian, Candidates final 1971, game 7"]
+[White "Fischer"]
+[Black "Petrosian"]
+[Date "1971.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Rules are guidelines. Activity of rooks and king decides endgames. Against the Sicilian
+(a Kan with 5.Bd3), Fischer heads for an endgame with an isolated black d-pawn, then
+breaks a famous textbook rule.} 1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 a6 5. Bd3 Nc6 6.
+Nxc6 bxc6 7. O-O d5 8. c4 {Strikes Black's pawn centre at once.} 8... Nf6 9. cxd5 cxd5 10.
+exd5 exd5 11. Nc3 Be7 12. Qa4+ {Forces the queens off. Fischer is happy in an endgame
+where Black's d5 pawn is isolated.} 12... Qd7 13. Re1 Qxa4 14. Nxa4 Be6 15. Be3 O-O 16.
+Bc5 {Trades off Black's good bishop. Black keeps the light bishop, which is hemmed in by
+his own d5 pawn.} 16... Rfe8 17. Bxe7 Rxe7 18. b4 Kf8 19. Nc5 Bc8 20. f3 Rea7 21. Re5 Bd7
+22. Nxd7+ {Question: Would you trade your excellent knight for Black's bad bishop? This
+breaks the 'good knight vs bad bishop' rule, but Fischer calculated it. After the trade
+his rook reaches c7 at once, and Black's knight can't match the active white rooks and
+king. The engine rates both this and a4 as clearly better for White.} 22... Rxd7 23. Rc1
+Rd6 24. Rc7 {Rook on the seventh rank, attacking pawns from behind.} 24... Nd7 25. Re2 g6
+26. Kf2 h5 27. f4 h4 28. Kf3 f5 29. Ke3 d4+ 30. Kd2 Nb6 31. Ree7 {Two rooks on the
+seventh. The black king is boxed in.} 31... Nd5 32. Rf7+ Ke8 33. Rb7 Nxb4 34. Bc4 {Black
+resigned. Fischer won the match and went on to play Spassky.} 1-0
+
+[Event "Fischer – Spassky, World Championship 1972, game 6"]
+[White "Fischer"]
+[Black "Spassky"]
+[Date "1972.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Create a weakness, fix it, then open a second front. Fischer, a lifelong 1.e4 player,
+opened with 1.c4 for a surprise. A pure positional masterpiece. Spassky applauded at the
+end.} 1. c4 e6 2. Nf3 d5 3. d4 Nf6 4. Nc3 Be7 5. Bg5 O-O 6. e3 h6 7. Bh4 b6 8. cxd5 Nxd5
+9. Bxe7 Qxe7 10. Nxd5 exd5 11. Rc1 Be6 12. Qa4 c5 13. Qa3 Rc8 14. Bb5 {Pressure on Black's
+hanging pawns on c5 and d5.} 14... a6 15. dxc5 bxc5 16. O-O Ra7 17. Be2 Nd7 18. Nd4 Qf8
+19. Nxe6 {Knight for bishop. Black is left with a weak e6 pawn and a fixed centre.} 19...
+fxe6 20. e4 {Question: Black's centre pawns stand on c5 and d5. How do you break them?
+Strikes the centre at once. 20...d4 gives Black a protected passed pawn, but it is blocked
+and harmless, and White gets f4-f5 and the e5 square.} 20... d4 21. f4 Qe7 22. e5 Rb8 23.
+Bc4 Kh8 24. Qh3 Nf8 25. b3 a5 26. f5 {The f-pawn break opens the f-file toward the black
+king.} 26... exf5 27. Rxf5 Nh7 28. Rcf1 Qd8 29. Qg3 Re7 30. h4 Rbb7 31. e6 {A passed pawn
+on the sixth rank cramps Black's whole position.} 31... Rbc7 32. Qe5 Qe8 33. a4 Qd8 34.
+R1f2 Qe8 35. R2f3 Qd8 36. Bd3 Qe8 37. Qe4 Nf6 38. Rxf6 {Question: Black's only good
+defender is the f6 knight. What would you do? The exchange sacrifice removes it. The
+engine says White is winning anyway, but this is the clearest way.} 38... gxf6 39. Rxf6
+Kg8 40. Bc4 Kh8 41. Qf4 {Spassky resigned and joined the audience's applause.} 1-0
+
+[Event "Fischer – Tal, Bled 1961 (beating the Sicilian)"]
+[White "Fischer"]
+[Black "Tal"]
+[Date "1961.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Against the Sicilian: develop fast, hit early queen moves, open lines while the king is
+in the centre. You lose most often to the Sicilian as White. Here Fischer beats Tal, the
+great attacker, at his own game.} 1. e4 c5 2. Nf3 Nc6 3. d4 cxd4 4. Nxd4 e6 5. Nc3 Qc7 6.
+g3 Nf6 7. Ndb5 {Hits the queen and eyes d6. Black's early queen move costs time.} 7... Qb8
+8. Bf4 Ne5 9. Be2 Bc5 10. Bxe5 {Trades a bishop for a knight to drag the queen onto e5,
+where White's pawns can hit it.} 10... Qxe5 11. f4 Qb8 12. e5 {Question: Black's king is
+in the centre and his queen is far away. Can you open lines? Fischer lets the b5 knight
+go. After 12...a6 13.exf6 axb5 14.fxg7 Rg8, Black's kingside is wrecked and his king will
+never be safe. The engine likes it (about +3).} 12... a6 13. exf6 axb5 14. fxg7 Rg8 15.
+Ne4 Be7 16. Qd4 Ra4 17. Nf6+ {Forces off Black's bishop. The dark squares around Black's
+king are now White's.} 17... Bxf6 18. Qxf6 Qc7 19. O-O-O Rxa2 20. Kb1 Ra6 21. Bxb5 Rb6 22.
+Bd3 e5 23. fxe5 {Fischer lets his queen go for a rook, because the pawns on f6 and g7 are
+monsters.} 23... Rxf6 24. exf6 Qc5 25. Bxh7 Qg5 26. Bxg8 Qxf6 27. Rhf1 Qxg7 28. Bxf7+ Kd8
+29. Be6 Qh6 30. Bxd7 Bxd7 31. Rf7 Qxh2 32. Rdxd7+ Ke8 33. Rde7+ Kd8 34. Rd7+ Kc8 35. Rc7+
+Kd8 36. Rfd7+ Ke8 37. Rd1 b5 38. Rb7 Qh5 39. g4 Qh3 40. g5 Qf3 41. Re1+ Kf8 42. Rxb5 Kg7
+43. Rb6 Qg3 44. Rd1 Qc7 45. Rdd6 Qc8 46. b3 Kh7 47. Ra6 1-0
+
+[Event "Spassky – Fischer, World Championship 28th 1972, game 3"]
+[White "Spassky"]
+[Black "Fischer"]
+[Date "1972.??.??"]
+[Result "0-1"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Fight back after a bad start, with an unbalanced position and initiative. World
+Championship 1972, game 3. Fischer's first-ever win against Spassky, after losing game 1
+and forfeiting game 2. A Modern Benoni with the bold ...Nh5.} 1. d4 Nf6 2. c4 e6 3. Nf3 c5
+4. d5 exd5 5. cxd5 d6 6. Nc3 g6 7. Nd2 Nbd7 8. e4 Bg7 9. Be2 O-O 10. O-O Re8 11. Qc2 Nh5
+12. Bxh5 gxh5 13. Nc4 Ne5 14. Ne3 Qh4 15. Bd2 Ng4 16. Nxg4 hxg4 17. Bf4 Qf6 18. g3 Bd7 19.
+a4 b6 20. Rfe1 a6 21. Re2 b5 22. Rae1 Qg6 23. b3 Re7 24. Qd3 Rb8 25. axb5 axb5 26. b4 c4
+27. Qd2 Rbe8 28. Re3 h5 29. R3e2 Kh7 30. Re3 Kg8 31. R3e2 Bxc3 32. Qxc3 Rxe4 33. Rxe4 Rxe4
+{Question: Find the strongest move. Look at the forcing moves first. Rxe4! The only move
+that keeps the advantage: the engine's second choice is about 8.4 pawns worse. It's a
+capture.} 34. Rxe4 Qxe4 35. Bh6 Qg6 36. Bc1 Qb1 37. Kf1 Bf5 38. Ke2 Qe4+ {Turning point:
+Spassky's 38.Ke2. The engine preferred Ke1 (about -1.7). After the game move it's about
+-3.6. Fischer now has the chance to take over.} 39. Qe3 Qc2+ 40. Qd2 Qb3 41. Qd4 Bd3+
+{Spassky resigned.} 0-1

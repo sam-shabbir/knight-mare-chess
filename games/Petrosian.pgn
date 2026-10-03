@@ -1,0 +1,14 @@
+[Event "Petrosian – Pachman, Bled 1961"]
+[White "Petrosian"]
+[Black "Pachman"]
+[Date "1961.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Even the most cautious champion attacks when the king is open. Petrosian was famous for
+prophylaxis, stopping ideas before they start. Here he shows the other side.} 1. Nf3 c5 2.
+g3 Nc6 3. Bg2 g6 4. O-O Bg7 5. d3 e6 6. e4 Nge7 7. Re1 O-O 8. e5 d6 9. exd6 Qxd6 10. Nbd2
+Qc7 11. Nb3 Nd4 12. Bf4 Qb6 13. Ne5 Nxb3 14. Nc4 Qb5 15. axb3 a5 16. Bd6 Bf6 17. Qf3 Kg7
+18. Re4 Rd8 19. Qxf6+ {Question: Find a queen sacrifice that traps the king. 19.Qxf6+!!
+Kxf6 20.Be5+ Kg5 21.Bg7! and mate with h4 or f4 can't be stopped. The engine finds mate in
+7.} 19... Kxf6 20. Be5+ Kg5 21. Bg7 1-0
