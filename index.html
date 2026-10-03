@@ -25,9 +25,9 @@ button{cursor:pointer}
 .hidden{display:none!important}
 .app{max-width:600px;margin:0 auto;padding:10px 12px 28px}
 /* header */
-header{display:flex;align-items:center;gap:8px 10px;margin-bottom:10px;flex-wrap:wrap}
+header{display:flex;align-items:center;gap:6px 8px;margin-bottom:10px;flex-wrap:wrap}
 @media(max-width:520px){header nav{order:3;width:100%;margin-left:0}header nav button{flex:1}.rating-chip{margin-left:auto}}
-.brand{font-family:Georgia,"Times New Roman",serif;font-size:19px;letter-spacing:.5px;font-weight:700;white-space:nowrap}
+.brand{font-family:Georgia,"Times New Roman",serif;font-size:17px;letter-spacing:.5px;font-weight:700;white-space:nowrap}
 .brand span{color:var(--accent)}
 nav{display:flex;gap:2px;margin-left:auto;background:var(--surface);border-radius:10px;padding:3px}
 nav button{background:none;border:0;padding:6px 10px;border-radius:8px;color:var(--muted);font-size:14px}
@@ -119,7 +119,7 @@ svg.arrows{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;
 .chip{display:inline-flex;align-items:center;gap:4px;border:0;background:var(--bg);border-radius:16px;padding:7px 12px;margin:0 6px 6px 0;font-size:14px}
 .chip.you{box-shadow:inset 0 0 0 1px var(--accent)}
 button:disabled{opacity:.4;cursor:default}
-nav button{padding:6px 8px}
+nav button{padding:6px 5px;font-size:12.5px}
 /* games list */
 .gitem{display:flex;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--line)}
 .gitem:first-of-type{border-top:0}
@@ -136,6 +136,59 @@ textarea{width:100%;max-width:100%;min-height:90px;resize:vertical}
 .mbtns .btn:first-child{background:var(--accent);color:var(--accent-ink)}
 .promo{display:flex;gap:8px;justify-content:center}
 .promo button{width:64px;height:64px;border-radius:12px;border:0;background:var(--light);font-size:44px;line-height:1;font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2","DejaVu Sans",serif}
+/* plan / progress */
+.ringwrap{display:flex;align-items:center;gap:16px}
+.ring{width:132px;height:132px;flex:none}
+.ring .track{stroke:var(--bg)} .ring .val{stroke:var(--accent);transition:stroke-dashoffset .4s}
+.ring text{fill:var(--text);font-family:Georgia,serif}
+.pbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;padding:7px 0;border-top:1px solid var(--line)}
+.pbar:first-of-type{border-top:0}
+.pbar .lab{font-size:14px} .pbar .num{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+.pbar .tr{grid-column:1/-1;height:8px;border-radius:4px;background:var(--bg);overflow:hidden}
+.pbar .tr div{height:100%;border-radius:4px;background:var(--accent)}
+.wk{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.wk b{flex:1;text-align:center;font-size:14px}
+.sess{display:flex;align-items:center;gap:10px;padding:7px 0;border-top:1px solid var(--line);font-size:14px;cursor:pointer}
+.sess:first-of-type{border-top:0}
+.sess input{width:20px;height:20px;accent-color:var(--accent);flex:none}
+.weeks{display:grid;grid-template-columns:repeat(13,1fr);gap:3px;margin-top:8px}
+.weeks button{aspect-ratio:1;border:0;border-radius:4px;background:var(--bg);font-size:10px;color:var(--muted);padding:0;position:relative;overflow:hidden}
+.weeks button i{position:absolute;left:0;right:0;bottom:0;background:var(--accent);opacity:.85}
+.weeks button span{position:relative}
+.weeks button.cur{outline:2px solid var(--text)}
+.spark{width:100%;height:90px;display:block}
+/* learn */
+.prow{padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.dodont{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+@media(max-width:480px){.dodont{grid-template-columns:1fr}}
+.dodont div{background:var(--bg);border-radius:10px;padding:8px 10px;font-size:14px}
+.dodont b{display:block;font-size:12px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
+.dodont .do b{color:var(--good)} .dodont .dont b{color:var(--bad)}
+#lBody p{margin:6px 0;line-height:1.55}
+.explain{margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+.explain ol{margin:4px 0 6px 18px;padding:0}
+/* explorer */
+.xopts{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted)}
+.xopts input{accent-color:var(--accent);vertical-align:-2px}
+.xrow{display:grid;grid-template-columns:minmax(64px,auto) 74px 1fr;align-items:center;gap:4px 10px;width:100%;border:0;background:var(--bg);border-radius:8px;padding:7px 10px;margin-top:5px;text-align:left;font-size:14px}
+.xsan{font-weight:700} .xn{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.xwdl{display:flex;height:9px;border-radius:4px;overflow:hidden;background:var(--line)}
+.xwdl b{background:#f1eee6} .xwdl s{background:#8c87a3} .xwdl u{background:#141220}
+.xwdl.none{background:transparent}
+.xfam{grid-column:1/-1;font-size:12px;color:var(--accent)}
+.xbest{font-style:normal;font-size:12px;font-weight:600;color:var(--muted)} .xbest.top{color:var(--best)} .xbest.ok{color:var(--good)}
+/* puzzles */
+.pset{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:var(--bg);border-radius:10px;padding:10px 12px;margin-top:6px}
+.pset.on{box-shadow:inset 0 0 0 2px var(--accent)}
+.pset .t{flex:1;min-width:0}
+.pset small{display:block;color:var(--muted);font-size:12px}
+.pset .cnt{font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px;white-space:nowrap}
+.pstats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center}
+.pstats div{background:var(--bg);border-radius:10px;padding:8px 2px}
+.pstats b{display:block;color:var(--accent);font-size:18px;font-variant-numeric:tabular-nums}
+.pstats span{font-size:11px;color:var(--muted)}
+.ptitle{font-size:13px;color:var(--muted);margin:0 0 4px;min-height:18px}
+.ptheme{display:inline-block;background:var(--bg);border-radius:6px;padding:0 6px;margin:2px 4px 0 0;font-size:12px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -148,6 +201,9 @@ textarea{width:100%;max-width:100%;min-height:90px;resize:vertical}
 <button data-tab="rep">Openings</button>
 <button data-tab="review">Review</button>
 <button data-tab="games">Games</button>
+<button data-tab="puz">Puzzles</button>
+<button data-tab="learn">Learn</button>
+<button data-tab="plan">Plan</button>
 </nav>
 <div class="rating-chip"><b id="ratingNum">1600</b>rating</div>
 </header>
@@ -240,6 +296,10 @@ textarea{width:100%;max-width:100%;min-height:90px;resize:vertical}
 <div class="panel" style="margin-top:8px"><div class="hint" style="margin:0 0 6px">Moves from here</div><div id="eKids"></div>
 <div class="hint" style="margin:10px 0 6px">Note on the last move</div><textarea id="eNote" style="min-height:60px"></textarea></div>
 <div class="moves" id="eLine"></div>
+<div class="panel" style="margin-top:8px"><h2>Explorer</h2>
+<div class="xopts"><label><input type="checkbox" id="xMasters"> Masters' moves</label><label><input type="checkbox" id="xFamous"> Famous games</label><label><input type="checkbox" id="xBest"> Best move (engine)</label></div>
+<p class="hint" style="margin:4px 0">How often the greats chose each move here and how those games ended (bar: white / draw / black). ★ marks a move from a famous game. Tap a move to add it.</p>
+<div id="xList"></div><div class="hint" id="xEval" style="margin-top:6px"></div></div>
 <div class="actions two" style="margin-top:8px"><button id="eLinesBtn">All lines</button><button id="eImport">Add from PGN</button></div>
 <div class="panel hidden" id="eLines" style="margin-top:8px"></div>
 </div>
@@ -275,10 +335,82 @@ textarea{width:100%;max-width:100%;min-height:90px;resize:vertical}
 </div>
 <div class="panel"><h2>Opening drill record</h2><div id="drillList" class="hint"></div></div>
 </section>
+<!-- LEARN -->
+<section id="learn" class="hidden">
+<div id="lHome">
+<div class="panel"><div class="seg" id="lSeg"><button data-v="mid">Middlegame (100)</button><button data-v="end">Endgame (100)</button><button data-v="prin">50 principles</button></div>
+<div id="lStats" style="margin-top:8px"></div></div>
+<div class="panel" id="lList"></div>
 </div>
+<div id="lView" class="hidden">
+<p class="ptitle" id="lTitle"></p>
+<div class="panel" id="lBody"></div>
+<div id="lDiag" class="hidden"><div class="board-wrap"><div class="board-box"><div class="board" id="lBoard"></div><svg class="arrows" id="lArrows" viewBox="0 0 800 800"></svg></div></div><p class="hint" id="lCap" style="text-align:center"></p></div>
+<div class="actions two"><button id="lPractice">Practise</button><button id="lDone">Mark as learned</button></div>
+<div class="actions" style="margin-top:6px"><button id="lPrev">&lsaquo; Previous</button><button id="lBack">All lessons</button><button id="lNext">Next &rsaquo;</button></div>
+</div>
+</section>
+
+<!-- PLAN / PROGRESS -->
+<section id="plan" class="hidden">
+<div class="panel"><div class="ringwrap"><svg class="ring" id="plRing" viewBox="0 0 120 120" role="img"></svg>
+<div><h2 style="margin:0">Your 2000+ plan</h2><p class="hint" id="plSub"></p></div></div></div>
+<div class="panel"><h2>Progress by area</h2><div id="plBars"></div><p class="hint">The ring is a weighted average: sessions 30%, puzzle rating 20%, puzzles solved 15%, lessons 10%, repertoire mastered 10%, master games 10%, your own mistakes fixed 5%.</p></div>
+<div class="panel"><h2>Training sessions</h2>
+<div class="wk"><button class="btn small" id="plPrev" aria-label="Previous week">&lsaquo;</button><b id="plWeek"></b><button class="btn small" id="plNext" aria-label="Next week">&rsaquo;</button></div>
+<p class="hint" id="plTheme" style="margin:0 0 6px"></p><div id="plSess"></div>
+<div class="weeks" id="plWeeks" aria-label="All 26 weeks"></div></div>
+<div class="panel"><h2>Puzzle rating</h2><svg class="spark" id="plSpark" viewBox="0 0 400 90" preserveAspectRatio="none" role="img"></svg><p class="hint" id="plSparkTxt"></p></div>
+<div class="panel"><h2>Puzzle sets</h2><div id="plSets"></div></div>
+<div class="panel"><h2>Coach's notes: what players at your level miss</h2><div id="plNotes"></div></div>
+</section>
+
+<!-- PUZZLES -->
+<section id="puz" class="hidden">
+<div id="pHome">
+<div class="panel"><div class="pstats">
+<div><b id="pRating">1600</b><span>puzzle rating</span></div>
+<div><b id="pToday">0</b><span>today</span></div>
+<div><b id="pStreak">0</b><span>streak</span></div>
+<div><b id="pDue">0</b><span>due again</span></div>
+</div><p class="hint" id="pGoal"></p></div>
+<div class="panel"><h2>Choose a set</h2><div id="pSets"></div></div>
+<div class="panel"><h2>Session</h2>
+<div class="row"><label for="pMode">Mode</label><select id="pMode"><option value="rated">Rated: one try per puzzle</option><option value="learn">Learn: retry until solved, unrated</option><option value="timed">Clock: 3 minutes, as many as you can</option></select></div>
+<div class="row"><label for="pThink">Calculate first (board locks for 10 s)</label><input type="checkbox" class="switch" id="pThink"></div>
+<p class="hint">Calculate first stops you moving on instinct. Find the whole line in your head, then play it. Puzzles you fail come back later on a spaced-repetition schedule.</p>
+</div>
+<button class="btn primary" id="pStart">Start puzzles</button>
+<div class="panel" style="margin-top:12px"><h2>Guess the move: Fischer and Tal</h2>
+<p class="hint">Play through a master game from the winner's side. Guess every move, and read the coach's notes at the key moments. 3 points for the master's move, 2 for an engine-approved alternative.</p>
+<div id="gmList"></div></div>
+</div>
+<div id="gmPlay" class="hidden">
+<p class="ptitle" id="gmTitle"></p>
+<div class="board-wrap"><div class="board-box"><div class="board" id="gmBoard"></div><svg class="arrows" id="gmArrows" viewBox="0 0 800 800"></svg></div></div>
+<div class="coach" id="gmCoach"></div>
+<div class="actions"><button id="gmHint">Hint</button><button id="gmReveal">Show move</button><button id="gmFlip">Flip</button></div>
+<div class="moves" id="gmMoves"></div>
+<div class="actions two" style="margin-top:6px"><button id="gmReview">Open in Review</button><button id="gmBack">‹ Back</button></div>
+</div>
+<div id="pPlay" class="hidden">
+<p class="ptitle" id="pTitle"></p>
+<div class="board-wrap"><div class="board-box"><div class="board" id="pBoard"></div><svg class="arrows" id="pArrows" viewBox="0 0 800 800"></svg></div></div>
+<div class="coach" id="pCoach"></div>
+<div class="actions"><button id="pHint">Hint</button><button id="pShow">Show solution</button><button id="pNext">Next ›</button></div>
+<div class="actions two" style="margin-top:6px"><button id="pRetry">Retry</button><button id="pAnalyse">Open in Review</button></div>
+<div class="actions two" style="margin-top:6px"><button id="pFlip">Flip</button><button id="pBack">‹ Sets</button></div>
+</div>
+</section>
+</div>
+
 <div class="modal hidden" id="modal"><div class="sheet"><h3 id="mTitle"></h3><div id="mBody"></div><div class="mbtns" id="mBtns"></div></div></div>
 <script src="https://cdn.jsdelivr.net/npm/chess.js@0.10.3/chess.js"></script>
 <script id="sf-src" type="text/plain"></script>
+<script src="puzzles.js"></script>
+<script src="coach.js"></script>
+<script src="explorer.js"></script>
+<script src="learn.js"></script>
 <script>const SF_URL='https://cdn.jsdelivr.net/npm/stockfish@10.0.2/src/stockfish.asm.js';</script>
 <script>
 const OPENINGS=[
@@ -476,7 +608,7 @@ const extra=$('mBody').querySelectorAll('[data-v]');extra.forEach(x=>x.onclick=(
 }
 /* ---------- tabs ---------- */
 function tab(name){
-for(const s of['home','game','review','games','rep'])$(s).classList.toggle('hidden',s!==name);
+for(const s of['home','game','review','games','rep','puz','plan','learn'])$(s).classList.toggle('hidden',s!==name);
 const navName=name==='game'?'home':name;
 document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===navName));
 if(name==='games')renderGames();
@@ -484,7 +616,7 @@ if(name==='games')renderGames();
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
 if(b.dataset.tab==='home'&&G.g&&!G.over)return tab('game');
 if(b.dataset.tab==='review'&&!R.rec){if(S.last)return openReview(S.last);$('rEmpty').classList.remove('hidden');$('rMain').classList.add('hidden')}
-tab(b.dataset.tab);if(b.dataset.tab==='rep')renderRepHome()});
+tab(b.dataset.tab);if(b.dataset.tab==='rep')renderRepHome();if(b.dataset.tab==='puz')puzHome();if(b.dataset.tab==='plan')planRender();if(b.dataset.tab==='learn')learnHome()});
 /* ---------- setup screen ---------- */
 function initSetup(){
 const sel=$('opening');
@@ -1069,21 +1201,24 @@ st.total+' of your moves, '+st.due+' due, '+st.fresh+' new</small><div class="pr
 $('repList').onclick=e=>{const b=e.target.closest('[data-id]');if(b)openCourse(b.dataset.id)};
 }
 function initRepNew(){
-$('rnFrom').innerHTML='<option value="empty">Empty board</option><option value="pgn">Paste PGN (keeps variations)</option><optgroup label="Built-in openings">'+
+$('rnFrom').innerHTML='<option value="empty">Empty board</option><option value="pgn">Paste PGN (keeps variations)</option>'+
+(typeof COACH_REP!=='undefined'?'<optgroup label="Coach repertoire (your study plan)">'+COACH_REP.map((r,i)=>'<option value="coach:'+i+'">'+esc(r.name)+'</option>').join('')+'</optgroup>':'')+'<optgroup label="Built-in openings">'+
 OPENINGS.map(o=>'<option value="'+o[0]+'">'+esc(o[1])+'</option>').join('')+'</optgroup>';
 let side='w';
 $('rnSide').onclick=e=>{const v=e.target.dataset.v;if(!v)return;side=v;$('rnSide').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v===v))};
-$('rnFrom').onchange=()=>{$('rnPgn').classList.toggle('hidden',$('rnFrom').value!=='pgn');const o=OPEN[$('rnFrom').value];if(o&&!$('rnName').value)$('rnName').value=o.name};
+$('rnFrom').onchange=()=>{const v=$('rnFrom').value;$('rnPgn').classList.toggle('hidden',v!=='pgn');const o=OPEN[v];if(o&&!$('rnName').value)$('rnName').value=o.name;
+if(v.startsWith('coach:')){const r=COACH_REP[+v.slice(6)];$('rnName').value=r.name;side=r.side;$('rnSide').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v===side))}};
 $('repNewBtn').onclick=()=>{$('repNew').classList.remove('hidden');$('repNewBtn').classList.add('hidden');$('rnName').value='';$('rnPgn').value='';$('rnFrom').value='empty';$('rnPgn').classList.add('hidden')};
 $('rnCancel').onclick=()=>{$('repNew').classList.add('hidden');$('repNewBtn').classList.remove('hidden')};
 $('rnCreate').onclick=()=>{
 const from=$('rnFrom').value;const c={id:String(Date.now()),name:$('rnName').value.trim()||(OPEN[from]?OPEN[from].name:'My repertoire'),side,root:{m:null,k:[]}};
-if(from==='pgn'){const r=importPgnInto(c.root,$('rnPgn').value);
+if(from.startsWith('coach:')){importPgnInto(c.root,COACH_REP[+from.slice(6)].pgn)}
+else if(from==='pgn'){const r=importPgnInto(c.root,$('rnPgn').value);
 if(!r.added){modal('No moves found','<p class="hint">Paste the moves, like "1. e4 c6 2. d4 d5 (2... e6)". Lichess studies and Chessable exports work.</p>',[['ok','OK']]);return}
 if(r.bad)modal('Imported with gaps','<p class="hint">'+r.added+' moves added. '+r.bad+' moves could not be read and were skipped with the rest of their line.</p>',[['ok','OK']])}
 else if(OPEN[from])c.root=lineToTree(OPEN[from].line);
 REP.courses.push(c);saveRep();refreshOpeningSelect();
-if(from==='pgn')openCourse(c.id);else openEditor(c.id);
+if(from==='pgn'||from.startsWith('coach:'))openCourse(c.id);else openEditor(c.id);
 };
 }
 function openCourse(id){
@@ -1133,6 +1268,7 @@ $('eLines').classList.toggle('hidden',!E.lines);$('eLinesBtn').textContent=E.lin
 if(E.lines){const L=allLines(E.c.root,300);
 $('eLines').innerHTML=L.length?'<div class="hint" style="margin-bottom:4px">'+L.length+(L.length>=300?'+':'')+' lines. Tap one to open it.</div>'+L.map((p,i)=>'<button class="keym" data-l="'+i+'">'+esc(lineText(p))+'</button>').join(''):'<span class="hint">No lines yet.</span>';
 $('eLines').onclick=e=>{const b=e.target.closest('[data-l]');if(b){E.path=L[+b.dataset.l].slice();E.sel=null;renderEditor();window.scrollTo({top:0,behavior:'smooth'})}}}
+xpRender(eGame().g.fen());
 }
 function ply2num(p){return p%2===0?(p/2+1)+'. ':(Math.floor(p/2)+1)+'… '}
 $('eBoard').addEventListener('click',async e=>{
@@ -1178,6 +1314,438 @@ h+='<optgroup label="Built-in openings">'+OPENINGS.map(o=>'<option value="'+o[0]
 sel.innerHTML=h;
 if(S.set.opening.startsWith('rep:')&&!courseById(S.set.opening.slice(4))){S.set.opening='italian';saveSet()}
 sel.value=S.set.opening;
+}
+/* ---------- puzzles ---------- */
+/* Each puzzle: fen + moves (UCI). moves[0] is the opponent's last move, played automatically; then you and the opponent alternate.
+A move that differs from the line is accepted if a quick engine check says it is just as good. */
+const PZ_SETS=typeof PUZZLE_SETS!=='undefined'?PUZZLE_SETS:[];
+const PZ_ALL=typeof PUZZLES!=='undefined'?PUZZLES:[];
+const PZ={st:load('knm_puz',{r:1500,n:0,streak:0,best:0,day:'',today:0,timedBest:0,hist:[]}),seen:load('knm_puzseen',{}),set:load('knm_puzset',{id:'mix'}).id,mode:'rated',think:false};
+const PZ_GOAL=15;
+const savePz=()=>{store('knm_puz',PZ.st);store('knm_puzseen',PZ.seen)};
+const THEME_NAME={fork:'Fork',pin:'Pin',skewer:'Skewer',discoveredAttack:'Discovered attack',deflection:'Deflection',attraction:'Attraction',sacrifice:'Sacrifice',kingsideAttack:'Kingside attack',mateIn2:'Mate in 2',mateIn3:'Mate in 3',backRankMate:'Back-rank mate',defensiveMove:'Defensive move',quietMove:'Quiet move',intermezzo:'In-between move',clearance:'Clearance',trappedPiece:'Trapped piece',xRayAttack:'X-ray',rookEndgame:'Rook endgame',pawnEndgame:'Pawn endgame',advancedPawn:'Advanced pawn',mate:'Mate',crushing:'Crushing',advantage:'Advantage',endgame:'Endgame',middlegame:'Middlegame',opening:'Opening',short:'Short',long:'Long',veryLong:'Very long',oneMove:'One move'};
+function pzToday(){const d=new Date().toISOString().slice(0,10);if(PZ.st.day!==d){PZ.st.day=d;PZ.st.today=0}return PZ.st.today}
+function pzDue(list){const now=Date.now();return list.filter(p=>{const s=PZ.seen[p.id];return s&&s.b!==undefined&&s.d<=now})}
+function pzPool(id){if(PZ.filter){const t=PZ.filter.theme;const a=PZ_ALL.filter(p=>(p.themes||[]).includes(t));if(a.length)return a}if(id==='mix')return PZ_ALL.filter(p=>p.set!=='mine');if(id==='due')return pzDue(PZ_ALL);return PZ_ALL.filter(p=>p.set===id)}
+function puzHome(){
+$('pHome').classList.remove('hidden');$('pPlay').classList.add('hidden');$('gmPlay').classList.add('hidden');gmList();PZ.filter=null;
+const t=pzToday();$('pRating').textContent=Math.round(PZ.st.r);$('pToday').textContent=t;$('pStreak').textContent=PZ.st.streak;$('pDue').textContent=pzDue(PZ_ALL).length;
+$('pGoal').textContent=!PZ_ALL.length?'No puzzle file found. Make sure puzzles.js sits next to index.html.':
+t>=PZ_GOAL?'Daily goal done ('+PZ_GOAL+'). Extra puzzles still count.':'Daily goal: '+PZ_GOAL+' puzzles, '+(PZ_GOAL-t)+' to go. Best Clock score: '+PZ.st.timedBest+'.';
+const sets=[{id:'mix',name:'Mixed training',desc:'Every theme, picked near your rating.'},{id:'due',name:'Due for review',desc:'Puzzles you missed, back on schedule.'}].concat(PZ_SETS);
+let lastGrp='';$('pSets').innerHTML=sets.map(s=>{const pool=pzPool(s.id);const hd=(s.group||'')!==lastGrp&&s.group==='legends'?'<h2 style="margin:14px 0 2px">Legends: learn from the greats</h2><p class="hint" style="margin:0">Only-moves from real wins by world champions and other all-time greats.</p>':'';lastGrp=s.group||'';const done=pool.filter(p=>PZ.seen[p.id]).length;
+return hd+'<button class="pset'+(s.id===PZ.set?' on':'')+'" data-s="'+esc(s.id)+'"><span class="t"><b>'+esc(s.name)+'</b><small>'+esc(s.desc||'')+'</small></span><span class="cnt">'+(s.id==='due'?pool.length:done+'/'+pool.length)+'</span></button>'}).join('');
+$('pSets').onclick=e=>{const b=e.target.closest('[data-s]');if(!b)return;PZ.set=b.dataset.s;store('knm_puzset',{id:PZ.set});puzHome()};
+$('pMode').value=PZ.mode;$('pThink').checked=PZ.think;
+}
+$('pMode').onchange=()=>{PZ.mode=$('pMode').value};
+$('pThink').onchange=()=>{PZ.think=$('pThink').checked};
+function pzPick(){
+let pool=pzPool(PZ.set);if(!pool.length)return null;
+const due=pzDue(pool);const recent=new Set(P.recent||[]);
+if(PZ.set!=='due'&&due.length&&Math.random()<.25)pool=due;
+if(PZ.set==='due')return pool[Math.floor(Math.random()*pool.length)];
+const fresh=pool.filter(p=>!PZ.seen[p.id]&&!recent.has(p.id));
+for(const w of[150,300,500]){const near=fresh.filter(p=>Math.abs((p.r||1500)-PZ.st.r)<=w);if(near.length)return near[Math.floor(Math.random()*near.length)]}
+if(fresh.length)return fresh[Math.floor(Math.random()*fresh.length)];
+const old=pool.filter(p=>!recent.has(p.id));return(old.length?old:pool)[Math.floor(Math.random()*(old.length?old:pool).length)];
+}
+const P={};
+function pzStart(){
+if(PZ.mode==='timed'){P.timer={end:Date.now()+180e3,score:0,miss:0};clearInterval(P.tick);P.tick=setInterval(pzTick,250)}else{P.timer=null;clearInterval(P.tick)}
+P.recent=[];pzNext();
+}
+function pzTick(){if(!P.timer)return;const left=Math.max(0,P.timer.end-Date.now());
+$('pTitle').textContent='Clock: '+Math.ceil(left/1000)+' s · solved '+P.timer.score+' · misses '+P.timer.miss+'/3';
+if(left<=0||P.timer.miss>=3)pzTimedOver()}
+function pzTimedOver(){clearInterval(P.tick);const sc=P.timer.score;P.timer=null;P.done=true;
+const best=sc>PZ.st.timedBest;if(best)PZ.st.timedBest=sc;savePz();
+modal(best?'New best: '+sc:'Score: '+sc,'<p class="hint">'+(best?'Your best Clock score so far.':'Your best is '+PZ.st.timedBest+'.')+' Clock mode trains speed of seeing. Rated mode trains accuracy, which matters more in rapid.</p>',[['again','Play again'],['home','Back to sets']]).then(v=>{if(v==='again')pzStart();else puzHome()})}
+function pzNext(){
+const p=pzPick();if(!p){modal('Nothing here yet',PZ.set==='due'?'<p class="hint">No puzzles are due. Missed puzzles come back here.</p>':'<p class="hint">This set is empty.</p>',[['ok','OK']]);return puzHome()}
+P.recent.push(p.id);if(P.recent.length>30)P.recent.shift();
+const sol=p.moves.split(' ');const g=new Chess(p.fen);
+Object.assign(P,{p,sol,g,i:0,failed:false,retry:false,missNoted:false,hinted:0,done:false,graded:false,sel:null,arrows:[],wrong:null,last:null,busy:true,start:new Chess(p.fen),lockUntil:0,id:(P.id||0)+1});
+P.orient=g.turn()==='w'?'b':'w';
+$('pHome').classList.add('hidden');$('gmPlay').classList.add('hidden');$('pPlay').classList.remove('hidden');
+if(!P.timer)$('pTitle').innerHTML=(PZ.filter?'Practice: '+esc(THEME_LABEL(PZ.filter.theme))+' · ':'')+esc(p.title||setName(p.set))+(PZ.mode==='rated'?' · rated '+(p.r||'?'):'');
+pzCoach('Watch the last move…','');pzRender();
+const id=P.id;
+setTimeout(()=>{if(id!==P.id)return;const m=pzApply(sol[0]);P.i=1;P.busy=false;
+const side=sideName(P.g.turn());
+if(PZ.think&&!P.timer){P.lockUntil=Date.now()+10000;pzCountdown(id,m)}
+else pzCoach('<b>'+side+' to move.</b> '+pzPrompt(m),'');
+pzRender()},550);
+}
+function setName(id){const s=PZ_SETS.find(x=>x.id===id);return s?s.name:'Puzzle'}
+function pzPrompt(m){return(m?'After '+esc(m.san)+', ':'')+(P.p.prompt?esc(P.p.prompt):'find the best move.')}
+function pzCountdown(id,m){const left=Math.ceil((P.lockUntil-Date.now())/1000);if(id!==P.id)return;
+if(left<=0){P.lockUntil=0;pzCoach('<b>'+sideName(P.g.turn())+' to move.</b> Now play the line you calculated.','');return}
+pzCoach('<b>'+sideName(P.g.turn())+' to move.</b> '+pzPrompt(m)+'<div class="idea">Calculate first: checks, captures, threats. Board unlocks in '+left+' s.</div>','');setTimeout(()=>pzCountdown(id,m),500)}
+function pzApply(uci){const m=P.g.move({from:uci.slice(0,2),to:uci.slice(2,4),promotion:uci[4]});if(m)P.last=m;return m}
+function pzCoach(h,k){const c=$('pCoach');c.innerHTML=h;c.className='coach'+(k?' '+k:'')}
+function pzRender(){
+let targets=null;if(P.sel){targets={};for(const m of P.g.moves({square:P.sel,verbose:true}))targets[m.to]=m.captured?'c':'m'}
+renderBoard($('pBoard'),$('pArrows'),P.g.fen(),{orient:P.orient,sel:P.sel,targets,last:P.last,check:P.g.in_check(),arrows:P.arrows,wrong:P.wrong,names:S.set.squareNames});
+$('pHint').disabled=P.done||P.busy;$('pShow').disabled=P.done&&P.i>=P.sol.length;$('pRetry').classList.toggle('hidden',!P.done);
+$('pNext').textContent=P.done?'Next ›':'Skip ›';
+}
+$('pBoard').addEventListener('click',e=>{
+const t=e.target.closest('.sq');if(!t||P.done||P.busy||!P.g)return;
+if(P.lockUntil>Date.now()){$('pCoach').classList.add('warn');return}
+const sq=t.dataset.sq;const p=P.g.get(sq);const me=P.g.turn();
+if(P.sel){const mv=P.g.moves({square:P.sel,verbose:true}).find(m=>m.to===sq);
+if(mv){const from=P.sel;P.sel=null;if(mv.flags.includes('p')){choosePromo(me).then(pp=>{if(pp)pzTry(from,sq,pp);else pzRender()});return}return pzTry(from,sq)}}
+P.sel=p&&p.color===me?(P.sel===sq?null:sq):null;P.arrows=[];pzRender();
+});
+/* An alternative counts only if the engine really checked it and it is about as good as the best move
+(within ~1 pawn), or both moves mate. Win-chance alone is not enough: in won positions it barely moves. */
+function pzAltOk(r){if(!r||!r.best||!r.best.best||!r.played)return false;if(r.isBest)return true;
+const b=r.best.cp,p=r.played.cp;if(b>9000&&p>9000)return true;return r.drop<=3&&b-p<=100}
+async function pzTry(from,to,promo){
+const uci=from+to+(promo||'');const exp=P.sol[P.i];const fen=P.g.fen();
+const probe=new Chess(fen);const mv=probe.move({from,to,promotion:promo||'q'});if(!mv)return;
+const real=from+to+(mv.promotion||'');
+if(real===exp||probe.in_checkmate()){pzApply(real);P.i++;P.arrows=[];return pzAdvance()}
+P.busy=true;pzCoach('Checking '+esc(mv.san)+'…','');pzRender();const id=P.id;
+const r=await moveCheck(fen,real,12);if(id!==P.id)return;P.busy=false;
+if(pzAltOk(r)){
+pzApply(real);P.arrows=[];P.done=true;pzGrade(true);
+pzCoach('<b>'+esc(mv.san)+'</b> also works. The line was <b>'+esc(uciToSan(fen,exp))+'</b>.'+pzAfterNote(),'ok');return pzRender()}
+P.wrong=to;pzGrade(false);
+if(!P.timer){P.retry=true;const first=!P.missNoted;P.missNoted=true;pzCoach('<b>'+esc(mv.san)+'</b> is not it.'+(PZ.mode==='rated'&&first?' This counts as a miss for your rating.':'')+' Try again, or tap Show solution.'+(r?'<div class="idea">Engine: '+fmt(r.best.cp)+' with the best move, '+fmt(r.played.cp)+' after yours.</div>':''),'warn');pzRender();setTimeout(()=>{P.wrong=null},500);return}
+P.done=true;const ex=new Chess(fen).move({from:exp.slice(0,2),to:exp.slice(2,4),promotion:exp[4]});
+P.arrows=ex?[{from:ex.from,to:ex.to,color:'#86c08a'}]:[];
+pzCoach('<b>'+esc(mv.san)+'</b> misses it. The move was <b>'+esc(ex?ex.san:exp)+'</b>.'+(r?'<div class="idea">Engine: '+fmt(r.best.cp)+' with the best move, '+fmt(r.played.cp)+' after yours.</div>':'')+'<div class="idea">Tap Show solution to play it out. This puzzle will come back for review.</div>'+pzAfterNote(),'bad');
+pzRender();setTimeout(()=>{P.wrong=null},500);
+if(P.timer){setTimeout(()=>{if(P.timer&&P.done)pzNext()},1400)}
+}
+function pzAdvance(){
+if(P.i>=P.sol.length){P.done=true;pzGrade(!P.failed&&!P.hinted);
+pzCoach(P.failed||P.hinted?'Solved, with help. It will come back for review.'+pzAfterNote():'<b>Solved!</b>'+pzAfterNote(),P.failed||P.hinted?'warn':'ok');pzRender();
+if(P.timer)setTimeout(()=>{if(P.timer)pzNext()},500);return}
+pzCoach('Good. Keep going…','ok');P.busy=true;pzRender();const id=P.id;
+setTimeout(()=>{if(id!==P.id)return;pzApply(P.sol[P.i]);P.i++;P.busy=false;pzCoach('<b>Correct.</b> '+esc(P.last.san)+' was the reply. What now?','ok');pzRender()},450);
+}
+function pzAfterNote(){
+const p=P.p;let h=P.done?pzExplain():'';
+if(p.note)h+='<div class="idea">'+esc(p.note)+'</div>';
+const th=(p.themes||[]).filter(t=>THEME_NAME[t]&&!['short','long','veryLong','oneMove','crushing','advantage','middlegame','opening','endgame','mate'].includes(t));
+if(th.length)h+='<div>'+th.slice(0,4).map(t=>'<span class="ptheme">'+THEME_NAME[t]+'</span>').join('')+'</div>';
+if(P.delta!==undefined&&PZ.mode==='rated'&&!P.timer)h+='<div class="idea">Puzzle '+(p.r||'?')+'. Your rating '+Math.round(PZ.st.r)+' ('+(P.delta>=0?'+':'')+P.delta+').</div>';
+if(p.url)h+='<div class="idea"><a href="'+esc(p.url)+'" target="_blank" rel="noopener" style="color:var(--accent)">Open the original game</a></div>';
+return h;
+}
+function pzGrade(ok){
+if(!ok)P.failed=true;
+if(P.graded)return;P.graded=true;P.delta=undefined;
+const id=P.p.id;const s=PZ.seen[id]||{ok:0,fail:0};const now=Date.now();
+if(ok){s.ok++;if(s.b!==undefined){s.b=Math.min(7,s.b+1);s.d=now+SRS_H[s.b]*3600e3}}
+else{s.fail++;s.b=1;s.d=now+SRS_H[1]*3600e3}
+s.last=now;PZ.seen[id]=s;
+pzToday();PZ.st.today++;
+if(P.timer){if(ok)P.timer.score++;else P.timer.miss++}
+else if(PZ.mode==='rated'){
+const pr=P.p.r||1500;const exp=1/(1+Math.pow(10,(pr-PZ.st.r)/400));const K=PZ.st.n<30?32:16;
+const d=Math.round(K*((ok?1:0)-exp));PZ.st.r=Math.max(400,PZ.st.r+d);PZ.st.n++;P.delta=d;
+PZ.st.hist.push(Math.round(PZ.st.r));if(PZ.st.hist.length>300)PZ.st.hist.shift();
+PZ.st.streak=ok?PZ.st.streak+1:0;PZ.st.best=Math.max(PZ.st.best,PZ.st.streak);
+}
+savePz();
+}
+$('pHint').onclick=()=>{
+if(P.done||P.busy)return;const exp=P.sol[P.i];P.hinted++;
+if(P.hinted===1){P.sel=null;P.arrows=[];P.wrong=null;pzRender();const sq=exp.slice(0,2);
+pzCoach('Look at your '+PNAME[P.g.get(sq).type]+' on '+sq+'. A hint counts as a miss for rating and review.','warn');
+document.querySelector('#pBoard [data-sq="'+sq+'"]').classList.add('sel')}
+else{P.arrows=[{from:exp.slice(0,2),to:exp.slice(2,4),color:'#86c08a'}];pzRender()}
+};
+$('pShow').onclick=async()=>{
+if(!P.g||P.busy)return;if(!P.done){pzGrade(false);P.done=true}
+P.busy=true;const id=P.id;
+while(P.i<P.sol.length){P.arrows=[];pzApply(P.sol[P.i]);P.i++;pzRender();await sleep(700);if(id!==P.id)return}
+P.busy=false;pzCoach('Solution played out.'+pzAfterNote(),'warn');pzRender();
+};
+$('pRetry').onclick=()=>{if(!P.p)return;const p=P.p;
+Object.assign(P,{g:new Chess(p.fen),i:0,done:false,failed:true,graded:true,retry:true,sel:null,arrows:[],last:null,hinted:0,id:P.id+1});
+pzApply(P.sol[0]);P.i=1;pzCoach('<b>'+sideName(P.g.turn())+' to move.</b> Retry (unrated).','');pzRender()};
+$('pNext').onclick=()=>{if(P.p&&!P.done&&!P.timer&&PZ.mode==='rated'){pzGrade(false)}pzNext()};
+$('pFlip').onclick=()=>{P.orient=P.orient==='w'?'b':'w';pzRender()};
+$('pBack').onclick=()=>{clearInterval(P.tick);P.timer=null;P.id=(P.id||0)+1;puzHome()};
+$('pStart').onclick=()=>pzStart();
+$('pAnalyse').onclick=()=>{
+if(!P.p)return;const s=new Chess(P.p.fen);const sm=P.sol[0];s.move({from:sm.slice(0,2),to:sm.slice(2,4),promotion:sm[4]});
+const g=new Chess(s.fen());for(const u of P.sol.slice(1))if(!g.move({from:u.slice(0,2),to:u.slice(2,4),promotion:u[4]}))break;
+g.header('Event','Puzzle '+P.p.id,'SetUp','1','FEN',s.fen());
+clearInterval(P.tick);P.timer=null;openReview({pgn:g.pgn(),pc:P.orient});
+};
+/* ---------- guess the master's move ---------- */
+/* You play the winner's side of a famous game. Each move: 3 points for the master's move, 2 if the engine says yours is as good, 0 otherwise.
+Then the real move is played, the coach's note (if any) appears, and the opponent replies. */
+const GMS=typeof MASTER_GAMES!=='undefined'?MASTER_GAMES:[];
+const GM={rec:load('knm_gm',{})};
+function gmList(){
+$('gmList').innerHTML=GMS.length?GMS.map((g,i)=>{const r=GM.rec[g.id];return'<button class="pset" data-g="'+i+'"><span class="t"><b>'+esc(g.title)+'</b><small>'+esc(g.lesson)+'</small></span><span class="cnt">'+(r?'best '+r.best+'%':esc(g.who))+'</span></button>'}).join(''):'<p class="hint">No master games found. Make sure coach.js sits next to index.html.</p>';
+$('gmList').onclick=e=>{const b=e.target.closest('[data-g]');if(b)gmStart(+b.dataset.g)};
+}
+function gmStart(n){
+const g=GMS[n];const c=new Chess();for(let k=0;k<g.start;k++)c.move(g.sans[k]);
+const h=c.history({verbose:true});
+Object.assign(GM,{g,c,i:g.start,score:0,max:0,sel:null,arrows:[],last:h.length?h[h.length-1]:null,busy:false,hint:0,orient:g.side,id:(GM.id||0)+1,marks:[]});
+$('pHome').classList.add('hidden');$('pPlay').classList.add('hidden');$('gmPlay').classList.remove('hidden');$('gmTitle').textContent=g.title;
+gmPrompt('<div class="open">'+esc(g.lesson)+'</div><div class="idea">'+esc(g.intro)+'</div>'+(g.start?'<div class="idea">The first '+Math.ceil(g.start/2)+' moves are already played.</div>':''));
+}
+function gmCoach(h,k){const c=$('gmCoach');c.innerHTML=h;c.className='coach'+(k?' '+k:'')}
+function gmRender(){
+let targets=null;if(GM.sel){targets={};for(const m of GM.c.moves({square:GM.sel,verbose:true}))targets[m.to]=m.captured?'c':'m'}
+renderBoard($('gmBoard'),$('gmArrows'),GM.c.fen(),{orient:GM.orient,sel:GM.sel,targets,last:GM.last,check:GM.c.in_check(),arrows:GM.arrows,names:S.set.squareNames});
+renderMoveList($('gmMoves'),GM.c.history(),GM.marks,null,null);
+const done=GM.i>=GM.g.sans.length;$('gmHint').disabled=done||GM.busy;$('gmReveal').disabled=done||GM.busy;
+}
+function gmScoreTxt(){return GM.max?' Score '+GM.score+'/'+GM.max+' ('+Math.round(100*GM.score/GM.max)+'%).':''}
+/* Show the prompt for the user's move (optionally after some result text). Plays the opponent first if it's their turn. */
+async function gmPrompt(pre){
+const id=GM.id;
+if(GM.i<GM.g.sans.length&&GM.c.turn()!==GM.g.side){GM.busy=true;gmCoach((pre||'')+'<div class="idea">Opponent to move…</div>','');gmRender();await sleep(pre?900:500);if(id!==GM.id)return;
+const m=GM.c.move(GM.g.sans[GM.i]);GM.last=m;GM.i++;GM.busy=false;pre=(pre||'')+'<div class="idea">'+sideName(m.color)+' replied <b>'+esc(m.san)+'</b>.</div>'}
+if(GM.i>=GM.g.sans.length)return gmFinish(pre);
+const note=GM.g.notes[GM.i];GM.hint=0;
+gmCoach((pre||'')+'<div><b>Move '+(Math.floor(GM.i/2)+1)+'. Your guess as '+sideName(GM.g.side)+'?</b>'+gmScoreTxt()+'</div>'+(note&&note[0]?'<div class="idea">Coach: '+esc(note[0])+'</div>':''),note&&note[0]?'warn':'');
+gmRender();
+}
+function gmFinish(pre){
+GM.busy=false;const pct=GM.max?Math.round(100*GM.score/GM.max):0;const r=GM.rec[GM.g.id]||{best:0,plays:0};
+r.plays++;const best=pct>r.best;if(best)r.best=pct;GM.rec[GM.g.id]=r;store('knm_gm',GM.rec);
+gmCoach((pre||'')+'<div><b>Game over ('+esc(GM.g.result)+').</b> You scored '+GM.score+'/'+GM.max+' = '+pct+'%'+(best?', a new best.':'.')+'</div><div class="idea">'+esc(GM.g.lesson)+'</div><div class="idea">Above 60% on these games is strong. Replay a game a week later and see what you remember.</div>','ok');gmRender();
+}
+$('gmBoard').addEventListener('click',e=>{
+const t=e.target.closest('.sq');if(!t||!GM.c||GM.busy||GM.i>=GM.g.sans.length||GM.c.turn()!==GM.g.side)return;
+const sq=t.dataset.sq;const p=GM.c.get(sq);const me=GM.c.turn();
+if(GM.sel){const mv=GM.c.moves({square:GM.sel,verbose:true}).find(m=>m.to===sq);
+if(mv){const from=GM.sel;GM.sel=null;if(mv.flags.includes('p')){choosePromo(me).then(pp=>{if(pp)gmTry(from,sq,pp);else gmRender()});return}return gmTry(from,sq)}}
+GM.sel=p&&p.color===me?(GM.sel===sq?null:sq):null;gmRender();
+});
+async function gmTry(from,to,promo){
+const fen=GM.c.fen();const probe=new Chess(fen);const mv=probe.move({from,to,promotion:promo||'q'});if(!mv)return;
+const exp=GM.g.sans[GM.i];const who=GM.g.who;const full=GM.hint?1:3;let res,pts=0,mark='mistake';
+if(mv.san===exp){pts=full;mark='best';res='<div><b>'+esc(mv.san)+'</b>: that is what '+esc(who)+' played. +'+pts+'.</div>'}
+else{GM.busy=true;gmCoach('Checking '+esc(mv.san)+'…','');gmRender();const id=GM.id;
+const em=new Chess(fen).move(exp);const r=await moveCheck(fen,mv.from+mv.to+(mv.promotion||''),11);if(id!==GM.id)return;GM.busy=false;
+if(r&&r.best&&r.best.best&&(r.isBest||(r.drop<=5&&r.best.cp-r.played.cp<=100))){pts=Math.min(2,full);mark='inacc';res='<div><b>'+esc(mv.san)+'</b> is good too (engine agrees). '+esc(who)+' played <b>'+esc(exp)+'</b>. +'+pts+'.</div>'}
+else res='<div><b>'+esc(mv.san)+'</b> isn\'t it. '+esc(who)+' played <b>'+esc(exp)+'</b>.'+(r?' <span class="idea">(engine: '+fmt(r.best.cp)+' with the best move, '+fmt(r.played.cp)+' after yours)</span>':'')+'</div>';
+if(em)GM.arrows=[{from:em.from,to:em.to,color:'#86c08a'}]}
+gmPlayMaster(pts,mark,res);
+}
+function gmPlayMaster(pts,mark,res){
+GM.score+=pts;GM.max+=3;GM.marks[GM.i]=mark;
+const m=GM.c.move(GM.g.sans[GM.i]);GM.last=m;const note=GM.g.notes[GM.i];GM.i++;GM.sel=null;
+const html=res+(note&&note[1]?'<div class="idea"><b>Coach:</b> '+esc(note[1])+'</div>':'');
+gmRender();setTimeout(()=>{GM.arrows=[]},50);
+if(note&&note[1]){GM.busy=true;gmCoach(html+'<div style="margin-top:6px"><button class="btn small" id="gmCont">Continue ›</button></div>',pts?'ok':'bad');gmRender();
+$('gmCont').onclick=()=>{GM.busy=false;gmPrompt(html.replace(/<div class="idea"><b>Coach:<\/b>.*?<\/div>/,''))}}
+else gmPrompt(html);
+}
+$('gmHint').onclick=()=>{if(!GM.c||GM.busy)return;const m=new Chess(GM.c.fen()).move(GM.g.sans[GM.i]);if(!m)return;GM.hint++;GM.sel=null;
+if(GM.hint===1){gmRender();document.querySelector('#gmBoard [data-sq="'+m.from+'"]').classList.add('sel');$('gmCoach').insertAdjacentHTML('beforeend','<div class="idea">Hint: the '+PNAME[m.piece]+' on '+m.from+' moves. This guess now scores at most 1.</div>')}
+else{GM.arrows=[{from:m.from,to:m.to,color:'#86c08a'}];gmRender()}};
+$('gmReveal').onclick=()=>{if(!GM.c||GM.busy||GM.i>=GM.g.sans.length)return;gmPlayMaster(0,'mistake','<div>The move was <b>'+esc(GM.g.sans[GM.i])+'</b>.</div>')};
+$('gmFlip').onclick=()=>{GM.orient=GM.orient==='w'?'b':'w';gmRender()};
+$('gmBack').onclick=()=>{GM.id++;puzHome()};
+$('gmReview').onclick=()=>{if(!GM.g)return;const c=new Chess();for(const s of GM.g.sans)c.move(s);c.header('Event',GM.g.title,'Result',GM.g.result);GM.id++;openReview({pgn:c.pgn(),pc:GM.g.side})};
+/* ---------- plan & progress ---------- */
+/* Progress = weighted average of six areas. Sessions are ticked by hand; everything else is read from what you do in the app. */
+const PL=typeof PLAN!=='undefined'?PLAN:null;
+const PLS={done:load('knm_plan',{}),view:null};
+function plCurWeek(){if(!PL)return 1;const d=(Date.now()-new Date(PL.start+'T00:00:00').getTime())/864e5;return Math.max(1,Math.min(26,Math.floor(d/7)+1))}
+function plWeekDone(n){return(PLS.done[n]||[]).filter(Boolean).length}
+function lessonsDone(){try{return Object.keys(LS.done).length}catch(e){return 0}}
+function plAreas(){
+const sessTot=26*7;let sess=0;for(let n=1;n<=26;n++)sess+=plWeekDone(n);
+const r=Math.round(PZ.st.r),r0=1500,goal=PL?PL.goalRating:2000;
+const solved=Object.values(PZ.seen).filter(s=>s.ok>0).length,goalP=PL?PL.goalPuzzles:1000;
+let rt=0,rm=0;for(const c of REP.courses){const st=courseStats(c);rt+=st.total;rm+=st.mastered}
+const gms=GMS.length,gmDone=GMS.filter(g=>GM.rec[g.id]&&GM.rec[g.id].best>=50).length;
+const now=Date.now();const mine=PZ_ALL.filter(p=>p.set==='mine');
+const mineFixed=mine.filter(p=>{const s=PZ.seen[p.id];return s&&s.ok>0&&!(s.b!==undefined&&s.d<=now)}).length;
+const f=(a,b)=>b?Math.max(0,Math.min(1,a/b)):0;
+return[
+{k:'Training sessions',v:f(sess,sessTot),n:sess+' of '+sessTot,w:30,tip:'Tick sessions below as you do them.'},
+{k:'Puzzle rating',v:f(r-r0,goal-r0),n:r+' to '+goal,w:20,tip:'Rated puzzles in the Puzzles tab move this.'},
+{k:'Puzzles solved',v:f(solved,goalP),n:solved+' of '+goalP,w:15,tip:'Different puzzles solved at least once.'},
+{k:'Lessons learned',v:f(lessonsDone(),200),n:lessonsDone()+' of 200',w:10,tip:'Learn tab: middlegame and endgame lessons marked as learned.'},
+{k:'Repertoire mastered',v:f(rm,rt),n:rt?rm+' of '+rt+' moves':'no repertoire yet',w:10,tip:rt?'Moves reviewed successfully over 2+ weeks.':'Openings, New repertoire, Start from: Coach repertoire.'},
+{k:'Master games (50%+)',v:f(gmDone,gms),n:gmDone+' of '+gms,w:10,tip:'Guess-the-move games where you scored at least 50%.'},
+{k:'Your own mistakes fixed',v:f(mineFixed,mine.length),n:mineFixed+' of '+mine.length,w:5,tip:'My-games puzzles solved and not due again.'}]}
+function plBar(label,num,v,tip){return'<div class="pbar" title="'+esc(tip||'')+'"><span class="lab">'+esc(label)+'</span><span class="num">'+esc(num)+' &middot; '+Math.round(v*100)+'%</span><div class="tr"><div style="width:'+(v*100).toFixed(1)+'%"></div></div></div>'}
+function planRender(){
+if(!PL){$('plSub').textContent='Plan data not found. Make sure coach.js sits next to index.html.';return}
+const A=plAreas();const tot=A.reduce((s,a)=>s+a.v*a.w,0)/A.reduce((s,a)=>s+a.w,0);const pct=Math.round(tot*100);
+const C=2*Math.PI*50;
+$('plRing').innerHTML='<title>Overall progress '+pct+'%</title><circle class="track" cx="60" cy="60" r="50" fill="none" stroke-width="12"/>'+
+'<circle class="val" cx="60" cy="60" r="50" fill="none" stroke-width="12" stroke-linecap="round" transform="rotate(-90 60 60)" stroke-dasharray="'+C.toFixed(2)+'" stroke-dashoffset="'+(C*(1-tot)).toFixed(2)+'"'+(tot===0?' stroke-opacity="0"':'')+'/>'+
+'<text x="60" y="68" text-anchor="middle" font-size="26" font-weight="700">'+pct+'%</text>';
+const cw=plCurWeek();const wk=PL.weeks[cw-1];
+$('plSub').textContent='Week '+cw+' of 26. Month '+wk.month+': '+wk.theme+'. Started '+PL.weeks[0].date+'.';
+$('plBars').innerHTML=A.map(a=>plBar(a.k,a.n,a.v,a.tip)).join('');
+if(PLS.view===null)PLS.view=cw;plWeekRender();plSpark();
+const sets=PZ_SETS.map(s=>{const pool=PZ_ALL.filter(p=>p.set===s.id);return{s,ok:pool.filter(p=>PZ.seen[p.id]&&PZ.seen[p.id].ok>0).length,n:pool.length}}).filter(x=>x.n);
+$('plSets').innerHTML=sets.map(x=>plBar(x.s.name,x.ok+' of '+x.n,x.ok/x.n,x.s.desc)).join('');
+if(typeof COACH_NOTES!=='undefined')$('plNotes').innerHTML=COACH_NOTES.map((n,i)=>'<details class="prow"><summary><b>'+(i+1)+'. '+esc(n.t)+'</b></summary><div>'+esc(n.a)+'</div><div class="hint" style="margin:2px 0 0">'+esc(n.w)+'</div></details>').join('');
+}
+function plWeekRender(){
+const n=PLS.view,w=PL.weeks[n-1],d=PLS.done[n]||[];
+$('plWeek').textContent='Week '+n+', '+w.date+(n===plCurWeek()?' (this week)':'');$('plTheme').textContent='Month '+w.month+': '+w.theme;
+$('plSess').innerHTML=PL.sessions.map((t,i)=>'<label class="sess"><input type="checkbox" data-i="'+i+'"'+(d[i]?' checked':'')+'>'+esc(t)+'</label>').join('');
+$('plSess').onchange=e=>{const i=+e.target.dataset.i;const a=PLS.done[n]||[];a[i]=e.target.checked?1:0;PLS.done[n]=a;store('knm_plan',PLS.done);planRender()};
+$('plPrev').disabled=n<=1;$('plNext').disabled=n>=26;
+$('plWeeks').innerHTML=PL.weeks.map(x=>{const k=plWeekDone(x.n);return'<button data-w="'+x.n+'" class="'+(x.n===plCurWeek()?'cur':'')+'" title="Week '+x.n+' ('+x.date+'): '+k+' of 7 sessions"><i style="height:'+(k/7*100).toFixed(0)+'%"></i><span>'+x.n+'</span></button>'}).join('');
+$('plWeeks').onclick=e=>{const b=e.target.closest('[data-w]');if(b){PLS.view=+b.dataset.w;plWeekRender()}};
+}
+$('plPrev').onclick=()=>{if(PLS.view>1){PLS.view--;plWeekRender()}};
+$('plNext').onclick=()=>{if(PLS.view<26){PLS.view++;plWeekRender()}};
+function plSpark(){
+const h=PZ.st.hist||[];const svg=$('plSpark');
+if(h.length<2){svg.innerHTML='';$('plSparkTxt').textContent='Play rated puzzles to see your rating trend. Target: 2000.';return}
+const lo=Math.min(1400,...h),hi=Math.max(2050,...h);const X=i=>i/(h.length-1)*396+2,Y=v=>88-(v-lo)/(hi-lo)*84;
+let g='<line x1="0" x2="400" y1="'+Y(2000)+'" y2="'+Y(2000)+'" stroke="var(--line)" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"/>';
+g+='<polyline fill="none" stroke="var(--accent)" stroke-width="2" vector-effect="non-scaling-stroke" points="'+h.map((v,i)=>X(i).toFixed(1)+','+Y(v).toFixed(1)).join(' ')+'"/>';
+g+=h.map((v,i)=>'<rect x="'+(X(i)-200/h.length).toFixed(1)+'" y="0" width="'+(400/h.length).toFixed(1)+'" height="90" fill="transparent"><title>Rated puzzle '+(i+1)+': '+v+'</title></rect>').join('');
+svg.innerHTML=g;$('plSparkTxt').textContent='Now '+h[h.length-1]+' after '+h.length+' rated puzzles (best '+Math.max(...h)+'). Dashed line: the 2000 target. Hover for each value.';
+}
+/* ---------- opening explorer (repertoire editor) ---------- */
+/* Three layers for the position on the editor board:
+   1. Masters: what Fischer, Tal and 14 other greats played here (explorer.js), with results.
+   2. Famous: moves from the annotated famous games (coach.js), tagged with the game.
+   3. Best: optional engine check that marks the best move and evaluates the others.
+   Tap a move to add it to the repertoire. */
+const XPD=typeof EXPLORER!=='undefined'?EXPLORER:{};
+const XP={opt:load('knm_xp',{masters:true,famous:true,best:false}),tok:0,famous:null};
+const xpKey=fen=>fen.split(' ').slice(0,4).join(' ');
+function xpFamous(){
+if(XP.famous)return XP.famous;XP.famous=new Map();
+for(const g of(typeof MASTER_GAMES!=='undefined'?MASTER_GAMES:[])){const c=new Chess();
+for(let i=0;i<Math.min(g.sans.length,40);i++){const k=xpKey(c.fen());const m=c.move(g.sans[i]);if(!m)break;
+if(!XP.famous.has(k))XP.famous.set(k,[]);const a=XP.famous.get(k);if(!a.some(x=>x.san===m.san&&x.title===g.title))a.push({san:m.san,title:g.title})}}
+return XP.famous}
+function xpRender(fen){
+const box=$('xList');if(!box)return;const o=XP.opt;
+$('xMasters').checked=o.masters;$('xFamous').checked=o.famous;$('xBest').checked=o.best;
+const rows=new Map();
+if(o.masters)for(const r of(XPD[xpKey(fen)]||[]))rows.set(r[0],{san:r[0],n:r[1],w:r[2],d:r[3],b:r[4],eg:r[5],fam:[]});
+if(o.famous)for(const f of(xpFamous().get(xpKey(fen))||[])){if(!rows.has(f.san))rows.set(f.san,{san:f.san,n:0,fam:[]});rows.get(f.san).fam.push(f.title)}
+const tot=[...rows.values()].reduce((s,r)=>s+r.n,0);
+const list=[...rows.values()].sort((a,b)=>b.n-a.n||b.fam.length-a.fam.length);
+XP.list=list;XP.fen=fen;
+if(!list.length){box.innerHTML='<p class="hint">'+(o.masters||o.famous?'No master games reached this position (the explorer covers the first 20 half-moves of about 34,000 games).':'Switch on a layer above.')+'</p>';}
+else box.innerHTML=list.map((r,i)=>{const pct=r.n?Math.round(100*r.n/Math.max(1,tot)):0;
+const wp=r.n?Math.round(100*r.w/r.n):0,dp=r.n?Math.round(100*r.d/r.n):0,bp=r.n?100-wp-dp:0;
+return'<button class="xrow" data-i="'+i+'" title="'+esc(r.eg?'Example: '+r.eg:'')+'"><span class="xsan">'+esc(r.san)+'<i class="xbest" id="xb'+i+'"></i></span>'+
+'<span class="xn">'+(r.n?r.n+' · '+pct+'%':'-')+'</span>'+
+(r.n?'<span class="xwdl" title="White '+wp+'% · draw '+dp+'% · Black '+bp+'%"><b style="width:'+wp+'%"></b><s style="width:'+dp+'%"></s><u style="width:'+bp+'%"></u></span>':'<span class="xwdl none"></span>')+
+(r.fam.length?'<span class="xfam" title="'+esc(r.fam.join(' / '))+'">★ '+esc(r.fam[0].replace(/,.*$/,'').replace(/\s*\(.*\)$/,''))+(r.fam.length>1?' +'+(r.fam.length-1):'')+'</span>':'')+'</button>'}).join('');
+box.onclick=e=>{const b=e.target.closest('[data-i]');if(b)addEditorMove(XP.list[+b.dataset.i].san)};
+$('xEval').textContent='';
+if(o.best)xpBest(fen);
+}
+async function xpBest(fen){
+const tok=++XP.tok;$('xEval').textContent='Engine thinking…';
+const t=terminalEval(fen);if(t){$('xEval').textContent='Game over in this position.';return}
+const r=await engine().run(fen,{depth:14,cap:2500,multipv:4});if(tok!==XP.tok||XP.fen!==fen)return;
+if(!r.best||!r.lines.length){$('xEval').textContent='Engine not available yet.';return}
+const best=r.lines[0];const bestSan=uciToSan(fen,best.pv[0]);const side=fen.split(' ')[1];
+const cpW=c=>side==='w'?c:-c;
+$('xEval').innerHTML='<b>Best: '+esc(bestSan)+'</b> ('+fmt(cpW(best.cp))+' for White) · line: '+esc(pvToSan(fen,best.pv,6).join(' '));
+const bySan={};r.lines.forEach((l,i)=>{bySan[uciToSan(fen,l.pv[0])]={cp:l.cp,i}});
+XP.list.forEach((x,i)=>{const el=$('xb'+i);if(!el)return;const s=bySan[x.san];
+if(s&&s.i===0){el.textContent=' ★ best';el.className='xbest top'}
+else if(s){const d=(best.cp-s.cp)/100;el.textContent=d<=0.3?' ✓ good':' '+(d>0?'−':'+')+Math.abs(d).toFixed(1);el.className='xbest '+(d<=0.3?'ok':'')}});
+if(!XP.list.some(x=>x.san===bestSan))$('xEval').insertAdjacentHTML('beforeend','<div class="idea">The engine\'s choice isn\'t among the masters\' moves here.</div>');
+}
+for(const[id,k]of[['xMasters','masters'],['xFamous','famous'],['xBest','best']])$(id).onchange=()=>{XP.opt[k]=$(id).checked;store('knm_xp',XP.opt);if(XP.fen)xpRender(XP.fen)};
+/* ---------- Learn tab: 50 principles + 200 lessons ---------- */
+const LP=typeof PRINCIPLES!=='undefined'?PRINCIPLES:[];
+const LL=typeof LESSONS!=='undefined'?LESSONS:[];
+const PRIN=Object.fromEntries(LP.map(p=>[p.id,p]));
+const LS={done:load('knm_lessons',{}),part:load('knm_lpart',{v:'mid'}).v,cur:null};
+const THEME_LABEL=t=>THEME_NAME[t]||t.replace(/([A-Z])/g,' $1').replace(/^./,c=>c.toUpperCase());
+function prChip(id){const p=PRIN[id];return p?'<button class="chip" data-p="'+id+'" title="'+esc(p.r)+'">P'+id+' · '+esc(p.t)+'</button>':''}
+function learnHome(){
+$('lHome').classList.remove('hidden');$('lView').classList.add('hidden');
+document.querySelectorAll('#lSeg button').forEach(b=>b.classList.toggle('on',b.dataset.v===LS.part));
+const doneN=part=>LL.filter(l=>l.part===part&&LS.done[l.id]).length;
+$('lStats').innerHTML=plBar('Middlegame lessons',doneN('mid')+' of 100',doneN('mid')/100,'')+plBar('Endgame lessons',doneN('end')+' of 100',doneN('end')/100,'');
+let h='';
+if(LS.part==='prin'){let fam='';for(const p of LP){if(p.f!==fam){fam=p.f;h+='<h2 style="margin:12px 0 4px">'+esc(fam)+'</h2>'}
+h+='<div class="prow"><b>P'+p.id+'. '+esc(p.t)+'</b><div>'+esc(p.r)+'</div><div class="hint" style="margin:2px 0 0">'+esc(p.w)+'</div></div>'}}
+else{let mod='';for(const l of LL.filter(x=>x.part===LS.part)){if(l.m!==mod){mod=l.m;h+='<h2 style="margin:12px 0 4px">'+esc(mod)+'</h2>'}
+h+='<button class="pset" data-l="'+esc(l.id)+'"><span class="t"><b>'+l.n+'. '+esc(l.t)+'</b><small>'+l.p.map(i=>'P'+i).join(' · ')+(l.fen?' · diagram':'')+'</small></span><span class="cnt">'+(LS.done[l.id]?'✓':'')+'</span></button>'}}
+$('lList').innerHTML=h;
+$('lList').onclick=e=>{const b=e.target.closest('[data-l]');if(b)lessonOpen(b.dataset.l)};
+}
+$('lSeg').onclick=e=>{const v=e.target.dataset.v;if(!v)return;LS.part=v;store('knm_lpart',{v});learnHome()};
+function lessonOpen(id){
+const l=LL.find(x=>x.id===id);if(!l)return;LS.cur=l;
+$('lHome').classList.add('hidden');$('lView').classList.remove('hidden');window.scrollTo({top:0});
+$('lTitle').textContent=(l.part==='mid'?'Middlegame':'Endgame')+' lesson '+l.n+' of 100 · '+l.m;
+let h='<h2>'+esc(l.t)+'</h2><div style="margin:4px 0 8px">'+l.p.map(prChip).join('')+'</div><p>'+esc(l.x)+'</p>'+
+'<div class="dodont"><div class="do"><b>Do</b>'+esc(l.do)+'</div><div class="dont"><b>Don\'t</b>'+esc(l.dont)+'</div></div>';
+$('lBody').innerHTML=h;
+$('lBody').onclick=e=>{const b=e.target.closest('[data-p]');if(!b)return;const p=PRIN[+b.dataset.p];modal('P'+p.id+'. '+p.t,'<p><b>'+esc(p.r)+'</b></p><p class="hint">'+esc(p.w)+'</p>',[['ok','OK']])};
+$('lDiag').classList.toggle('hidden',!l.fen);
+if(l.fen){const turn=l.fen.split(' ')[1];renderBoard($('lBoard'),$('lArrows'),l.fen,{orient:'w',names:S.set.squareNames});$('lCap').textContent=(turn==='w'?'White':'Black')+' to move. '+(l.cap||'')}
+const pr=l.pr||'';$('lPractice').classList.toggle('hidden',!pr);
+$('lPractice').textContent=pr.startsWith('theme:')?'Practise: '+THEME_LABEL(pr.slice(6))+' puzzles':pr.startsWith('set:')?'Practise: '+setName(pr.slice(4))+' puzzles':pr.startsWith('game:')?'Practise: guess the moves of the model game':'Practise';
+$('lDone').textContent=LS.done[l.id]?'✓ Learned (tap to undo)':'Mark as learned';$('lDone').classList.toggle('on',!!LS.done[l.id]);
+const list=LL.filter(x=>x.part===l.part);const i=list.indexOf(l);$('lPrev').disabled=i<=0;$('lNext').disabled=i>=list.length-1;
+}
+$('lDone').onclick=()=>{const l=LS.cur;if(!l)return;if(LS.done[l.id])delete LS.done[l.id];else LS.done[l.id]=Date.now();store('knm_lessons',LS.done);lessonOpen(l.id)};
+$('lPrev').onclick=()=>{const list=LL.filter(x=>x.part===LS.cur.part);const i=list.indexOf(LS.cur);if(i>0)lessonOpen(list[i-1].id)};
+$('lNext').onclick=()=>{const list=LL.filter(x=>x.part===LS.cur.part);const i=list.indexOf(LS.cur);if(i<list.length-1)lessonOpen(list[i+1].id)};
+$('lBack').onclick=()=>learnHome();
+$('lPractice').onclick=()=>{const pr=(LS.cur&&LS.cur.pr)||'';
+if(pr.startsWith('game:')){const i=GMS.findIndex(g=>g.id===pr.slice(5));tab('puz');puzHome();if(i>=0)gmStart(i);return}
+tab('puz');if(pr.startsWith('set:')){PZ.filter=null;PZ.set=pr.slice(4)}else if(pr.startsWith('theme:'))PZ.filter={theme:pr.slice(6),from:LS.cur.t};
+pzStart()};
+
+/* ---------- puzzle explanations: why the solution works, and which principles it follows ---------- */
+const PZ_VAL={p:1,n:3,b:3,r:5,q:9,k:0};
+const THEME_PRIN={fork:[29,24],pin:[30],skewer:[30],discoveredAttack:[29],doubleCheck:[29,28],deflection:[31,27],attraction:[31,28],overloading:[31,27],
+sacrifice:[37,33],quietMove:[34],intermezzo:[32],clearance:[29],xRayAttack:[30],trappedPiece:[24],hangingPiece:[24,26],backRankMate:[28],smotheredMate:[28],
+mateIn1:[28],mateIn2:[28,23],mateIn3:[28,23],kingsideAttack:[17,28],defensiveMove:[35,25],advancedPawn:[42],promotion:[42],rookEndgame:[46,43],pawnEndgame:[44,41],
+endgame:[41],capturingDefender:[31],exposedKing:[28]};
+function pzExplain(){
+const p=P.p,sol=P.sol;const g=new Chess(p.fen);const um=sol[0];g.move({from:um.slice(0,2),to:um.slice(2,4),promotion:um[4]});
+const me=g.turn();const steps=[];const prin=new Set();let mat=0;let mated=false;
+for(let i=1;i<sol.length;i++){const u=sol[i];const before=new Chess(g.fen());const m=g.move({from:u.slice(0,2),to:u.slice(2,4),promotion:u[4]});if(!m)break;
+const mine=m.color===me;const val=m.captured?PZ_VAL[m.captured]:0;mat+=mine?val:-val;if(m.promotion)mat+=(mine?1:-1)*(PZ_VAL[m.promotion]-1);
+if(!mine){steps.push({who:'opp',san:m.san});continue}
+const f=[];
+if(g.in_checkmate()){f.push('checkmate');mated=true;prin.add(28)}
+else if(m.san.includes('+')){
+const t=new Chess(g.fen());const fe=t.fen().split(' ');fe[1]=me;fe[3]='-';const tt=new Chess(fe.join(' '));
+const direct=tt.moves({square:m.to,verbose:true}).some(x=>x.captured==='k');
+f.push(direct?'a check':'a discovered check');prin.add(23)}
+if(m.captured){f.push('captures a '+PNAME[m.captured]);prin.add(23)}
+if(m.promotion)f.push('promotes to a '+PNAME[m.promotion]);
+const fe=g.fen().split(' ');fe[1]=me;fe[3]='-';const t2=new Chess(fe.join(' '));
+const hits=t2.moves({square:m.to,verbose:true}).filter(x=>x.captured&&(x.captured==='k'||PZ_VAL[x.captured]>=3||PZ_VAL[x.captured]>PZ_VAL[m.piece]));
+if(hits.length>=2&&!g.in_checkmate()){f.push('forks '+hits.map(x=>x.captured==='k'?'the king':'the '+PNAME[x.captured]+' on '+x.to).join(' and '));prin.add(29)}
+const opp=new Chess(g.fen());
+const canTake=opp.moves({verbose:true}).some(x=>x.to===m.to);
+if(canTake&&PZ_VAL[m.piece]>(m.captured?PZ_VAL[m.captured]:0)+1&&!g.in_checkmate()){f.push('offers the '+PNAME[m.piece]+' as a sacrifice');prin.add(37);prin.add(33)}
+if(!m.captured&&!m.san.includes('+')&&!m.promotion&&!hits.length){f.push('is a quiet move');prin.add(34)}
+steps.push({who:'me',san:m.san,f})}
+for(const t of(p.themes||[]))(THEME_PRIN[t]||[]).forEach(x=>prin.add(x));
+if(p.set==='mine')prin.add(25);
+if(p.set==='defence')prin.add(35);
+let h='<div class="explain"><b>Why it works</b><ol>';
+for(const s of steps)h+=s.who==='me'?'<li><b>'+esc(s.san)+'</b>'+(s.f.length?' '+s.f.join(', ')+'.':'.')+'</li>':'<li class="idea">'+esc(s.san)+' (forced reply)</li>';
+h+='</ol>';
+h+=mated?'<div>The line ends in <b>checkmate</b>.</div>':mat>0?'<div>Net result: you win about <b>'+mat+' point'+(mat>1?'s':'')+'</b> of material.</div>':mat<0?'<div>You give up '+(-mat)+' point'+(-mat>1?'s':'')+' of material for the attack or a decisive position (the engine confirms it).</div>':'<div>Material stays level, but your position improves decisively (engine-confirmed).</div>';
+if(p.set==='mine')h+='<div class="idea">This was your game. A blunder check (P25) before the move you played would have found it.</div>';
+const pl=[...prin].filter(i=>PRIN[i]).slice(0,4);
+if(pl.length)h+='<div style="margin-top:6px"><b>Principles</b></div>'+pl.map(i=>'<div class="idea"><b>P'+i+'. '+esc(PRIN[i].t)+'</b>: '+esc(PRIN[i].r)+'</div>').join('');
+return h+'</div>';
 }
 /* ---------- boot ---------- */
 if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(()=>{});
