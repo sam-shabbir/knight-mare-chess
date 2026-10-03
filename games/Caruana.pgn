@@ -1,0 +1,234 @@
+[Event "Topalov – Caruana, Sinquefield Cup 2014"]
+[White "Topalov"]
+[Black "Caruana"]
+[Date "2014.??.??"]
+[Result "0-1"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Steady pressure. Wait for the opponent to overreach, then punish. The first win of
+Caruana's historic run at the 2014 Sinquefield Cup: seven straight wins against the
+world's elite.} 1. Nf3 Nf6 2. c4 c5 3. Nc3 Nc6 4. g3 d5 5. cxd5 Nxd5 6. Bg2 Nc7 7. O-O e5
+8. a3 Rb8 9. d3 Be7 10. Be3 O-O 11. Rc1 Bd7 12. Nd2 Nd4 13. Nc4 f6 14. f4 exf4 15. Bxf4
+Nde6 16. Bd2 b6 17. g4 Be8 18. Be1 b5 19. Ne3 Bd6 20. Ncd5 Nxd5 {Turning point: Topalov's
+20.Ncd5. The engine preferred Nf5 (about +1.1). After the game move it's about -1.5.
+Caruana now has the chance to take over.} 21. Bxd5 Bf7 22. Nf5 Be5 23. Qd2 Nd4 24. Bxf7+
+Rxf7 25. Rd1 Nxf5 26. gxf5 Qd4+ 27. Bf2 Qg4+ 28. Kh1 c4 29. Qc2 Re8 30. dxc4 Qh5
+{Question: Find the strongest move. It is not a check or a capture. Qh5! The only move
+that keeps the advantage: the engine's second choice is about 1.8 pawns worse. It's a
+quiet move.} 31. h4 Qg4 32. Qd3 bxc4 33. Qe3 Rfe7 34. b3 Bb2 {Topalov resigned.} 0-1
+
+[Event "Caruana – Vachier Lagrave, Sinquefield Cup 2014"]
+[White "Caruana"]
+[Black "Vachier Lagrave"]
+[Date "2014.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{For your Caro-Kann: don't grab pawns with the queen while you're behind in development
+(P7). A Caro-Kann Advance, seen from White's side. Black grabs the b2 and c2 pawns with
+the queen while White develops and attacks.} 1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2
+c5 6. Be3 Qb6 7. Nc3 Nc6 8. O-O Qxb2 9. Qe1 cxd4 10. Bxd4 Nxd4 11. Nxd4 Bb4 12. Ndb5 Ba5
+13. Rb1 Qxc2 14. Rc1 Qb2 15. g4 Bg6 16. f4 Be4 17. Rf2 Nh6 18. Bd3 Qb4 19. Rb1 Qc5 20.
+Nxe4 dxe4 21. Qxa5 {Question: Find the strongest move. Look at the forcing moves first.
+Qxa5! The only move that keeps the advantage: the engine's second choice is about 5.4
+pawns worse. It's a capture.} 21... O-O 22. Be2 e3 23. Rff1 Rfc8 24. Qe1 Qd5 25. Rb2 f6
+26. Qg3 fxe5 27. fxe5 Rf8 28. Rxf8+ Rxf8 29. Qxe3 Nf7 30. Nc3 {Vachier Lagrave resigned.}
+1-0
+
+[Event "Carlsen – Caruana, Sinquefield Cup 2014"]
+[White "Carlsen"]
+[Black "Caruana"]
+[Date "2014.??.??"]
+[Result "0-1"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Defend first, counterattack second (P35). A sacrifice is only as good as its follow-up.
+Caruana beats the world champion with Black in a Bishop's Opening, the 1.e4 e5 and Bc4
+territory you know well. Carlsen sacrifices on f7 and Caruana defends accurately.} 1. e4
+e5 2. Bc4 Nf6 3. d3 c6 4. Nf3 d5 5. Bb3 Bb4+ 6. c3 Bd6 7. Bg5 dxe4 8. dxe4 h6 9. Bh4 Qe7
+10. Nbd2 Nbd7 11. Bg3 Bc7 12. O-O Nh5 13. h3 Nxg3 14. fxg3 Nc5 15. Bxf7+ Kxf7 16. Nxe5+
+Kg8 {Question: Find the strongest move. It is not a check or a capture. Kg8! The only move
+that keeps the advantage: the engine's second choice is about 10.7 pawns worse. It's a
+quiet move.} 17. Ng6 Qg5 18. Rf8+ Kh7 19. Nxh8 Bg4 20. Qf1 Nd3 21. Qxd3 Rxf8 22. hxg4 Qxg4
+23. Nf3 Qxg3 24. e5+ Kxh8 {Question: Find the strongest move. Look at the forcing moves
+first. Kxh8! The only move that keeps the advantage: the engine's second choice is about
+3.6 pawns worse. It's a capture.} 25. e6 Bb6+ 26. Kh1 Qg4 27. Qd6 Rd8 28. Qe5 Rd5 29. Qb8+
+Kh7 30. e7 Qh5+ 31. Nh2 Rd1+ {Turning point: Carlsen's 31.Nh2. The engine preferred Qh2
+(about -2.1). After the game move it's about -6.9. Caruana now has the chance to take
+over.} 32. Rxd1 Qxd1+ 33. Nf1 Qxf1+ {Question: Find the strongest move. Look at the
+forcing moves first. Qxf1+! The only move that keeps the advantage: the engine's second
+choice is about 14.1 pawns worse. It's a check.} 34. Kh2 Qg1+ {Carlsen resigned.} 0-1
+
+[Event "Caruana – Aronian, Sinquefield Cup 2014"]
+[White "Caruana"]
+[Black "Aronian"]
+[Date "2014.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Slow pressure in the Ruy: improve the pieces, then strike. A Closed Ruy Lopez against
+Aronian, the line in your Ruy Lopez library file.} 1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4
+Nf6 5. O-O Be7 6. d3 b5 7. Bb3 O-O 8. Nc3 d6 9. a3 Na5 10. Ba2 Be6 11. Bxe6 fxe6 12. b4
+Nc6 13. Bd2 d5 14. Re1 Qd6 15. Na2 Nd7 16. Qe2 d4 17. Reb1 Nb6 18. Nc1 Na4 19. Nb3 Rf7 20.
+Rc1 Rd8 21. Ng5 Rf6 22. Qh5 h6 23. Nf3 Rdf8 24. Rf1 R8f7 25. Rae1 Bf8 26. h3 g6 27. Qh4
+Qe7 28. Qg3 Bg7 29. Na5 Nxa5 30. Nxe5 Nb7 31. Nxg6 Qd8 32. e5 Rf5 33. f4 c5 34. Nh4 Rh5
+35. Nf3 Kh7 36. Qg4 {Turning point: Aronian's 35...Kh7. The engine preferred Qe8 (about
++1.5). After the game move it's about +3.9. Caruana now has the chance to take over.}
+36... Rhf5 37. Nh4 {Question: Find the strongest move. It is not a check or a capture.
+Nh4! The only move that keeps the advantage: the engine's second choice is about 2.4 pawns
+worse. It's a quiet move.} 37... Kh8 38. Nxf5 Rxf5 39. Qg6 Qe7 40. g4 Rf8 41. f5
+{Question: Find the strongest move. It is not a check or a capture. f5! The only move that
+keeps the advantage: the engine's second choice is about 1.6 pawns worse. It's a quiet
+move.} 41... Qe8 42. Qxe8 Rxe8 43. f6 Bf8 44. f7 Re7 45. Rf6 Nb6 46. Bxh6 Nd7 47. Ref1
+cxb4 48. axb4 Bxh6 49. Rxh6+ {Question: Find the strongest move. Look at the forcing moves
+first. Rxh6+! The only move that keeps the advantage: the engine's second choice is about
+5.7 pawns worse. It's a check.} 49... Kg7 50. Rh5 {Aronian resigned.} 1-0
+
+[Event "Caruana – Topalov, Sinquefield Cup 2014"]
+[White "Caruana"]
+[Black "Topalov"]
+[Date "2014.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Against the Sicilian, open lines while you're ahead in development. Against the Sicilian
+Taimanov. Caruana keeps finding active moves until Topalov's position collapses.} 1. e4 c5
+2. Nf3 e6 3. d4 cxd4 4. Nxd4 Nc6 5. Nc3 a6 6. Nxc6 bxc6 7. Bd3 d5 8. O-O Nf6 9. Re1 Be7
+10. e5 Nd7 11. Qg4 Kf8 12. Na4 Qa5 13. Re2 h5 14. Qf4 g5 15. Bd2 Qc7 16. Qg3 h4 17. Qg4
+Rg8 18. Rae1 c5 19. c4 dxc4 20. Bxc4 Bb7 21. h3 Rd8 22. Bc3 Nb8 23. Re3 Nc6 24. Bxe6 fxe6
+25. Rf3+ {Question: Find the strongest move. Look at the forcing moves first. Rf3+! The
+only move that keeps the advantage: the engine's second choice is about 5.4 pawns worse.
+It's a check.} 25... Ke8 26. Qxe6 Rg7 27. Qh6 {Turning point: Topalov's 26...Rg7. The
+engine preferred Nd4 (about +1.9). After the game move it's about +6.3. Caruana now has
+the chance to take over.} 27... Nd4 28. e6 Nxf3+ 29. gxf3 Bf8 30. Qh5+ Ke7 31. Bxg7
+{Question: Find the strongest move. Look at the forcing moves first. Bxg7! The only move
+that keeps the advantage: the engine's second choice is about 10.9 pawns worse. It's a
+capture. Topalov resigned.} 1-0
+
+[Event "Vachier Lagrave – Caruana, Sinquefield Cup 2014"]
+[White "Vachier Lagrave"]
+[Black "Caruana"]
+[Date "2014.??.??"]
+[Result "0-1"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Solid structure first, then take the initiative. The seventh straight win, in a Queen's
+Gambit-type position with Black.} 1. d4 d5 2. c4 e6 3. Nc3 Be7 4. Bf4 Nf6 5. e3 O-O 6. Rc1
+Nbd7 7. c5 Ne4 8. Bd3 f5 9. Nf3 c6 10. Ne5 Nxe5 11. Bxe5 Bf6 12. Bxf6 Qxf6 13. Ne2 e5 14.
+Qa4 Qh4 15. g3 Qg4 16. Rf1 Ng5 17. Kd2 Nf3+ 18. Kc3 Nxh2 19. Rh1 Nf3 {Question: Find the
+strongest move. It is not a check or a capture. Nf3! The only move that keeps the
+advantage: the engine's second choice is about 2.5 pawns worse. It's a quiet move.} 20.
+Qa5 Qg5 21. dxe5 Qe7 22. Nd4 Nxe5 23. b3 b6 {Turning point: Vachier Lagrave's 23.b3. The
+engine preferred Kd2 (about -0.9). After the game move it's about -4.3. Caruana now has
+the chance to take over.} 24. cxb6 c5 25. Nb5 Bb7 26. bxa7 d4+ {Question: Find the
+strongest move. Look at the forcing moves first. d4+! The only move that keeps the
+advantage: the engine's second choice is about 4.1 pawns worse. It's a check.} 27. exd4
+Nxd3 28. Kxd3 Bxh1 29. Rxc5 Qe4+ 30. Kc4 Qe2+ 31. Kb4 Qd2+ 32. Rc3 Bc6 33. a4 Bxb5 34.
+Kxb5 Qxd4 35. Rc7 Rfd8 {Even Caruana errs: 35...Rfd8 let the advantage slip. The engine
+preferred Rfb8+ (about -13.0; after the game move about -4.1). Blunder-check every move
+(P25).} 36. Qb6 Rd5+ 37. Ka6 Rd6 {Question: Find the strongest move. It is not a check or
+a capture. Rd6! The only move that keeps the advantage: the engine's second choice is
+about 4.1 pawns worse. It's a quiet move.} 38. a5 Qd3+ 39. Kb7 Qd5+ {Vachier Lagrave
+resigned.} 0-1
+
+[Event "Kramnik – Caruana, FIDE Candidates 2018, game 4"]
+[White "Kramnik"]
+[Black "Caruana"]
+[Date "2018.??.??"]
+[Result "0-1"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Solid openings still win games: keep the tension and outplay the opponent later.
+Candidates 2018. A Petrov Defence: a solid Black opening, turned into a long squeeze that
+wins.} 1. e4 e5 2. Nf3 Nf6 3. Nxe5 d6 4. Nf3 Nxe4 5. Qe2 Qe7 6. Nc3 Nxc3 7. dxc3 Qxe2+ 8.
+Bxe2 Nc6 9. Be3 Be7 10. O-O-O O-O 11. Rhe1 Bf6 12. Nd2 Re8 13. Bf3 Ne5 14. Bf4 Kf8 15. Bd5
+c6 16. Bb3 Bf5 17. h3 g5 18. Bh2 Kg7 19. c4 g4 20. Ne4 Bxe4 21. Rxe4 Bg5+ 22. Kb1 gxh3 23.
+c5 f5 24. Rb4 hxg2 25. Rxb7+ Kh8 26. cxd6 Nf3 27. Ba4 Nxh2 28. Bxc6 Rad8 29. d7 Re2 30.
+Bxg2 Rxf2 31. Bc6 Ng4 32. Rxa7 Ne3 33. Rg1 h6 34. Rc7 Kg7 35. a4 Kf7 36. Bb5 Ke7 37. a5
+Rf4 38. c3 Kd6 39. Rb7 Rg4 40. Re1 f4 41. a6 h5 42. a7 Ra8 43. b4 h4 44. c4 h3 45. c5+ Ke5
+46. Rb8 Rxa7 {Question: Find the strongest move. Look at the forcing moves first. Rxa7!
+The only move that keeps the advantage: the engine's second choice is about 6.1 pawns
+worse. It's a capture.} 47. Rg8 Bf6 48. d8=Q Bxd8 49. Rxg4 Bf6 50. Rg6 Rb7 51. Be2 Rxb4+
+52. Ka2 Nc2 53. Rc1 Nd4 54. Bd3 Ra4+ 55. Kb1 Nb3 56. Re1+ Kd5 57. Kc2 Nd4+ 58. Kb1 Nf3 59.
+Rd1 Ra1+ {Turning point: Kramnik's 59.Rd1. The engine preferred Rxf6 (about -2.2). After
+the game move it's about -6.1. Caruana now has the chance to take over.} 60. Kc2 Rxd1 61.
+Ba6 Rd2+ 62. Kc1 Bb2+ {Question: Find the strongest move. Look at the forcing moves first.
+Bb2+! The only move that keeps the advantage: the engine's second choice is about 4.2
+pawns worse. It's a check.} 63. Kb1 Kxc5 64. Bb7 Ne5 65. Rf6 f3 66. Rf5 f2 {Question: Find
+the strongest move. It is not a check or a capture. f2! The only move that keeps the
+advantage: the engine's second choice is about 6.8 pawns worse. It's a quiet move. Kramnik
+resigned.} 0-1
+
+[Event "Aronian – Caruana, FIDE Candidates 2018, game 7"]
+[White "Aronian"]
+[Black "Caruana"]
+[Date "2018.??.??"]
+[Result "0-1"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{The QGD: solid, then active pieces in the middlegame. Candidates 2018. Caruana wins with
+Black in a Queen's Gambit Declined.} 1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 dxc4 5. e4 Bb4 6.
+Bg5 h6 7. Bxf6 Qxf6 8. Bxc4 c5 9. O-O cxd4 10. e5 Qd8 11. Ne4 O-O 12. Qe2 Be7 13. Rad1 Qc7
+14. Bd3 Nd7 15. Rc1 Qa5 16. g4 Nxe5 17. Nxe5 Qxe5 {Question: Find the strongest move. Look
+at the forcing moves first. Qxe5! The only move that keeps the advantage: the engine's
+second choice is about 6.3 pawns worse. It's a capture.} 18. f4 Qa5 19. g5 Qd8 20. h4 Bd7
+21. gxh6 g6 22. h5 Kh8 23. Kh2 Bc6 24. Rf3 Bd6 25. Qf2 Bc7 26. Kh3 Qe7 27. Ng5 e5 {Turning
+point: Aronian's 27.Ng5. The engine preferred Rg1 (about +0.9). After the game move it's
+about -3.3. Caruana now has the chance to take over.} 28. Rxc6 bxc6 {Question: Find the
+strongest move. Look at the forcing moves first. bxc6! The only move that keeps the
+advantage: the engine's second choice is about 6.1 pawns worse. It's a capture.} 29. Nxf7+
+Rxf7 30. hxg6 Rf6 31. g7+ Kg8 {Even Caruana errs: 31...Kg8 let the advantage slip. The
+engine preferred Kg8 (about -4.1; after the game move about +0.0). Blunder-check every
+move (P25).} 32. Bc4+ Kh7 33. Qh4 e4 34. Rg3 Bxf4 35. g8=Q+ Rxg8 {Question: Find the
+strongest move. Look at the forcing moves first. Rxg8! The only move that keeps the
+advantage: the engine's second choice is about 10.0 pawns worse. It's a capture.} 36.
+Bxg8+ Kh8 37. Rg7 Qf8 {Aronian resigned.} 0-1
+
+[Event "Caruana – Aronian, FIDE Candidates 2018, game 13"]
+[White "Caruana"]
+[Black "Aronian"]
+[Date "2018.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{The Anti-Marshall: a slow build-up, then the kingside opens. Candidates 2018. A Ruy Lopez
+Anti-Marshall (8.d3), the same idea as in your Ruy file, on Caruana's way to winning the
+Candidates and a world title match with Carlsen.} 1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6
+5. O-O Be7 6. Re1 b5 7. Bb3 O-O 8. d3 d6 9. Bd2 Bg4 10. c3 d5 11. h3 Bh5 12. Qe2 Rb8 13.
+Bg5 dxe4 14. dxe4 h6 15. Bc1 Bg6 16. Nbd2 Nh5 17. Nf1 Bc5 18. g3 Kh7 19. Kg2 Qe7 20. Bc2
+Rfd8 21. b4 Bb6 22. a4 Nf6 23. Nh4 Qe6 24. Bd3 {Even Caruana errs: 24.Bd3 let the
+advantage slip. The engine preferred Nxg6 (about +1.7; after the game move about -0.7).
+Blunder-check every move (P25).} 24... Bh5 25. g4 Bxg4 26. hxg4 {Question: Find the
+strongest move. Look at the forcing moves first. hxg4! The only move that keeps the
+advantage: the engine's second choice is about 5.3 pawns worse. It's a capture.} 26...
+Nxg4 27. Nf5 {Turning point: Aronian's 26...Nxg4. The engine preferred Nxg4 (about -0.2).
+After the game move it's about +1.9. Caruana now has the chance to take over.} 27... Nxf2
+28. Bc2 g6 29. N1e3 gxf5 30. exf5 {Question: Find the strongest move. Look at the forcing
+moves first. exf5! The only move that keeps the advantage: the engine's second choice is
+about 5.6 pawns worse. It's a capture.} 30... Qf6 31. Qxf2 e4 32. Rh1 Rd6 33. Bxe4 Rg8+
+34. Kf1 Ne5 35. Qf4 c6 36. axb5 Rg5 37. bxa6 Qd8 38. f6+ Ng6 39. Rxh6+ {Question: Find the
+strongest move. Look at the forcing moves first. Rxh6+! The only move that keeps the
+advantage: the engine's second choice is about 5.8 pawns worse. It's a check. Aronian
+resigned.} 1-0
+
+[Event "Caruana – Karjakin, Norway Chess 2018"]
+[White "Caruana"]
+[Black "Karjakin"]
+[Date "2018.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{In the English, flexible development, then a central break. Norway Chess 2018, which
+Caruana won. An English Opening against Karjakin.} 1. c4 Nf6 2. Nc3 e5 3. Nf3 Nc6 4. e3
+Bb4 5. Qc2 Bxc3 6. Qxc3 Qe7 7. b3 O-O 8. Bb2 Re8 9. a3 a5 10. h3 b6 11. Be2 Bb7 12. O-O d5
+13. cxd5 Nxd5 14. Qc2 e4 15. Nh2 Qg5 16. f4 exf3 17. Nxf3 {Question: Find the strongest
+move. Look at the forcing moves first. Nxf3! The only move that keeps the advantage: the
+engine's second choice is about 1.1 pawns worse. It's a capture.} 17... Qg3 18. Rf2 Rad8
+19. Bc4 Nf6 20. Bxf6 gxf6 21. Raf1 Rd6 22. b4 axb4 23. axb4 Re7 24. b5 {Turning point:
+Karjakin's 23...Re7. The engine preferred Kh8 (about +0.8). After the game move it's about
++2.3. Caruana now has the chance to take over.} 24... Ne5 25. Nd4 Bc8 26. Kh1 Kg7 27. Be2
+Kh8 28. Qc3 Kg7 29. Bd1 Kg8 30. Bc2 Qh4 31. Rf4 Qg3 32. Bf5 Bb7 33. Be4 Bc8 34. Qa3 Kg7
+35. Qa8 Bxh3 36. gxh3 Qxh3+ 37. Kg1 {Question: Find the strongest move. It is not a check
+or a capture. Kg1! The only move that keeps the advantage: the engine's second choice is
+about 10.0 pawns worse. It's a quiet move.} 37... Rxd4 38. Bg2 Qg3 39. Rxd4 Ng4 40. Rf3
+Qe1+ 41. Bf1 {Karjakin resigned.} 1-0

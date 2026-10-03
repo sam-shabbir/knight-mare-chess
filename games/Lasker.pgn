@@ -1,0 +1,19 @@
+[Event "Lasker – Bauer, Amsterdam 1889 (the double bishop sacrifice)"]
+[White "Lasker"]
+[Black "Bauer"]
+[Date "1889.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Two bishops aimed at the king can be sacrificed on h7 and g7 to strip it bare. The first
+famous double bishop sacrifice. The idea has been repeated in hundreds of games since.
+Learn the pattern.} 1. f4 d5 2. e3 Nf6 3. b3 e6 4. Bb2 Be7 5. Bd3 b6 6. Nf3 Bb7 7. Nc3
+Nbd7 8. O-O O-O 9. Ne2 c5 10. Ng3 Qc7 11. Ne5 Nxe5 12. Bxe5 Qc6 13. Qe2 a6 14. Nh5 Nxh5
+15. Bxh7+ {Question: Black's knight just took on h5. Both your bishops point at the king.
+What now? 15.Bxh7+! Kxh7 16.Qxh5+ Kg8 17.Bxg7! The second bishop goes too. The engine
+rates it about +5.7.} 15... Kxh7 16. Qxh5+ Kg8 17. Bxg7 Kxg7 18. Qg4+ Kh7 19. Rf3 {The
+rook lift: the rook swings to h3 for mate threats. Black must give the queen back.} 19...
+e5 20. Rh3+ Qh6 21. Rxh6+ Kxh6 22. Qd7 {A queen fork wins one of the black bishops. Lasker
+is now material up as well.} 22... Bf6 23. Qxb7 Kg7 24. Rf1 Rab8 25. Qd7 Rfd8 26. Qg4+ Kf8
+27. fxe5 Bg7 28. e6 Rb7 29. Qg6 f6 30. Rxf6+ Bxf6 31. Qxf6+ Ke8 32. Qh8+ Ke7 33. Qg7+ Kxe6
+34. Qxb7 Rd6 35. Qxa6 d4 36. exd4 cxd4 37. h4 d3 38. Qxd3 1-0

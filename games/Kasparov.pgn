@@ -1,0 +1,232 @@
+[Event "Kasparov – Topalov, Wijk aan Zee 1999 (Kasparov's Immortal)"]
+[White "Kasparov"]
+[Black "Topalov"]
+[Date "1999.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{A king hunt. The same 150 Attack you now play against the Pirc. The opening is the line
+in your rare-defences repertoire: Be3, Qd2, f3, Bh6. Then Kasparov plays one of the
+deepest combinations ever.} 1. e4 d6 2. d4 Nf6 3. Nc3 g6 4. Be3 Bg7 5. Qd2 c6 6. f3 b5 7.
+Nge2 Nbd7 8. Bh6 {Your repertoire plan: trade the g7 bishop.} 8... Bxh6 9. Qxh6 Bb7 10. a3
+e5 11. O-O-O Qe7 12. Kb1 a6 13. Nc1 O-O-O 14. Nb3 exd4 15. Rxd4 c5 16. Rd1 Nb6 17. g3 Kb8
+18. Na5 Ba8 19. Bh3 d5 20. Qf4+ Ka7 21. Rhe1 d4 22. Nd5 Nbxd5 23. exd5 Qd6 24. Rxd4
+{Question: Your rook can take on d4. Look at the black king on a7. 24.Rxd4!! cxd4 25.Re7+!
+and the black king is chased across the board to c3 and d1. Modern engines show Black
+could survive with perfect defence. Over the board, Topalov couldn't.} 24... cxd4 25. Re7+
+Kb6 26. Qxd4+ Kxa5 27. b4+ Ka4 28. Qc3 Qxd5 29. Ra7 Bb7 30. Rxb7 Qc4 31. Qxf6 Kxa3 32.
+Qxa6+ Kxb4 33. c3+ Kxc3 34. Qa1+ Kd2 35. Qb2+ Kd1 36. Bf1 {Quiet and deadly, the point of
+the whole king hunt.} 36... Rd2 37. Rd7 Rxd7 38. Bxc4 bxc4 39. Qxh8 Rd3 40. Qa8 c3 41.
+Qa4+ Ke1 42. f4 f5 43. Kc1 Rd2 44. Qa7 {Topalov resigned.} 1-0
+
+[Event "Karpov – Kasparov, World Championship 1985, game 16 (the octopus)"]
+[White "Karpov"]
+[Black "Kasparov"]
+[Date "1985.??.??"]
+[Result "0-1"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{A knight on a protected outpost deep in the enemy camp can paralyse a whole army. A
+Sicilian with a pawn sacrifice. Kasparov's knight on d3 became the most famous knight in
+chess.} 1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 Nc6 5. Nb5 d6 6. c4 Nf6 7. N1c3 a6 8. Na3 d5
+9. cxd5 exd5 10. exd5 Nb4 11. Be2 Bc5 12. O-O O-O 13. Bf3 Bf5 14. Bg5 Re8 15. Qd2 b5 16.
+Rad1 Nd3 {Question: Where does your b4 knight belong? 16...Nd3! The 'octopus'. From d3 it
+hits b2, c1, e1, f2 and f4, and White can't easily get rid of it. Engine: about +1.1 for
+Black.} 17. Nab1 h6 18. Bh4 b4 19. Na4 Bd6 20. Bg3 Rc8 21. b3 g5 22. Bxd6 Qxd6 23. g3 Nd7
+24. Bg2 Qf6 25. a3 a5 26. axb4 axb4 27. Qa2 Bg6 28. d6 g4 {With White tied up, Kasparov
+opens the kingside.} 29. Qd2 Kg7 30. f3 Qxd6 31. fxg4 Qd4+ 32. Kh1 Nf6 33. Rf4 Ne4 34.
+Qxd3 Nf2+ 35. Rxf2 Bxd3 36. Rfd2 Qe3 37. Rxd3 Rc1 38. Nb2 Qf2 39. Nd2 Rxd1+ 40. Nxd1 Re1+
+{Karpov resigned.} 0-1
+
+[Event "Kasparov – Anand, PCA-World Championship 1995, game 10"]
+[White "Kasparov"]
+[Black "Anand"]
+[Date "1995.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Preparation plus initiative. Note the engine check on the famous sacrifice. PCA World
+Championship 1995, game 10. Kasparov's home preparation in the Open Ruy Lopez included a
+rook sacrifice analysed in advance.} 1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Nxe4
+6. d4 b5 7. Bb3 d5 8. dxe5 Be6 9. Nbd2 Nc5 10. c3 d4 11. Ng5 dxc3 12. Nxe6 fxe6 13. bxc3
+Qd3 14. Bc2 Qxc3 15. Nb3 {Question: Find the strongest move. It is not a check or a
+capture. Nb3! The only move that keeps the advantage: the engine's second choice is about
+1.7 pawns worse. It's a quiet move.} 15... Nxb3 16. Bxb3 Nd4 17. Qg4 Qxa1 18. Bxe6 Rd8 19.
+Bh6 {Turning point: Anand's 18...Rd8. The engine preferred c5 (about +0.0). After the game
+move it's about +1.6. Kasparov now has the chance to take over.} 19... Qc3 20. Bxg7
+{Question: Find the strongest move. Look at the forcing moves first. Bxg7! The only move
+that keeps the advantage: the engine's second choice is about 1.7 pawns worse. It's a
+capture.} 20... Qd3 21. Bxh8 Qg6 22. Bf6 Be7 23. Bxe7 Qxg4 24. Bxg4 {Question: Find the
+strongest move. Look at the forcing moves first. Bxg4! The only move that keeps the
+advantage: the engine's second choice is about 10.3 pawns worse. It's a capture.} 24...
+Kxe7 25. Rc1 c6 26. f4 a5 27. Kf2 a4 28. Ke3 b4 29. Bd1 a3 30. g4 Rd5 31. Rc4 c5 32. Ke4
+Rd8 33. Rxc5 Ne6 34. Rd5 Rc8 35. f5 Rc4+ 36. Ke3 Nc5 37. g5 Rc1 38. Rd6 {Anand resigned.}
+1-0
+
+[Event "Kasparov – Portisch, Niksic 1983"]
+[White "Kasparov"]
+[Black "Portisch"]
+[Date "1983.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Initiative and open lines against the king. Niksic 1983. Young Kasparov beats Portisch,
+one of the world's best, in a Queen's Indian.} 1. d4 Nf6 2. c4 e6 3. Nf3 b6 4. Nc3 Bb7 5.
+a3 d5 6. cxd5 Nxd5 7. e3 Nxc3 8. bxc3 Be7 9. Bb5+ c6 10. Bd3 c5 11. O-O Nc6 12. Bb2 Rc8
+13. Qe2 O-O 14. Rad1 Qc7 15. c4 cxd4 16. exd4 Na5 17. d5 exd5 18. cxd5 {Question: Find the
+strongest move. Look at the forcing moves first. cxd5! The only move that keeps the
+advantage: the engine's second choice is about 2.6 pawns worse. It's a capture.} 18...
+Bxd5 19. Bxh7+ Kxh7 20. Rxd5 Kg8 21. Bxg7 Kxg7 22. Ne5 {Question: Find the strongest move.
+It is not a check or a capture. Ne5! The only move that keeps the advantage: the engine's
+second choice is about 2.8 pawns worse. It's a quiet move.} 22... Rfd8 23. Qg4+ Kf8 24.
+Qf5 f6 25. Nd7+ Rxd7 26. Rxd7 Qc5 27. Qh7 Rc7 28. Qh8+ {Even Kasparov errs: 28.Qh8+ let
+the advantage slip. The engine preferred Qh8+ (about +4.5; after the game move about
++1.8). Blunder-check every move (P25).} 28... Kf7 29. Rd3 Nc4 30. Rfd1 Ne5 31. Qh7+
+{Turning point: Portisch's 30...Ne5. The engine preferred Bd6 (about +2.3). After the game
+move it's about +12.6. Kasparov now has the chance to take over.} 31... Ke6 32. Qg8+ Kf5
+33. g4+ Kf4 34. Rd4+ {Question: Find the strongest move. Look at the forcing moves first.
+Rd4+! The only move that keeps the advantage: the alternatives throw away the win. It's a
+check.} 34... Kf3 35. Qb3+ {Portisch resigned.} 1-0
+
+[Event "Karpov – Kasparov, World Championship 32th-KK2 1985, game 24"]
+[White "Karpov"]
+[Black "Kasparov"]
+[Date "1985.??.??"]
+[Result "0-1"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Sicilian counterplay. In a must-not-lose game, Kasparov still played to win. World
+Championship 1985, game 24. Kasparov wins with Black in a Sicilian Scheveningen and
+becomes world champion at 22.} 1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be2
+e6 7. O-O Be7 8. f4 O-O 9. Kh1 Qc7 10. a4 Nc6 11. Be3 Re8 12. Bf3 Rb8 13. Qd2 Bd7 14. Nb3
+b6 15. g4 Bc8 16. g5 Nd7 17. Qf2 Bf8 18. Bg2 Bb7 19. Rad1 g6 20. Bc1 Rbc8 21. Rd3 Nb4 22.
+Rh3 Bg7 23. Be3 Re7 24. Kg1 Rce8 25. Rd1 f5 26. gxf6 Nxf6 27. Rg3 Rf7 28. Bxb6 Qb8 29. Be3
+Nh5 30. Rg4 Nf6 31. Rh4 g5 32. fxg5 Ng4 33. Qd2 Nxe3 34. Qxe3 Nxc2 35. Qb6 Ba8 36. Rxd6
+Rb7 {Question: Find the strongest move. It is not a check or a capture. Rb7! The only move
+that keeps the advantage: the engine's second choice is about 2.1 pawns worse. It's a
+quiet move.} 37. Qxa6 Rxb3 38. Rxe6 Rxb2 {Even Kasparov errs: 38...Rxb2 let the advantage
+slip. The engine preferred Bd4+ (about -2.8; after the game move about -0.3).
+Blunder-check every move (P25).} 39. Qc4 Kh8 40. e5 Qa7+ {Turning point: Karpov's 40.e5.
+The engine preferred Rxe8+ (about +0.0). After the game move it's about -11.4. Kasparov
+now has the chance to take over.} 41. Kh1 Bxg2+ {Question: Find the strongest move. Look
+at the forcing moves first. Bxg2+! The only move that keeps the advantage: the engine's
+second choice is about 10.1 pawns worse. It's a check.} 42. Kxg2 Nd4+ {Karpov resigned.}
+0-1
+
+[Event "Kasparov – Karpov, World Championship 34th-KK4 1987, game 24"]
+[White "Kasparov"]
+[Black "Karpov"]
+[Date "1987.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Under pressure, play quiet, patient chess. Technique won the title. World Championship
+1987, game 24. A must-win game to keep the title, and Kasparov won it with a patient
+Réti/English.} 1. c4 e6 2. Nf3 Nf6 3. g3 d5 4. b3 Be7 5. Bg2 O-O 6. O-O b6 7. Bb2 Bb7 8.
+e3 Nbd7 9. Nc3 Ne4 10. Ne2 a5 11. d3 Bf6 12. Qc2 Bxb2 13. Qxb2 Nd6 14. cxd5 Bxd5 15. d4 c5
+16. Rfd1 Rc8 17. Nf4 Bxf3 18. Bxf3 {Question: Find the strongest move. Look at the forcing
+moves first. Bxf3! The only move that keeps the advantage: the engine's second choice is
+about 5.0 pawns worse. It's a capture.} 18... Qe7 19. Rac1 Rfd8 20. dxc5 Nxc5 21. b4 axb4
+22. Qxb4 Qa7 23. a3 Nf5 24. Rb1 Rxd1+ 25. Rxd1 Qc7 26. Nd3 h6 27. Rc1 Ne7 28. Qb5 Nf5 29.
+a4 Nd6 30. Qb1 {Question: Find the strongest move. It is not a check or a capture. Qb1!
+The only move that keeps the advantage: the engine's second choice is about 4.3 pawns
+worse. It's a quiet move.} 30... Qa7 31. Ne5 Nxa4 32. Rxc8+ {Turning point: Karpov's
+31...Nxa4. The engine preferred Re8 (about +0.2). After the game move it's about +3.5.
+Kasparov now has the chance to take over.} 32... Nxc8 33. Qd1 {Even Kasparov errs: 33.Qd1
+let the advantage slip. The engine preferred Qb5 (about +4.2; after the game move about
+-0.1). Blunder-check every move (P25).} 33... Ne7 34. Qd8+ Kh7 35. Nxf7 Ng6 36. Qe8 Qe7
+37. Qxa4 Qxf7 38. Be4 Kg8 39. Qb5 Nf8 40. Qxb6 Qf6 41. Qb5 Qe7 42. Kg2 g6 43. Qa5 Qg7 44.
+Qc5 Qf7 45. h4 h5 46. Qc6 Qe7 47. Bd3 Qf7 48. Qd6 Kg7 49. e4 Kg8 50. Bc4 Kg7 51. Qe5+ Kg8
+52. Qd6 Kg7 53. Bb5 Kg8 54. Bc6 Qa7 55. Qb4 Qc7 56. Qb7 Qd8 57. e5 Qa5 58. Be8 {Question:
+Find the strongest move. It is not a check or a capture. Be8! The only move that keeps the
+advantage: the engine's second choice is about 1.9 pawns worse. It's a quiet move.} 58...
+Qc5 59. Qf7+ Kh8 60. Ba4 Qd5+ 61. Kh2 Qc5 62. Bb3 Qc8 63. Bd1 Qc5 64. Kg2 {Karpov
+resigned.} 1-0
+
+[Event "Kasparov – Karpov, World Championship 35th-KK5 1990, game 20"]
+[White "Kasparov"]
+[Black "Karpov"]
+[Date "1990.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{In the Ruy, the knight route Nbd2-f1-g3 feeds the kingside attack. World Championship
+1990, game 20. A Ruy Lopez (Zaitsev) with a famous kingside attack.} 1. e4 e5 2. Nf3 Nc6
+3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 d6 8. c3 O-O 9. h3 Bb7 10. d4 Re8 11.
+Nbd2 Bf8 12. a4 h6 13. Bc2 exd4 14. cxd4 Nb4 15. Bb1 c5 16. d5 Nd7 17. Ra3 f5 18. Rae3 Nf6
+19. Nh2 Kh8 20. b3 bxa4 21. bxa4 c4 22. Bb2 fxe4 23. Nxe4 Nfxd5 24. Rg3 Re6 25. Ng4 Qe8
+26. Nxh6 {Turning point: Karpov's 25...Qe8. The engine preferred Qe8 (about -0.6). After
+the game move it's about +1.9. Kasparov now has the chance to take over.} 26... c3 27. Nf5
+{Even Kasparov errs: 27.Nf5 let the advantage slip. The engine preferred Nf5 (about +3.0;
+after the game move about +0.4). Blunder-check every move (P25).} 27... cxb2 28. Qg4 Bc8
+29. Qh4+ Rh6 30. Nxh6 {Question: Find the strongest move. Look at the forcing moves first.
+Nxh6! The only move that keeps the advantage: the engine's second choice is about 12.2
+pawns worse. It's a capture.} 30... gxh6 31. Kh2 Qe5 32. Ng5 Qf6 33. Re8 Bf5 34. Qxh6+
+Qxh6 35. Nf7+ {Question: Find the strongest move. Look at the forcing moves first. Nf7+!
+The only move that keeps the advantage: the engine's second choice is about 27.6 pawns
+worse. It's a check.} 35... Kh7 36. Bxf5+ Qg6 37. Bxg6+ Kg7 38. Rxa8 Be7 39. Rb8 a5 40.
+Be4+ Kxf7 41. Bxd5+ {Question: Find the strongest move. Look at the forcing moves first.
+Bxd5+! The only move that keeps the advantage: the engine's second choice is about 2.5
+pawns worse. It's a check. Karpov resigned.} 1-0
+
+[Event "Kasparov – Gelfand, Linares 1993"]
+[White "Kasparov"]
+[Black "Gelfand"]
+[Date "1993.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{The Sozin: Fischer's weapon, used by Kasparov. Bc4 aimed at the f7/e6 complex. Linares
+1993. A Najdorf/Sozin win in 25 moves: punishing a single slip in the Sicilian.} 1. e4 c5
+2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Bc4 e6 7. Bb3 b5 8. O-O Be7 9. Qf3 Qc7 10.
+Qg3 O-O 11. Bh6 Ne8 12. Rad1 Bd7 13. Nf3 b4 14. Ne2 a5 15. Nf4 Kh8 16. Bg5 Nf6 17. Qh4 Bb5
+18. Nd4 {Turning point: Gelfand's 17...Bb5. The engine preferred h6 (about -0.6). After
+the game move it's about +3.3. Kasparov now has the chance to take over.} 18... Be8 19.
+Ndxe6 fxe6 20. Nxe6 Qa7 21. e5 {Question: Find the strongest move. It is not a check or a
+capture. e5! The only move that keeps the advantage: the engine's second choice is about
+1.5 pawns worse. It's a quiet move.} 21... dxe5 22. Nxf8 Bxf8 23. Bxf6 gxf6 24. Rd8 Nd7
+25. Qg4 {Question: Find the strongest move. It is not a check or a capture. Qg4! The only
+move that keeps the advantage: the engine's second choice is about 6.6 pawns worse. It's a
+quiet move. Gelfand resigned.} 1-0
+
+[Event "Kasparov – Kramnik, Novgorod 1994"]
+[White "Kasparov"]
+[Black "Kramnik"]
+[Date "1994.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Against the Sveshnikov, the d5 square is everything. Novgorod 1994. A Sicilian Sveshnikov
+win against Kramnik.} 1. e4 c5 2. Nc3 Nc6 3. Nge2 Nf6 4. d4 cxd4 5. Nxd4 e5 6. Ndb5 d6 7.
+Bg5 a6 8. Na3 b5 9. Nd5 Be7 10. Bxf6 Bxf6 11. c3 O-O 12. Nc2 Rb8 13. h4 Ne7 14. Nxf6+
+{Question: Find the strongest move. Look at the forcing moves first. Nxf6+! The only move
+that keeps the advantage: the engine's second choice is about 1.2 pawns worse. It's a
+check.} 14... gxf6 15. Qd2 Bb7 16. Bd3 d5 17. exd5 Qxd5 18. O-O-O e4 19. Be2 Qxa2 20. Qh6
+Qe6 21. Nd4 Qb6 22. Rh3 Kh8 23. Bg4 Rg8 24. Ne6 {Even Kasparov errs: 24.Ne6 let the
+advantage slip. The engine preferred Bf5 (about +0.1; after the game move about -2.1).
+Blunder-check every move (P25).} 24... Rg6 25. Qf4 Re8 26. Rd6 Nd5 27. h5 Nxf4 28. hxg6
+Qxd6 29. Rxh7+ {Question: Find the strongest move. Look at the forcing moves first. Rxh7+!
+The only move that keeps the advantage: the engine's second choice is about 15.3 pawns
+worse. It's a check.} 29... Kg8 30. gxf7+ Kxh7 31. fxe8=Q Nxe6 32. Bf5+ Kg7 33. Qg6+ Kf8
+34. Qxf6+ {Question: Find the strongest move. Look at the forcing moves first. Qxf6+! The
+only move that keeps the advantage: the engine's second choice is about 5.6 pawns worse.
+It's a check.} 34... Ke8 35. Bxe6 {Kramnik resigned.} 35... Qf8 1-0
+
+[Event "Kasparov – Piket, Euwe mem 1995"]
+[White "Kasparov"]
+[Black "Piket"]
+[Date "1995.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Your Evans Gambit in a world champion's hands: development and attack. Euwe Memorial
+1995. Kasparov plays the Evans Gambit, Fischer's weapon in your repertoire, and wins in 29
+moves.} 1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. b4 Bb6 5. a4 a5 6. b5 Nd4 7. Nxd4 Bxd4 8. c3 Bb6
+9. d4 exd4 10. O-O Ne7 11. Bg5 h6 12. Bxe7 Qxe7 13. cxd4 Qd6 14. Nc3 Bxd4 15. Nd5 Bxa1 16.
+Qxa1 O-O 17. e5 {Turning point: Piket's 16...O-O. The engine preferred O-O (about -0.6).
+After the game move it's about +1.4. Kasparov now has the chance to take over.} 17... Qc5
+18. Rc1 c6 19. Ba2 Qa3 20. Nb6 d5 21. Nxa8 Kh8 22. Nb6 Be6 23. h3 Rd8 24. bxc6 bxc6 25.
+Rc3 {Question: Find the strongest move. It is not a check or a capture. Rc3! The only move
+that keeps the advantage: the engine's second choice is about 1.3 pawns worse. It's a
+quiet move.} 25... Qb4 26. Rxc6 Rb8 27. Nxd5 Qxa4 28. Rc1 Qa3 29. Bc4 {Piket resigned.}
+1-0

@@ -1484,8 +1484,9 @@ clearInterval(P.tick);P.timer=null;openReview({pgn:g.pgn(),pc:P.orient});
 Then the real move is played, the coach's note (if any) appears, and the opponent replies. */
 const GMS=typeof MASTER_GAMES!=='undefined'?MASTER_GAMES:[];
 const GM={rec:load('knm_gm',{})};
+const GM_NAMES={Fischer:'Bobby Fischer',Tal:'Mikhail Tal',Carlsen:'Magnus Carlsen',Caruana:'Fabiano Caruana',Kasparov:'Garry Kasparov',Aronian:'Levon Aronian',Morphy:'Paul Morphy',Lasker:'Emanuel Lasker',Rubinstein:'Akiba Rubinstein',Capablanca:'José Raúl Capablanca',Alekhine:'Alexander Alekhine',Botvinnik:'Mikhail Botvinnik',Petrosian:'Tigran Petrosian',Spassky:'Boris Spassky',Karpov:'Anatoly Karpov',PolgarJ:'Judit Polgar',Anand:'Viswanathan Anand',Kramnik:'Vladimir Kramnik'};
 function gmList(){
-$('gmList').innerHTML=GMS.length?GMS.map((g,i)=>{const r=GM.rec[g.id];return'<button class="pset" data-g="'+i+'"><span class="t"><b>'+esc(g.title)+'</b><small>'+esc(g.lesson)+'</small></span><span class="cnt">'+(r?'best '+r.best+'%':esc(g.who))+'</span></button>'}).join(''):'<p class="hint">No master games found. Make sure coach.js sits next to index.html.</p>';
+let gw='';$('gmList').innerHTML=GMS.length?GMS.map((g,i)=>{const r=GM.rec[g.id];const hd=g.who!==gw?'<h2 style="margin:14px 0 2px">'+esc(GM_NAMES[g.who]||g.who)+' <span class="hint">('+GMS.filter(x=>x.who===g.who).length+')</span></h2>':'';gw=g.who;return hd+'<button class="pset" data-g="'+i+'"><span class="t"><b>'+esc(g.title)+'</b><small>'+esc(g.lesson)+'</small></span><span class="cnt">'+(r?'best '+r.best+'%':esc(g.who))+'</span></button>'}).join(''):'<p class="hint">No master games found. Make sure coach.js sits next to index.html.</p>';
 $('gmList').onclick=e=>{const b=e.target.closest('[data-g]');if(b)gmStart(+b.dataset.g)};
 }
 function gmStart(n){
@@ -1614,7 +1615,7 @@ svg.innerHTML=g;$('plSparkTxt').textContent='Now '+h[h.length-1]+' after '+h.len
 }
 /* ---------- opening explorer (repertoire editor) ---------- */
 /* Three layers for the position on the editor board:
-   1. Masters: what Fischer, Tal and 14 other greats played here (explorer.js), with results.
+   1. Masters: what Fischer, Tal and 16 other greats played here (explorer.js), with results.
    2. Famous: moves from the annotated famous games (coach.js), tagged with the game.
    3. Best: optional engine check that marks the best move and evaluates the others.
    Tap a move to add it to the repertoire. */
@@ -1636,7 +1637,7 @@ if(o.famous)for(const f of(xpFamous().get(xpKey(fen))||[])){if(!rows.has(f.san))
 const tot=[...rows.values()].reduce((s,r)=>s+r.n,0);
 const list=[...rows.values()].sort((a,b)=>b.n-a.n||b.fam.length-a.fam.length);
 XP.list=list;XP.fen=fen;
-if(!list.length){box.innerHTML='<p class="hint">'+(o.masters||o.famous?'No master games reached this position (the explorer covers the first 20 half-moves of about 34,000 games).':'Switch on a layer above.')+'</p>';}
+if(!list.length){box.innerHTML='<p class="hint">'+(o.masters||o.famous?'No master games reached this position (the explorer covers the first 20 half-moves of about 45,000 games).':'Switch on a layer above.')+'</p>';}
 else box.innerHTML=list.map((r,i)=>{const pct=r.n?Math.round(100*r.n/Math.max(1,tot)):0;
 const wp=r.n?Math.round(100*r.w/r.n):0,dp=r.n?Math.round(100*r.d/r.n):0,bp=r.n?100-wp-dp:0;
 return'<button class="xrow" data-i="'+i+'" title="'+esc(r.eg?'Example: '+r.eg:'')+'"><span class="xsan">'+esc(r.san)+'<i class="xbest" id="xb'+i+'"></i></span>'+

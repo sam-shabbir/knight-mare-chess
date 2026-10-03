@@ -1,0 +1,15 @@
+[Event "Spassky – Bronstein, USSR Championship 1960 (King's Gambit)"]
+[White "Spassky"]
+[Black "Bronstein"]
+[Date "1960.??.??"]
+[Result "1-0"]
+[Annotator "KNIGHT'nMARE coach notes (engine-checked with Stockfish)"]
+
+{Sacrifice for open lines when the king is short of defenders. The game used in the James
+Bond film From Russia with Love. A King's Gambit attack.} 1. e4 e5 2. f4 exf4 3. Nf3 d5 4.
+exd5 Bd6 5. Nc3 Ne7 6. d4 O-O 7. Bd3 Nd7 8. O-O h6 9. Ne4 Nxd5 10. c4 Ne3 11. Bxe3 fxe3
+12. c5 Be7 13. Bc2 Re8 14. Qd3 e2 15. Nd6 {The knight dives in, ignoring the e2 pawn.}
+15... Nf8 16. Nxf7 {Question: Black is about to promote on f1. Do you care? 16.Nxf7! Black
+wins the exchange, but the white pieces flood towards the king. The engine rates it about
++2.4.} 16... exf1=Q+ 17. Rxf1 Bf5 18. Qxf5 Qd7 19. Qf4 Bf6 20. N3e5 Qe7 21. Bb3 Bxe5 22.
+Nxe5+ Kh7 23. Qe4+ {Bronstein resigned. Mate or heavy loss follows.} 1-0

@@ -2,10 +2,10 @@
 
 An offline chess trainer: 30 built-in openings, your own repertoires with spaced repetition, a computer opponent from 800 to 2800, rated games and full game review. New in this version:
 
-- **Puzzles**: about 2,950 puzzles in themed sets (tactics, mates, defence, endgames), positions from your own games, and "only move" moments mined from the wins of Fischer, Tal and 14 other all-time greats. Puzzle rating, spaced-repetition review, retakes after a miss, and an explanation of every solution (what the move does and which principles it follows). Modes: rated, learn, 3-minute clock, and "calculate first".
-- **Guess the move**: replay 32 annotated master games from the winner's side, scored move by move.
+- **Puzzles**: about 3,000 puzzles in themed sets (tactics, mates, defence, endgames), positions from your own games, and "only move" moments mined from the wins of Fischer, Tal and 16 other all-time greats. Puzzle rating, spaced-repetition review, retakes after a miss, and an explanation of every solution (what the move does and which principles it follows). Modes: rated, learn, 3-minute clock, and "calculate first".
+- **Guess the move**: replay 69 annotated master games from the winner's side, scored move by move: 10 each from the five highest-rated players ever (Carlsen, Caruana, Kasparov, Aronian, Fischer), plus Tal and other legends. All of them are also in the [games](games/) folder as PGN.
 - **Learn**: 50 chess principles and 200 lessons (100 middlegame, 100 endgame), each with a Practice button.
-- **Opening explorer** in the repertoire editor: the moves 16 legends chose in each position (about 34,000 games, with results), famous-game moves, and an optional engine best move.
+- **Opening explorer** in the repertoire editor: the moves 18 all-time greats chose in each position (about 45,000 games, with results), famous-game moves, and an optional engine best move.
 - **Coach repertoires**: 20 ready-made repertoires (core lines plus ten famous openings) as one-tap presets.
 - **Plan**: a 26-week training plan with a progress ring, progress bars, a session checklist and coach's notes.
 
