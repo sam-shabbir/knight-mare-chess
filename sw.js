@@ -1,7 +1,8 @@
 // Keeps the app and its engine on the device so it works offline after the first visit.
-const V='knightnmare-v7';
+// Everything is served from this repo (no CDN), so a fresh install never depends on a third-party site.
+const V='knightnmare-v8';
 const FILES=['./','./index.html','./puzzles.js','./coach.js','./explorer.js','./learn.js','./manifest.webmanifest','./icon-192.png','./icon-512.png',
-'https://cdn.jsdelivr.net/npm/stockfish@10.0.2/src/stockfish.asm.js','https://cdn.jsdelivr.net/npm/chess.js@0.10.3/chess.js'];
+'./logo-wide.png','./lib/stockfish.asm.js','./lib/chess.js'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(FILES)));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==V).map(x=>caches.delete(x)))));self.clients.claim()});
 self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;
