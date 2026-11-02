@@ -26,9 +26,10 @@ button{cursor:pointer}
 .app{max-width:600px;margin:0 auto;padding:10px 12px 28px}
 /* header */
 header{display:flex;align-items:center;gap:6px 8px;margin-bottom:10px;flex-wrap:wrap}
-@media(max-width:520px){header nav{order:3;width:100%;margin-left:0}header nav button{flex:1}.rating-chip{margin-left:auto}}
+/* Logo + rating on the first row, tabs full-width below (all screen sizes) */
+header nav{order:3;width:100%;margin-left:0}header nav button{flex:1}.rating-chip{margin-left:auto}
 .brand{font-family:Georgia,"Times New Roman",serif;font-size:17px;letter-spacing:.5px;font-weight:700;white-space:nowrap}
-.brand span{color:var(--accent)}
+.brand img{height:40px;max-width:70vw;object-fit:contain;object-position:left;width:auto;display:block}
 nav{display:flex;gap:2px;margin-left:auto;background:var(--surface);border-radius:10px;padding:3px}
 nav button{background:none;border:0;padding:6px 10px;border-radius:8px;color:var(--muted);font-size:14px}
 nav button.on{background:var(--raised);color:var(--text)}
@@ -195,7 +196,7 @@ textarea{width:100%;max-width:100%;min-height:90px;resize:vertical}
 <body>
 <div class="app">
 <header>
-<div class="brand">KNIGHT<span>'n</span>MARE</div>
+<div class="brand"><img src="logo-wide.png" alt="Knight-Mare Chess"></div>
 <nav>
 <button data-tab="home" class="on">Play</button>
 <button data-tab="rep">Openings</button>
@@ -405,13 +406,13 @@ textarea{width:100%;max-width:100%;min-height:90px;resize:vertical}
 </div>
 
 <div class="modal hidden" id="modal"><div class="sheet"><h3 id="mTitle"></h3><div id="mBody"></div><div class="mbtns" id="mBtns"></div></div></div>
-<script src="https://cdn.jsdelivr.net/npm/chess.js@0.10.3/chess.js"></script>
+<script src="lib/chess.js"></script>
 <script id="sf-src" type="text/plain"></script>
 <script src="puzzles.js"></script>
 <script src="coach.js"></script>
 <script src="explorer.js"></script>
 <script src="learn.js"></script>
-<script>const SF_URL='https://cdn.jsdelivr.net/npm/stockfish@10.0.2/src/stockfish.asm.js';</script>
+<script>const SF_URL='lib/stockfish.asm.js';</script>
 <script>
 const OPENINGS=[
 ["italian","Italian Game (Giuoco Piano)","C54","e4 e5 Nf3 Nc6 Bc4 Bc5 c3 Nf6 d3 d6 O-O O-O Re1 a6","White builds slowly with c3 and d3, then aims for d4 later. Black mirrors development and watches the f7 square."],
@@ -485,7 +486,7 @@ this.q=src.then(code=>{
 this.w=new Worker(URL.createObjectURL(new Blob([code],{type:'application/javascript'})));
 this.w.onmessage=e=>{const l=typeof e.data==='string'?e.data:'';if(this.h)this.h(l)};
 this.w.postMessage('uci');this.w.postMessage('setoption name Hash value 32');
-}).catch(()=>{modal('Engine not loaded','<p class="hint">The chess engine downloads once, the first time you open the app. Connect to the internet, reload, and it will then work offline.</p>',[['ok','OK']])});
+}).catch(()=>{modal('Engine not loaded','<p class="hint">The chess engine could not be loaded. Reload the app; if you opened index.html straight from a folder, serve it instead (see README).</p>',[['ok','OK']])});
 }
 run(fen,o){
 const job=()=>new Promise(res=>{
