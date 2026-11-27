@@ -339,7 +339,7 @@ textarea{width:100%;max-width:100%;min-height:90px;resize:vertical}
 <!-- LEARN -->
 <section id="learn" class="hidden">
 <div id="lHome">
-<div class="panel"><div class="seg" id="lSeg"><button data-v="mid">Middlegame (100)</button><button data-v="end">Endgame (100)</button><button data-v="prin">50 principles</button></div>
+<div class="panel"><div class="seg" id="lSeg"><button data-v="mid">Middlegame (100)</button><button data-v="end">Endgame (100)</button><button data-v="capa">Capablanca</button><button data-v="prin">50 principles</button></div>
 <div id="lStats" style="margin-top:8px"></div></div>
 <div class="panel" id="lList"></div>
 </div>
@@ -1367,10 +1367,10 @@ const p=pzPick();if(!p){modal('Nothing here yet',PZ.set==='due'?'<p class="hint"
 P.recent.push(p.id);if(P.recent.length>30)P.recent.shift();
 const sol=p.moves.split(' ');const g=new Chess(p.fen);
 Object.assign(P,{p,sol,g,i:0,failed:false,retry:false,missNoted:false,hinted:0,done:false,graded:false,sel:null,arrows:[],wrong:null,last:null,busy:true,start:new Chess(p.fen),lockUntil:0,id:(P.id||0)+1});
-P.orient=g.turn()==='w'?'b':'w';
+P.orient=sol[0]==='0000'?g.turn():(g.turn()==='w'?'b':'w');
 $('pHome').classList.add('hidden');$('gmPlay').classList.add('hidden');$('pPlay').classList.remove('hidden');
 if(!P.timer)$('pTitle').innerHTML=(PZ.filter?'Practice: '+esc(THEME_LABEL(PZ.filter.theme))+' · ':'')+esc(p.title||setName(p.set))+(PZ.mode==='rated'?' · rated '+(p.r||'?'):'');
-pzCoach('Watch the last move…','');pzRender();
+pzCoach(sol[0]==='0000'?'Study the position…':'Watch the last move…','');pzRender();
 const id=P.id;
 setTimeout(()=>{if(id!==P.id)return;const m=pzApply(sol[0]);P.i=1;P.busy=false;
 const side=sideName(P.g.turn());
@@ -1379,7 +1379,7 @@ else pzCoach('<b>'+side+' to move.</b> '+pzPrompt(m),'');
 pzRender()},550);
 }
 function setName(id){const s=PZ_SETS.find(x=>x.id===id);return s?s.name:'Puzzle'}
-function pzPrompt(m){return(m?'After '+esc(m.san)+', ':'')+(P.p.prompt?esc(P.p.prompt):'find the best move.')}
+function pzPrompt(m){return(m?'After '+esc(m.san)+', ':'')+(P.p.prompt?esc(P.p.prompt):(m?'find':'Find')+' the best move.')}
 function pzCountdown(id,m){const left=Math.ceil((P.lockUntil-Date.now())/1000);if(id!==P.id)return;
 if(left<=0){P.lockUntil=0;pzCoach('<b>'+sideName(P.g.turn())+' to move.</b> Now play the line you calculated.','');return}
 pzCoach('<b>'+sideName(P.g.turn())+' to move.</b> '+pzPrompt(m)+'<div class="idea">Calculate first: checks, captures, threats. Board unlocks in '+left+' s.</div>','');setTimeout(()=>pzCountdown(id,m),500)}
@@ -1675,7 +1675,7 @@ function learnHome(){
 $('lHome').classList.remove('hidden');$('lView').classList.add('hidden');
 document.querySelectorAll('#lSeg button').forEach(b=>b.classList.toggle('on',b.dataset.v===LS.part));
 const doneN=part=>LL.filter(l=>l.part===part&&LS.done[l.id]).length;
-$('lStats').innerHTML=plBar('Middlegame lessons',doneN('mid')+' of 100',doneN('mid')/100,'')+plBar('Endgame lessons',doneN('end')+' of 100',doneN('end')/100,'');
+$('lStats').innerHTML=plBar('Middlegame lessons',doneN('mid')+' of 100',doneN('mid')/100,'')+plBar('Endgame lessons',doneN('end')+' of 100',doneN('end')/100,'')+(LL.some(l=>l.part==='capa')?plBar('Capablanca lessons',doneN('capa')+' of '+LL.filter(l=>l.part==='capa').length,doneN('capa')/LL.filter(l=>l.part==='capa').length,''):'');
 let h='';
 if(LS.part==='prin'){let fam='';for(const p of LP){if(p.f!==fam){fam=p.f;h+='<h2 style="margin:12px 0 4px">'+esc(fam)+'</h2>'}
 h+='<div class="prow"><b>P'+p.id+'. '+esc(p.t)+'</b><div>'+esc(p.r)+'</div><div class="hint" style="margin:2px 0 0">'+esc(p.w)+'</div></div>'}}
@@ -1688,7 +1688,7 @@ $('lSeg').onclick=e=>{const v=e.target.dataset.v;if(!v)return;LS.part=v;store('k
 function lessonOpen(id){
 const l=LL.find(x=>x.id===id);if(!l)return;LS.cur=l;
 $('lHome').classList.add('hidden');$('lView').classList.remove('hidden');window.scrollTo({top:0});
-$('lTitle').textContent=(l.part==='mid'?'Middlegame':'Endgame')+' lesson '+l.n+' of 100 · '+l.m;
+$('lTitle').textContent=(l.part==='capa'?'Chess Fundamentals (Capablanca) lesson '+l.n+' of '+LL.filter(x=>x.part==='capa').length:(l.part==='mid'?'Middlegame':'Endgame')+' lesson '+l.n+' of 100')+' · '+l.m;
 let h='<h2>'+esc(l.t)+'</h2><div style="margin:4px 0 8px">'+l.p.map(prChip).join('')+'</div><p>'+esc(l.x)+'</p>'+
 '<div class="dodont"><div class="do"><b>Do</b>'+esc(l.do)+'</div><div class="dont"><b>Don\'t</b>'+esc(l.dont)+'</div></div>';
 $('lBody').innerHTML=h;
