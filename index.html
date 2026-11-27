@@ -281,6 +281,11 @@ textarea{width:100%;max-width:100%;min-height:90px;resize:vertical}
 <button id="aDraw">Offer draw</button>
 <button id="aResign">Resign</button>
 </div>
+<div class="panel hidden" id="sandbox" style="margin-top:8px">
+<div class="row"><label>Computer plays</label><div class="seg" id="sbCpu" style="max-width:66%"><button data-v="w">White</button><button data-v="b">Black</button><button data-v="both">Both</button><button data-v="none">Neither</button></div></div>
+<div class="actions two" style="margin-top:6px"><button id="sbBest">Best move now</button><button id="sbEditor">Edit this position</button></div>
+<p class="hint" id="sbHint"></p>
+</div>
 <div class="moves" id="gMoves"></div>
 <div class="actions two" style="margin-top:8px"><button id="aNew">New game</button><button id="aRestart">Restart this line</button></div>
 </section>
@@ -390,8 +395,8 @@ textarea{width:100%;max-width:100%;min-height:90px;resize:vertical}
 <div class="coach" id="edMsg" style="margin-top:8px"></div>
 <div class="panel">
 <div class="row"><label>Who moves next</label><div class="seg" id="edTurnSeg" style="max-width:62%"><button data-v="w">White</button><button data-v="b">Black</button></div></div>
-<div class="row"><label>You play</label><div class="seg" id="edYouSeg" style="max-width:62%"><button data-v="w">White</button><button data-v="b">Black</button></div></div>
-<div class="row"><label>Computer plays</label><div class="seg" id="edCompSeg" style="max-width:62%"><button data-v="best">Best move</button><button data-v="elo" id="edCompElo">At my Elo</button></div></div>
+<div class="row"><label>Computer plays</label><div class="seg" id="edCpuSeg" style="max-width:66%"><button data-v="w">White</button><button data-v="b">Black</button><button data-v="both">Both</button><button data-v="none">Neither</button></div></div>
+<div class="row"><label>Computer strength</label><div class="seg" id="edCompSeg" style="max-width:62%"><button data-v="best">Best move</button><button data-v="elo" id="edCompElo">At my Elo</button></div></div>
 <p class="hint" id="edCompHint"></p>
 <div class="row"><label for="edFen">FEN</label><input id="edFen" spellcheck="false" style="width:70%;font-size:12px"></div>
 </div>
@@ -728,7 +733,7 @@ const side=opts.fen?opts.side:opts.course?opts.course.side:(s.side==='r'?(Math.r
 const mode=opts.train?'drill':opts.fen?'practice':s.mode;
 const cap=(opts.train||s.bookDepth==='full')?Infinity:+s.bookDepth*2;
 if(src&&src.len)src.len=Math.min(src.len,cap);
-Object.assign(G,{g:opts.fen?new Chess(opts.fen):new Chess(),id:(G.id||0)+1,mode,pc:side,elo:opts.best?3000:s.elo,best:!!opts.best,edFen:opts.fen||null,opening:src,root:src?src.root:null,node:src?src.root:null,cap,
+Object.assign(G,{g:opts.fen?new Chess(opts.fen):new Chess(),id:(G.id||0)+1,mode,pc:side,elo:opts.best?3000:s.elo,best:!!opts.best,edFen:opts.fen||null,cpu:opts.cpu||null,hold:false,opening:src,root:src?src.root:null,node:src?src.root:null,cap,
 train:opts.train||null,path:opts.path||null,graded:{},tstat:{ok:0,bad:0},bookLive:!!(src&&src.root.k.length),
 over:false,busy:false,sel:null,wrong:null,arrows:[],preview:null,hint:0,plyMiss:0,mistakes:0,orient:side,
 fens:[opts.fen||new Chess().fen()],bookPlies:0,analyseOn:false,liveCp:0,leftBook:null});
@@ -744,9 +749,10 @@ $('aNew').textContent=G.train?'Back to repertoire':'New game';
 $('gEval').classList.toggle('hidden',rated||!s.showEval||!!G.train);
 $('preview').classList.add('hidden');
 tab('game');
-if(src&&G.bookLive)bookCoach();else coach(G.g.turn()===G.pc?'Your move.':'The computer moves first.','');
+if(src&&G.bookLive)bookCoach();else coach(humanTurn()?(G.edFen?sideName(G.g.turn())+' to move: your move.':'Your move.'):'The computer moves first.','');
+$('sandbox').classList.toggle('hidden',!G.edFen);$('aUndo').textContent=G.edFen?'Undo 1 move':'Take back';if(G.edFen)sbRender();
 renderGame();
-if(G.g.turn()!==G.pc)engineTurn();else if(s.showEval&&!rated&&!G.train)liveEval();
+if(!humanTurn())engineTurn();else if(s.showEval&&!rated&&!G.train)liveEval();
 }
 function bookCoach(){
 if(!G.opening)return;
@@ -780,7 +786,7 @@ const lm=G.preview?G.preview.mv:lastMove();
 renderBoard($('gBoard'),$('gArrows'),fen,{orient:G.orient,sel:G.sel,targets,last:lm,check:new Chess(fen).in_check(),arrows:G.arrows,wrong:G.wrong,names:S.set.squareNames});
 const opp=G.pc==='w'?'b':'w';const turn=new Chess(fen).turn();
 const top=G.orient===G.pc?opp:G.pc,bot=top===opp?G.pc:opp;
-const nm=c=>c===G.pc?'You':(G.train?'Your repertoire':compName());
+const nm=c=>G.edFen?(cpuMoves(c)?compName():'You'):c===G.pc?'You':(G.train?'Your repertoire':compName());
 playerRow($('topRow'),top,nm(top),fen,!G.over&&turn===top);
 playerRow($('botRow'),bot,nm(bot),fen,!G.over&&turn===bot);
 renderMoveList($('gMoves'),G.g.history(),null,null,null);
@@ -805,15 +811,15 @@ const c=el.querySelector('.cur');if(c)c.scrollIntoView({block:'nearest'});else e
 $('gBoard').addEventListener('click',e=>{
 const t=e.target.closest('.sq');if(!t||G.over||G.busy||G.preview)return;
 const sq=t.dataset.sq;
-if(G.g.turn()!==G.pc)return;
+if(!humanTurn())return;
 const p=G.g.get(sq);
 if(G.sel){
 const mv=G.g.moves({square:G.sel,verbose:true}).find(m=>m.to===sq);
 if(mv){const from=G.sel;G.sel=null;
-if(mv.flags.includes('p')){choosePromo(G.pc).then(pp=>{if(pp)tryPlayerMove(from,sq,pp);else renderGame()});return}
+if(mv.flags.includes('p')){choosePromo(G.g.turn()).then(pp=>{if(pp)tryPlayerMove(from,sq,pp);else renderGame()});return}
 return tryPlayerMove(from,sq)}
 }
-G.sel=p&&p.color===G.pc?(G.sel===sq?null:sq):null;G.wrong=null;renderGame();
+G.sel=p&&p.color===G.g.turn()?(G.sel===sq?null:sq):null;G.wrong=null;renderGame();
 });
 async function choosePromo(c){
 const body='<div class="promo">'+['q','r','b','n'].map(t=>'<button data-v="'+t+'" aria-label="'+PNAME[t]+'"><span class="pc '+c+'" style="font-size:44px">'+GLYPH[t]+VS+'</span></button>').join('')+'</div>';
@@ -852,7 +858,7 @@ if(leaving){const exp=expectedKids().map(k=>k.m);G.node=null;G.leftBook={ply:p,e
 if(G.mode==='practice')coach('You left the book. The line continues with <b>'+esc(exp.join(' or '))+'</b>. Now it\'s a real game.','warn')}
 else if(hit){if(G.train&&!G.graded[p]){G.graded[p]=1;srsGrade(hit,true);G.tstat.ok++}G.node=hit;G.bookPlies=p+1}
 else G.node=null;
-G.plyMiss=0;
+G.plyMiss=0;G.hold=false;
 G.g.move({from:mv.from,to:mv.to,promotion:mv.promotion});
 afterMove();
 }
@@ -876,7 +882,8 @@ else if(G.bookLive){G.arrows=[];bookCoach()}
 renderGame();
 if(g.game_over())return endGame();
 if(S.set.showEval&&G.mode!=='rated'&&!G.train)liveEval();
-if(g.turn()!==G.pc)engineTurn();
+if(G.edFen)sbRender();
+if(!humanTurn())engineTurn();else if(G.edFen)coach(sideName(g.turn())+' to move: your move.','');
 }
 function bookDone(){
 if(G.mode==='rated')return false;
@@ -905,13 +912,13 @@ async function liveEval(){
 const gid=G.id,fen=G.g.fen();const r=await evalFen(fen,250);if(gid!==G.id||fen!==G.g.fen())return;
 G.liveCp=G.g.turn()==='w'?r.cp:-r.cp;setEvalBar($('gEval'),G.liveCp,G.orient);
 }
-async function engineTurn(){
+async function engineTurn(force){
 const gid=G.id;G.busy=true;renderGame();
 const t0=performance.now();const fen=G.g.fen();const p=ply();
 let uci;
 if(inBook()){const kids=expectedKids();const c=G.path?kids[0]:kids[Math.floor(Math.random()*kids.length)];
 const m=new Chess(fen).move(c.m);uci=m.from+m.to+(m.promotion||'');G.node=c;G.bookPlies=p+1}
-else if(G.best){G.node=null;coach('The computer is thinking…','');const res=await engine().run(fen,{movetime:2000});if(gid!==G.id)return;uci=res.best}
+else if(G.best||force){G.node=null;coach('The computer is thinking…','');const res=await engine().run(fen,{movetime:2000});if(gid!==G.id)return;uci=res.best}
 else{G.node=null;const st=strength(G.elo);const res=await engine().run(fen,{depth:st.depth,movetime:st.movetime,multipv:st.multipv});if(gid!==G.id)return;uci=pickMove(res,st,fen)}
 const want={fast:250,normal:700,slow:1400}[S.set.speed]||700;
 const wait=want-(performance.now()-t0);if(wait>0)await sleep(wait);
@@ -950,7 +957,7 @@ $('pvGo').onclick=()=>{G.preview=null;G.arrows=[];P.classList.add('hidden');comm
 $('aAnalyse').onclick=()=>{if(G.mode!=='practice')return;G.analyseOn=!G.analyseOn;renderGame();
 coach(G.analyseOn?'Analyse first is on. Your moves are checked before they are played.':'Analyse first is off.','')};
 $('aHint').onclick=async()=>{
-if(G.busy||G.over||G.g.turn()!==G.pc)return;
+if(G.busy||G.over||!humanTurn())return;
 if(inBook()){
 const e=expectedKids()[0];const m=new Chess(G.g.fen()).move(e.m);
 if(G.hint===0){G.sel=m.from;G.hint=1;coach('Book hint: move the piece on <b>'+m.from+'</b>.','')}
@@ -968,6 +975,8 @@ else{G.arrows=[{from:r.best.slice(0,2),to:r.best.slice(2,4)}];G.hint=0;coach('Be
 renderGame();
 };
 $('aUndo').onclick=()=>{
+if(G.edFen){if(!ply())return;if(G.busy){G.id++;G.busy=false}G.g.undo();G.fens.pop();G.over=false;G.hold=true;G.arrows=[];G.sel=null;G.hint=0;G.preview=null;$('preview').classList.add('hidden');
+coach('Move taken back. '+sideName(G.g.turn())+' to move: play any move yourself, press <b>Best move</b>, or undo again.','');renderGame();sbRender();if(S.set.showEval)liveEval();return}
 if(G.busy||G.mode==='rated'||G.train||!ply())return;
 do{G.g.undo();G.fens.pop()}while(G.g.turn()!==G.pc&&ply()>0);
 G.over=false;G.arrows=[];G.sel=null;G.hint=0;G.preview=null;$('preview').classList.add('hidden');
@@ -990,7 +999,20 @@ else{coach('The computer declines the draw'+(G.g.history().length<30?' this earl
 };
 $('aNew').onclick=()=>{G.id++;G.over=true;if(G.train)openCourse(G.opening.course.id);else tab('home')};
 $('aRestart').onclick=()=>{if(G.edFen){G.id++;G.over=true;tab('edit');edRender()}else startGame()};
+function sbRender(){
+$('sbCpu').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v===G.cpu));
+$('sbBest').disabled=G.over;
+$('sbHint').textContent=(G.hold?'Paused after Undo. ':'')+CPU_TXT[G.cpu]+' Best move plays the engine’s top move for the side to move.';
+}
+$('sbCpu').onclick=e=>{const v=e.target.closest('[data-v]');if(!v||!G.edFen)return;G.cpu=v.dataset.v;G.hold=false;
+if(G.cpu==='w'||G.cpu==='b')G.pc=G.cpu==='w'?'b':'w';
+renderGame();sbRender();if(!G.over&&!G.busy){if(!humanTurn())engineTurn();else coach(sideName(G.g.turn())+' to move: your move.','')}};
+$('sbBest').onclick=()=>{if(!G.edFen||G.over||G.busy)return;G.hold=false;engineTurn(true)};
+$('sbEditor').onclick=()=>{if(!G.edFen)return;G.id++;G.busy=false;const f=G.g.fen().split(' ');ED.hist.push(ED.board);ED.board=f[0];ED.turn=f[1];ED.sel=null;edSave();G.over=true;tab('edit');edRender()};
 function compName(){return G.best?'Computer (best move)':'Computer '+G.elo}
+/* Editor games: the computer moves for G.cpu ('w','b','both','none'). After Undo it holds until you move or press Best move. */
+function cpuMoves(c){return G.cpu==='both'||G.cpu===c}
+function humanTurn(){return G.edFen?(G.hold||!cpuMoves(G.g.turn())):G.g.turn()===G.pc}
 /* ---------- game end + rating ---------- */
 async function endGame(reason){
 if(G.over)return;G.over=true;G.busy=false;G.id++;
@@ -1004,7 +1026,7 @@ else if(g.insufficient_material()){res='1/2-1/2';why='Draw: not enough material 
 else{res='1/2-1/2';why='Draw by the 50-move rule.'}
 g.header('Result',res);
 const score=res==='1/2-1/2'?.5:((res==='1-0')===(G.pc==='w')?1:0);
-const headline=score===1?'You won':score===0?'You lost':'Draw';
+const headline=G.edFen?(res==='1-0'?'White wins':res==='0-1'?'Black wins':'Draw'):score===1?'You won':score===0?'You lost':'Draw';
 let ratingHtml='';
 if(G.mode==='rated'){
 const R0=S.rating.r,E=1/(1+Math.pow(10,(G.elo-R0)/400));const K=S.rating.n<20?40:R0<2400?20:10;
@@ -1015,7 +1037,9 @@ ratingHtml='<p>Rating '+Math.round(R0)+' → <b>'+Math.round(S.rating.r)+'</b> (
 const rec=gameRecord(res);S.last=rec;store('knm_last',rec);
 renderGame();
 coach('<div class="open">'+headline+'. '+why+'</div>','');
-const v=await modal(headline,'<p>'+why+'</p>'+ratingHtml,[['review','Review the game'],['save','Save'],['new','New game']]);
+const v=await modal(headline,'<p>'+why+'</p>'+ratingHtml,G.edFen?[['undo','Undo last move'],['review','Review the game'],['save','Save'],['new','Back to editor']]:[['review','Review the game'],['save','Save'],['new','New game']]);
+if(v==='undo'){$('aUndo').click();return}
+if(v==='new'&&G.edFen){tab('edit');edRender();return}
 if(v==='review')openReview(rec);
 else if(v==='save'){saveGame(rec);openReview(rec)}
 else tab('home');
@@ -1784,9 +1808,10 @@ return h+'</div>';
 /* ---------- boot ---------- */
 if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(()=>{});
 /* ---------- puzzle editor: set up any position, then play it against the computer ---------- */
+const CPU_TXT={w:'The computer plays White and you play Black.',b:'The computer plays Black and you play White.',both:'The computer plays both sides.',none:'You move both sides (the computer only moves when you press Best move).'};
 const ED_START='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
-const ED=Object.assign({board:ED_START,turn:'w',you:'w',comp:'best',orient:'w',tool:'sel'},load('knm_editor',{}),{sel:null,hist:[]});
-const edSave=()=>store('knm_editor',{board:ED.board,turn:ED.turn,you:ED.you,comp:ED.comp,orient:ED.orient,tool:ED.tool});
+const ED=Object.assign({board:ED_START,turn:'w',cpu:'b',comp:'best',orient:'w',tool:'sel'},load('knm_editor',{}),{sel:null,hist:[]});
+const edSave=()=>store('knm_editor',{board:ED.board,turn:ED.turn,cpu:ED.cpu,comp:ED.comp,orient:ED.orient,tool:ED.tool});
 /* board placement <-> {square:'wk'} */
 function edGrid(){const m={};ED.board.split('/').forEach((row,r)=>{let f=0;for(const ch of row){if(/\d/.test(ch))f+=+ch;else{m['abcdefgh'[f]+(8-r)]=(ch===ch.toUpperCase()?'w':'b')+ch.toLowerCase();f++}}});return m}
 function edSetGrid(m){ED.hist.push(ED.board);if(ED.hist.length>200)ED.hist.shift();const rows=[];
@@ -1816,13 +1841,13 @@ $('edBoard').innerHTML=h;
 $('edFiles').innerHTML=[...(flip?'hgfedcba':'abcdefgh')].map(f=>'<span>'+f+'</span>').join('');
 $('edRanks').innerHTML=[...(flip?'12345678':'87654321')].map(r=>'<span>'+r+'</span>').join('');
 document.querySelectorAll('#edPal [data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===ED.tool));
-for(const[id,k]of[['edTurnSeg','turn'],['edYouSeg','you'],['edCompSeg','comp']])$(id).querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v===ED[k]));
+for(const[id,k]of[['edTurnSeg','turn'],['edCpuSeg','cpu'],['edCompSeg','comp']])$(id).querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v===ED[k]));
 $('edCompElo').textContent='At my Elo ('+S.set.elo+')';
 $('edCompHint').textContent=ED.comp==='best'?'The computer thinks for about 2 seconds and plays its best move.':'Plays like a '+S.set.elo+' player (set the strength on the Play tab).';
 $('edRemove').disabled=!(ED.sel&&m[ED.sel]);$('edUndo').disabled=!ED.hist.length;
 if(document.activeElement!==$('edFen'))$('edFen').value=edFen();
 const pr=edProblems();
-$('edMsg').innerHTML=pr.length?pr.map(esc).join('<br>'):'<b>Ready.</b> '+sideName(ED.turn)+' to move. You play '+sideName(ED.you)+'.';
+$('edMsg').innerHTML=pr.length?pr.map(esc).join('<br>'):'<b>Ready.</b> '+sideName(ED.turn)+' to move. '+CPU_TXT[ED.cpu]+' You can change this during the game.';
 $('edMsg').className='coach '+(pr.length?'warn':'ok');$('edStart').disabled=!!pr.length;
 }
 /* the palette choice stays selected until another tool is picked */
@@ -1839,11 +1864,11 @@ $('edUndo').onclick=()=>{if(!ED.hist.length)return;ED.board=ED.hist.pop();ED.sel
 $('edStartPos').onclick=()=>{ED.hist.push(ED.board);ED.board=ED_START;ED.turn='w';ED.sel=null;edSave();edRender()};
 $('edClear').onclick=()=>{ED.hist.push(ED.board);ED.board='8/8/8/8/8/8/8/8';ED.sel=null;edSave();edRender()};
 $('edFlip').onclick=()=>{ED.orient=ED.orient==='w'?'b':'w';edSave();edRender()};
-for(const[id,k]of[['edTurnSeg','turn'],['edYouSeg','you'],['edCompSeg','comp']])$(id).onclick=e=>{const v=e.target.closest('[data-v]');if(!v)return;ED[k]=v.dataset.v;if(k==='you')ED.orient=ED.you;edSave();edRender()};
+for(const[id,k]of[['edTurnSeg','turn'],['edCpuSeg','cpu'],['edCompSeg','comp']])$(id).onclick=e=>{const v=e.target.closest('[data-v]');if(!v)return;ED[k]=v.dataset.v;if(k==='cpu'&&(v.dataset.v==='w'||v.dataset.v==='b'))ED.orient=v.dataset.v==='w'?'b':'w';edSave();edRender()};
 $('edFen').onchange=()=>{const t=$('edFen').value.trim().split(/\s+/);
 if(!/^([1-8pnbrqkPNBRQK]+\/){7}[1-8pnbrqkPNBRQK]+$/.test(t[0]||'')||t[0].split('/').some(r=>[...r].reduce((n,ch)=>n+(/\d/.test(ch)?+ch:1),0)!==8)){$('edMsg').textContent='That FEN could not be read.';$('edMsg').className='coach warn';return}
 ED.hist.push(ED.board);ED.board=t[0];if(t[1]==='w'||t[1]==='b')ED.turn=t[1];ED.sel=null;edSave();$('edFen').blur();edRender()};
-$('edStart').onclick=()=>{if(edProblems().length)return;startGame({fen:edFen(),side:ED.you,best:ED.comp==='best'})};
+$('edStart').onclick=()=>{if(edProblems().length)return;startGame({fen:edFen(),cpu:ED.cpu,side:ED.cpu==='w'?'b':ED.cpu==='b'?'w':ED.orient,best:ED.comp==='best'})};
 
 applyTheme();initSetup();initRepNew();refreshOpeningSelect();syncSetup();
 setTimeout(()=>{try{engine()}catch(e){}},300);
