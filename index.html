@@ -356,7 +356,7 @@ textarea{width:100%;max-width:100%;min-height:90px;resize:vertical}
 <!-- LEARN -->
 <section id="learn" class="hidden">
 <div id="lHome">
-<div class="panel"><div class="seg" id="lSeg"><button data-v="mid">Middlegame (100)</button><button data-v="end">Endgame (100)</button><button data-v="win">Rules &amp; tactics</button><button data-v="ess">Endgame essentials</button><button data-v="capa">Capablanca</button><button data-v="prin">50 principles</button></div>
+<div class="panel"><div class="seg" id="lSeg"><button data-v="mid">Middlegame (100)</button><button data-v="end">Endgame (100)</button><button data-v="win">Rules &amp; tactics</button><button data-v="gam">Gambits</button><button data-v="ess">Endgame essentials</button><button data-v="capa">Capablanca</button><button data-v="prin">50 principles</button></div>
 <div id="lStats" style="margin-top:8px"></div></div>
 <div class="panel" id="lList"></div>
 </div>
@@ -453,6 +453,7 @@ textarea{width:100%;max-width:100%;min-height:90px;resize:vertical}
 <script src="explorer.js"></script>
 <script src="learn.js"></script>
 <script>const SF_URL='lib/stockfish.asm.js';</script>
+<script src="gambits.js"></script>
 <script>
 const OPENINGS=[
 ["italian","Italian Game (Giuoco Piano)","C54","e4 e5 Nf3 Nc6 Bc4 Bc5 c3 Nf6 d3 d6 O-O O-O Re1 a6","White builds slowly with c3 and d3, then aims for d4 later. Black mirrors development and watches the f7 square."],
@@ -486,6 +487,7 @@ const OPENINGS=[
 ["english","English Opening (Reversed Sicilian)","A29","c4 e5 Nc3 Nf6 Nf3 Nc6 g3 d5 cxd5 Nxd5 Bg2 Nb6 O-O Be7","White plays a Sicilian with an extra tempo. The fight is over the d5 square."],
 ["benoni","Modern Benoni","A70","d4 Nf6 c4 c5 d5 e6 Nc3 exd5 cxd5 d6 e4 g6 Nf3 Bg7 Be2 O-O O-O","Unbalanced structure. White has central space; Black has a queenside majority and active pieces."]
 ];
+if(typeof GAMBIT_OPENINGS!=='undefined')OPENINGS.push(...GAMBIT_OPENINGS);
 </script>
 <script>
 "use strict";
@@ -1376,7 +1378,9 @@ modal(r.added?r.added+' moves added':'No new moves','<p class="hint">'+(r.bad?r.
 function refreshOpeningSelect(){
 const sel=$('opening');let h='<option value="none">No opening — free game</option>';
 if(REP.courses.length)h+='<optgroup label="My repertoires">'+REP.courses.map(c=>'<option value="rep:'+c.id+'">'+esc(c.name)+' ('+sideName(c.side)+')</option>').join('')+'</optgroup>';
-h+='<optgroup label="Built-in openings">'+OPENINGS.map(o=>'<option value="'+o[0]+'">'+esc(o[1])+' ('+o[2]+')</option>').join('')+'</optgroup>';
+const optOf=o=>'<option value="'+o[0]+'">'+esc(o[1])+' ('+o[2]+')</option>';
+const gam=OPENINGS.filter(o=>o[5]==='gambit'||/Gambit/.test(o[1]));
+h+='<optgroup label="Built-in openings">'+OPENINGS.filter(o=>!gam.includes(o)).map(optOf).join('')+'</optgroup>';if(gam.length)h+='<optgroup label="Gambits">'+gam.map(optOf).join('')+'</optgroup>';
 sel.innerHTML=h;
 if(S.set.opening.startsWith('rep:')&&!courseById(S.set.opening.slice(4))){S.set.opening='italian';saveSet()}
 sel.value=S.set.opening;
@@ -1741,7 +1745,7 @@ function learnHome(){
 $('lHome').classList.remove('hidden');$('lView').classList.add('hidden');
 document.querySelectorAll('#lSeg button').forEach(b=>b.classList.toggle('on',b.dataset.v===LS.part));
 const doneN=part=>LL.filter(l=>l.part===part&&LS.done[l.id]).length;
-$('lStats').innerHTML=plBar('Middlegame lessons',doneN('mid')+' of 100',doneN('mid')/100,'')+plBar('Endgame lessons',doneN('end')+' of 100',doneN('end')/100,'')+[['win','Rules & tactics'],['ess','Endgame essentials'],['capa','Capablanca']].map(([k,n])=>{const t=LL.filter(l=>l.part===k).length;return t?plBar(n+' lessons',doneN(k)+' of '+t,doneN(k)/t,''):''}).join('');
+$('lStats').innerHTML=plBar('Middlegame lessons',doneN('mid')+' of 100',doneN('mid')/100,'')+plBar('Endgame lessons',doneN('end')+' of 100',doneN('end')/100,'')+[['win','Rules & tactics'],['gam','Gambits'],['ess','Endgame essentials'],['capa','Capablanca']].map(([k,n])=>{const t=LL.filter(l=>l.part===k).length;return t?plBar(n+' lessons',doneN(k)+' of '+t,doneN(k)/t,''):''}).join('');
 let h='';
 if(LS.part==='prin'){let fam='';for(const p of LP){if(p.f!==fam){fam=p.f;h+='<h2 style="margin:12px 0 4px">'+esc(fam)+'</h2>'}
 h+='<div class="prow"><b>P'+p.id+'. '+esc(p.t)+'</b><div>'+esc(p.r)+'</div><div class="hint" style="margin:2px 0 0">'+esc(p.w)+'</div></div>'}}
@@ -1754,7 +1758,7 @@ $('lSeg').onclick=e=>{const v=e.target.dataset.v;if(!v)return;LS.part=v;store('k
 function lessonOpen(id){
 const l=LL.find(x=>x.id===id);if(!l)return;LS.cur=l;
 $('lHome').classList.add('hidden');$('lView').classList.remove('hidden');window.scrollTo({top:0});
-$('lTitle').textContent=(['capa','ess','win'].includes(l.part)?({ess:'Endgame essentials',win:'Rules & tactics',capa:'Chess Fundamentals (Capablanca)'})[l.part]+' lesson '+l.n+' of '+LL.filter(x=>x.part===l.part).length:(l.part==='mid'?'Middlegame':'Endgame')+' lesson '+l.n+' of 100')+' · '+l.m;
+$('lTitle').textContent=(['capa','ess','win','gam'].includes(l.part)?({ess:'Endgame essentials',win:'Rules & tactics',gam:'Gambits',capa:'Chess Fundamentals (Capablanca)'})[l.part]+' lesson '+l.n+' of '+LL.filter(x=>x.part===l.part).length:(l.part==='mid'?'Middlegame':'Endgame')+' lesson '+l.n+' of 100')+' · '+l.m;
 let h='<h2>'+esc(l.t)+'</h2><div style="margin:4px 0 8px">'+l.p.map(prChip).join('')+'</div><p>'+esc(l.x)+'</p>'+
 '<div class="dodont"><div class="do"><b>Do</b>'+esc(l.do)+'</div><div class="dont"><b>Don\'t</b>'+esc(l.dont)+'</div></div>';
 $('lBody').innerHTML=h;
