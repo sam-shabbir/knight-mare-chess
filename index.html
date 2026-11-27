@@ -283,7 +283,7 @@ textarea{width:100%;max-width:100%;min-height:90px;resize:vertical}
 </div>
 <div class="panel hidden" id="sandbox" style="margin-top:8px">
 <div class="row"><label>Computer plays</label><div class="seg" id="sbCpu" style="max-width:66%"><button data-v="w">White</button><button data-v="b">Black</button><button data-v="both">Both</button><button data-v="none">Neither</button></div></div>
-<div class="actions two" style="margin-top:6px"><button id="sbBest">Best move now</button><button id="sbEditor">Edit this position</button></div>
+<div class="actions" style="margin-top:6px"><button id="sbBest">Best move now</button><button id="sbFinish">Finish &amp; review</button><button id="sbEditor">Edit this position</button></div>
 <p class="hint" id="sbHint"></p>
 </div>
 <div class="moves" id="gMoves"></div>
@@ -331,6 +331,7 @@ textarea{width:100%;max-width:100%;min-height:90px;resize:vertical}
 </div>
 <div class="player-row" id="rBot"></div>
 <div class="coach" id="rCard"></div>
+<div class="panel" id="rExplore" style="margin-top:8px"><h2>Move explorer</h2><p class="hint">Tap any piece of the side to move: the engine scores every move it can make and shows the line. Or ask for the best move in the position and why it beats the others.</p><div class="actions two" style="margin-top:6px"><button id="rxBest">Best move and why</button><button id="rxClear">Clear</button></div><div id="rxOut"></div></div>
 <div class="nav"><button id="rFirst" aria-label="First move">⏮</button><button id="rPrev" aria-label="Previous move">◀</button><button id="rBest">Show best</button><button id="rNext" aria-label="Next move">▶</button><button id="rLast" aria-label="Last move">⏭</button></div>
 <svg class="graph" id="rGraph" viewBox="0 0 400 70" preserveAspectRatio="none"></svg>
 <div class="panel" style="margin-top:8px" id="rStatus"><div id="rStatusText">Analysing…</div><div class="progress"><div id="rProg"></div></div></div>
@@ -1007,6 +1008,7 @@ $('sbHint').textContent=(G.hold?'Paused after Undo. ':'')+CPU_TXT[G.cpu]+' Best 
 $('sbCpu').onclick=e=>{const v=e.target.closest('[data-v]');if(!v||!G.edFen)return;G.cpu=v.dataset.v;G.hold=false;
 if(G.cpu==='w'||G.cpu==='b')G.pc=G.cpu==='w'?'b':'w';
 renderGame();sbRender();if(!G.over&&!G.busy){if(!humanTurn())engineTurn();else coach(sideName(G.g.turn())+' to move: your move.','')}};
+$('sbFinish').onclick=()=>{if(!G.edFen)return;G.id++;G.busy=false;G.over=true;G.g.header('Result','*');const rec=gameRecord('*');S.last=rec;store('knm_last',rec);openReview(rec)};
 $('sbBest').onclick=()=>{if(!G.edFen||G.over||G.busy)return;G.hold=false;engineTurn(true)};
 $('sbEditor').onclick=()=>{if(!G.edFen)return;G.id++;G.busy=false;const f=G.g.fen().split(' ');ED.hist.push(ED.board);ED.board=f[0];ED.turn=f[1];ED.sel=null;edSave();G.over=true;tab('edit');edRender()};
 function compName(){return G.best?'Computer (best move)':'Computer '+G.elo}
@@ -1139,7 +1141,9 @@ const mv=i>0?{from:R.ucis[i-1].slice(0,2),to:R.ucis[i-1].slice(2,4)}:null;
 let arrows=[];
 const prev=R.ev[i-1];
 if(i>0&&prev&&R.showBest&&prev.best&&prev.best!==R.ucis[i-1])arrows.push({from:prev.best.slice(0,2),to:prev.best.slice(2,4),color:'#86c08a'});
-renderBoard($('rBoard'),$('rArrows'),fen,{orient,last:mv,check:new Chess(fen).in_check(),arrows,names:S.set.squareNames});
+if(R.rxFen!==fen){R.rxFen=fen;R.rxArrows=null;if(typeof RX!=='undefined'){RX.tok++;RX.sel=null;$('rxOut').innerHTML=''}}
+if(R.rxArrows)arrows=R.rxArrows;
+renderBoard($('rBoard'),$('rArrows'),fen,{orient,last:mv,sel:typeof RX!=='undefined'?RX.sel:null,check:new Chess(fen).in_check(),arrows,names:S.set.squareNames});
 const top=orient==='w'?'b':'w',bot=orient;
 const nm=c=>(c==='w'?(R.hdr.White||'White'):(R.hdr.Black||'Black'));
 playerRow($('rTop'),top,nm(top),fen,false);playerRow($('rBot'),bot,nm(bot),fen,false);
@@ -1805,6 +1809,75 @@ const pl=[...prin].filter(i=>PRIN[i]).slice(0,4);
 if(pl.length)h+='<div style="margin-top:6px"><b>Principles</b></div>'+pl.map(i=>'<div class="idea"><b>P'+i+'. '+esc(PRIN[i].t)+'</b>: '+esc(PRIN[i].r)+'</div>').join('');
 return h+'</div>';
 }
+/* ---------- review: move explorer (every move of one piece, scored) and "best move and why" ---------- */
+const RX={tok:0,sel:null};
+/* plain-English description of what a move does, from the mover's point of view */
+function moveFeatures(fen,uci){
+const g=new Chess(fen);const me=g.turn(),them=me==='w'?'b':'w';
+const before=new Chess(fen);const fb=before.fen().split(' ');fb[1]=them;fb[3]='-';const opp=new Chess();const oppOk=opp.load(fb.join(' '));
+const m=g.move({from:uci.slice(0,2),to:uci.slice(2,4),promotion:uci[4]});if(!m)return[];
+if(g.in_checkmate())return['delivers checkmate'];
+const f=[];if(before.in_check())f.push('gets out of check');
+if(m.flags.includes('k')||m.flags.includes('q'))f.push('castles, tucking the king away and bringing a rook to the centre');
+if(m.captured)f.push('captures the '+PNAME[m.captured]+' on '+m.to);
+if(m.promotion)f.push('promotes to a '+PNAME[m.promotion]);
+if(m.san.includes('+'))f.push('gives check');
+if(oppOk&&!m.captured&&!before.in_check()&&opp.moves({verbose:true}).some(x=>x.to===m.from))f.push('moves the attacked '+PNAME[m.piece]+' to safety');
+const fa=g.fen().split(' ');fa[1]=me;fa[3]='-';const t=new Chess();
+if(t.load(fa.join(' '))){const hits=t.moves({square:m.to,verbose:true}).filter(x=>x.captured&&(x.captured==='k'||PZ_VAL[x.captured]>=3||PZ_VAL[x.captured]>PZ_VAL[m.piece]));
+if(hits.length>=2)f.push('forks '+hits.map(x=>x.captured==='k'?'the king':'the '+PNAME[x.captured]+' on '+x.to).join(' and '));
+else if(hits.length===1&&hits[0].captured!=='k')f.push('attacks the '+PNAME[hits[0].captured]+' on '+hits[0].to)}
+if(g.moves({verbose:true}).some(x=>x.to===m.to)&&PZ_VAL[m.piece]>(m.captured?PZ_VAL[m.captured]:0)+1)f.push('puts the '+PNAME[m.piece]+' where it can be taken (check the line below: it may be a sacrifice)');
+if(!f.length){const home=me==='w'?'1':'8';if((m.piece==='n'||m.piece==='b')&&m.from[1]===home)f.push('develops a piece');else if(m.piece==='p'&&'de'.includes(m.from[0])&&'45'.includes(m.to[1]))f.push('claims space in the centre');else f.push('is a quiet, improving move')}
+return f}
+const sideCp=(cp,c)=>fmt(cp)+' for '+sideName(c);
+function rxFen(){return R.fens[R.i]}
+function rxArrows(list){/* green = best of these, blue = within 0.3, grey = worse */
+if(!list.length)return[];const top=list[0].cp;
+return list.slice(0,8).map(l=>({from:l.pv[0].slice(0,2),to:l.pv[0].slice(2,4),color:l.cp>=top-5?'#86c08a':l.cp>=top-30?'#6fb7e5':'#8a8a8a'}))}
+async function rxPiece(sq){
+const fen=rxFen(),g=new Chess(fen),p=g.get(sq);
+if(!p||p.color!==g.turn()){$('rxOut').innerHTML='<p class="hint">Tap a '+sideName(g.turn()).toLowerCase()+' piece: it is '+sideName(g.turn())+'’s move in this position.</p>';return}
+const mv=g.moves({square:sq,verbose:true});RX.sel=sq;renderReview();
+if(!mv.length){$('rxOut').innerHTML='<p class="hint">The '+PNAME[p.type]+' on '+sq+' has no legal moves.</p>';return}
+const tok=++RX.tok;$('rxOut').innerHTML='<p class="hint">Thinking about '+mv.length+' move'+(mv.length>1?'s':'')+' for the '+PNAME[p.type]+' on '+sq+'…</p>';
+const ucis=mv.map(m=>m.from+m.to+(m.promotion||''));
+const [res,all]=await Promise.all([engine().run(fen,{depth:12,cap:3000,multipv:Math.min(ucis.length,20),searchmoves:ucis.join(' ')}),engine().run(fen,{depth:12,cap:2500,multipv:1})]);
+if(tok!==RX.tok||fen!==rxFen())return;
+const list=res.lines.filter(l=>l.pv&&l.pv[0]).sort((a,b)=>b.cp-a.cp);const best=all.lines[0];
+R.rxArrows=rxArrows(list);renderReview();
+let h='<div class="explain"><b>Moves for the '+PNAME[p.type]+' on '+sq+'</b> (scores for '+sideName(g.turn())+')<ol>';
+for(const l of list){const san=uciToSan(fen,l.pv[0]);h+='<li><b>'+esc(san)+'</b> '+fmt(l.cp)+(best&&l.pv[0]===best.pv[0]?' · <b>best move in the position</b>':'')+'<div class="idea">'+esc(moveFeatures(fen,l.pv[0]).join(', '))+'. Line: '+esc(pvToSan(fen,l.pv,6).join(' '))+'</div></li>'}
+h+='</ol>';
+if(best&&!list.some(l=>l.pv[0]===best.pv[0]))h+='<div>The best move in this position is with another piece: <b>'+esc(uciToSan(fen,best.pv[0]))+'</b> ('+fmt(best.cp)+'). Press <b>Best move and why</b>.</div>';
+$('rxOut').innerHTML=h+'</div>'}
+async function rxBest(){
+const fen=rxFen(),g=new Chess(fen);if(g.game_over()){$('rxOut').innerHTML='<p class="hint">The game is over in this position.</p>';return}
+const tok=++RX.tok;RX.sel=null;$('rxOut').innerHTML='<p class="hint">Thinking about the best moves…</p>';
+const res=await engine().run(fen,{depth:13,cap:3500,multipv:4});if(tok!==RX.tok||fen!==rxFen())return;
+const L=res.lines.filter(l=>l.pv&&l.pv[0]).sort((a,b)=>b.cp-a.cp);if(!L.length)return;
+R.rxArrows=rxArrows(L);renderReview();
+const me=g.turn(),b=L[0],bSan=uciToSan(fen,b.pv[0]);const bestF=moveFeatures(fen,b.pv[0]).join(', ');
+let h='<div class="explain"><b>Best: '+esc(bSan)+'</b> ('+sideCp(b.cp,me)+'). It '+esc(moveFeatures(fen,b.pv[0]).join(', '))+'.'+
+'<div class="idea">Engine line: '+esc(pvToSan(fen,b.pv,8).join(' '))+'</div>';
+if(b.pv[1]){const a=new Chess(fen);a.move({from:b.pv[0].slice(0,2),to:b.pv[0].slice(2,4),promotion:b.pv[0][4]});
+h+='<div class="idea">Best reply for '+sideName(me==='w'?'b':'w')+': <b>'+esc(uciToSan(a.fen(),b.pv[1]))+'</b>, which '+esc(moveFeatures(a.fen(),b.pv[1]).join(', '))+'.</div>'}
+if(L.length>1){h+='<div style="margin-top:6px"><b>Why not the others?</b></div><ol>';
+for(const l of L.slice(1)){const san=uciToSan(fen,l.pv[0]);const drop=Math.max(0,b.cp-l.cp);
+let why='';if(drop>=50)why+=' It misses '+esc(bSan)+', which '+esc(bestF)+'.';
+if(l.pv[1]){const a=new Chess(fen);a.move({from:l.pv[0].slice(0,2),to:l.pv[0].slice(2,4),promotion:l.pv[0][4]});const rf=moveFeatures(a.fen(),l.pv[1]);
+if(drop>=15&&!/quiet|develops|claims space/.test(rf.join(' ')))why+=' After '+esc(san)+', '+sideName(a.turn())+' answers <b>'+esc(uciToSan(a.fen(),l.pv[1]))+'</b>, which '+esc(rf.join(', '))+'.'}
+h+='<li><b>'+esc(san)+'</b> '+fmt(l.cp)+(drop<15?' · about as good':' · '+(drop/100).toFixed(1)+' worse')+'.'+why+'</li>'}
+h+='</ol>'}
+if(R.i<R.ucis.length){const played=R.ucis[R.i];const ps=R.sans[R.i];
+if(played===b.pv[0])h+='<div class="idea">In the game, <b>'+esc(ps)+'</b> was played: the best move.</div>';
+else{const pr=await engine().run(fen,{depth:13,cap:3500,searchmoves:played});if(tok!==RX.tok||fen!==rxFen())return;const pl=pr.lines[0];
+if(pl){const d=Math.max(0,b.cp-pl.cp);h+='<div class="idea">In the game, <b>'+esc(ps)+'</b> was played ('+fmt(pl.cp)+(d<15?', about as good as the best':', '+(d/100).toFixed(1)+' worse than '+esc(bSan))+'). It '+esc(moveFeatures(fen,played).join(', '))+'. Line: '+esc(pvToSan(fen,pl.pv,6).join(' '))+'</div>'}}}
+$('rxOut').innerHTML=h+'</div>'}
+$('rBoard').addEventListener('click',e=>{const t=e.target.closest('.sq');if(!t)return;rxPiece(t.dataset.sq)});
+$('rxBest').onclick=()=>rxBest();
+$('rxClear').onclick=()=>{RX.tok++;RX.sel=null;R.rxArrows=null;$('rxOut').innerHTML='';renderReview()};
+
 /* ---------- boot ---------- */
 if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(()=>{});
 /* ---------- puzzle editor: set up any position, then play it against the computer ---------- */
