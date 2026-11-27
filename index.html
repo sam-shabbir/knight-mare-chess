@@ -1819,17 +1819,17 @@ for(let r=8;r>=1;r--){let s='',n=0;for(const f of'abcdefgh'){const p=m[f+r];if(!
 ED.board=rows.join('/');edSave()}
 /* castling is allowed when king and rook stand on their original squares */
 function edCastling(m){let c='';if(m.e1==='wk'){if(m.h1==='wr')c+='K';if(m.a1==='wr')c+='Q'}if(m.e8==='bk'){if(m.h8==='br')c+='k';if(m.a8==='br')c+='q'}return c||'-'}
-function edFen(){return ED.board+' '+ED.turn+' '+edCastling(edGrid())+' - 0 1'}
-function edProblems(){const m=edGrid(),v=Object.values(m),out=[];
+function edFen(turn){return ED.board+' '+(turn||ED.turn)+' '+edCastling(edGrid())+' - 0 1'}
+function edProblems(turn){turn=turn||ED.turn;const m=edGrid(),v=Object.values(m),out=[];
 for(const c of['w','b']){const k=v.filter(x=>x===c+'k').length;if(k!==1)out.push(sideName(c)+' needs exactly one king (now '+k+').')}
 if(Object.entries(m).some(([sq,p])=>p[1]==='p'&&(sq[1]==='1'||sq[1]==='8')))out.push('Pawns can’t stand on the 1st or 8th rank.');
 for(const c of['w','b'])if(v.filter(x=>x===c+'p').length>8)out.push(sideName(c)+' has more than 8 pawns.');
 if(out.length)return out;
-const g=new Chess();if(!g.load(edFen()))return['This position isn’t legal.'];
-const other=ED.turn==='w'?'b':'w';const g2=new Chess();
-if(g2.load(ED.board+' '+other+' - - 0 1')&&g2.in_check())return[sideName(other)+' is in check, so it can’t be '+sideName(ED.turn)+'’s move. Change “Who moves next”.'];
-if(g.in_checkmate())return[sideName(ED.turn)+' is already checkmated.'];
-if(g.in_stalemate())return[sideName(ED.turn)+' has no legal moves: stalemate.'];
+const g=new Chess();if(!g.load(edFen(turn)))return['This position isn’t legal.'];
+const other=turn==='w'?'b':'w';const g2=new Chess();
+if(g2.load(ED.board+' '+other+' - - 0 1')&&g2.in_check())return[sideName(other)+' is in check, so it can’t be '+sideName(turn)+'’s move. Change “Who moves next”.'];
+if(g.in_checkmate())return[sideName(turn)+' is already checkmated.'];
+if(g.in_stalemate())return[sideName(turn)+' has no legal moves: stalemate.'];
 if(g.insufficient_material())return['Neither side has enough material to mate: a dead draw.'];
 return[]}
 function edRender(){
@@ -1848,7 +1848,7 @@ $('edRemove').disabled=!(ED.sel&&m[ED.sel]);$('edUndo').disabled=!ED.hist.length
 if(document.activeElement!==$('edFen'))$('edFen').value=edFen();
 const pr=edProblems();
 $('edMsg').innerHTML=pr.length?pr.map(esc).join('<br>'):'<b>Ready.</b> '+sideName(ED.turn)+' to move. '+CPU_TXT[ED.cpu]+' You can change this during the game.';
-$('edMsg').className='coach '+(pr.length?'warn':'ok');$('edStart').disabled=!!pr.length;
+$('edMsg').className='coach '+(pr.length?'warn':'ok');$('edStart').disabled=!!(edProblems('w').length&&edProblems('b').length);
 }
 /* the palette choice stays selected until another tool is picked */
 $('edPal').onclick=e=>{const b=e.target.closest('[data-t]');if(!b)return;ED.tool=b.dataset.t;edSave();edRender()};
@@ -1868,7 +1868,12 @@ for(const[id,k]of[['edTurnSeg','turn'],['edCpuSeg','cpu'],['edCompSeg','comp']])
 $('edFen').onchange=()=>{const t=$('edFen').value.trim().split(/\s+/);
 if(!/^([1-8pnbrqkPNBRQK]+\/){7}[1-8pnbrqkPNBRQK]+$/.test(t[0]||'')||t[0].split('/').some(r=>[...r].reduce((n,ch)=>n+(/\d/.test(ch)?+ch:1),0)!==8)){$('edMsg').textContent='That FEN could not be read.';$('edMsg').className='coach warn';return}
 ED.hist.push(ED.board);ED.board=t[0];if(t[1]==='w'||t[1]==='b')ED.turn=t[1];ED.sel=null;edSave();$('edFen').blur();edRender()};
-$('edStart').onclick=()=>{if(edProblems().length)return;startGame({fen:edFen(),cpu:ED.cpu,side:ED.cpu==='w'?'b':ED.cpu==='b'?'w':ED.orient,best:ED.comp==='best'})};
+$('edStart').onclick=async()=>{
+const ok=['w','b'].filter(t=>!edProblems(t).length);if(!ok.length)return;
+const why=['w','b'].filter(t=>!ok.includes(t)).map(t=>'<p class="hint">'+sideName(t)+' can’t move: '+esc(edProblems(t)[0])+'</p>').join('');
+const v=await modal('Who moves next?','<p>Pick the side to move in this position.</p>'+why,ok.map(t=>[t,sideName(t)+' to move'+(t===ED.turn?' ✓':'')]).concat([['cancel','Cancel']]));
+if(v==='cancel')return;ED.turn=v;edSave();edRender();
+startGame({fen:edFen(),cpu:ED.cpu,side:ED.cpu==='w'?'b':ED.cpu==='b'?'w':ED.orient,best:ED.comp==='best'})};
 
 applyTheme();initSetup();initRepNew();refreshOpeningSelect();syncSetup();
 setTimeout(()=>{try{engine()}catch(e){}},300);
