@@ -1,6 +1,6 @@
 // Keeps the app and its engine on the device so it works offline after the first visit.
 // Everything is served from this repo (no CDN), so a fresh install never depends on a third-party site.
-const V='knightnmare-v15';
+const V='knightnmare-v16';
 const FILES=['./','./index.html','./puzzles.js','./coach.js','./famous.js','./gambits.js','./explorer.js','./learn.js','./manifest.webmanifest','./icon-192.png','./icon-512.png',
 './logo-wide.png','./lib/stockfish.asm.js','./lib/chess.js'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(FILES)));self.skipWaiting()});
